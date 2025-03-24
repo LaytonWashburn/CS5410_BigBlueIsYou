@@ -2,9 +2,9 @@ package core;
 
 public enum GameStateEnum {
     MainMenu,
+    NewGame,
     GamePlay,
-    HighScores,
-    Help,
-    About,
-    Quit
+    Controls,
+    Credits,
+    Exit
 }

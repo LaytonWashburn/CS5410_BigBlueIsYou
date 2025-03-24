@@ -47,6 +47,15 @@ public class KeyboardInput {
         return (glfwGetKey(window, key) == GLFW_PRESS) && !keysPressed.get(key);
     }
 
+    /**
+     * Marks a key as "already pressed" so that isKeyNewlyPressed returns false.
+     * This is so that sub-menus do not automatically have "Enter" and/or "Exit"
+     * keys immediately pressed upon first rendering.
+     */
+    public void setKeyPressed(int key) {
+        keysPressed.put(key, true);
+    }
+
     private final long window;
     // Table of registered callbacks
     private final HashMap<Integer, CommandEntry> commandEntries = new HashMap<>();

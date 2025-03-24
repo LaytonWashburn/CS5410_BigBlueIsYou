@@ -5,7 +5,7 @@ import core.GameStateEnum;
 import core.KeyboardInput;
 import edu.usu.graphics.Graphics2D;
 
-import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
 public class GamePlayView extends GameStateView {
 
@@ -20,7 +20,7 @@ public class GamePlayView extends GameStateView {
         inputKeyboard = new KeyboardInput(graphics.getWindow());
         // When ESC is pressed, set the appropriate new game state
         inputKeyboard.registerCommand(GLFW_KEY_ESCAPE, true, (double elapsedTime) -> {
-            nextGameState = GameStateEnum.MainMenu;
+            nextGameState = GameStateEnum.NewGame;
         });
     }
 

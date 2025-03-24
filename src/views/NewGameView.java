@@ -7,14 +7,16 @@ import edu.usu.graphics.Font;
 import edu.usu.graphics.Graphics2D;
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER;
 
-public class MainMenuView extends GameStateView {
+public class NewGameView extends GameStateView {
 
     private enum MenuState {
-        NewGame,
-        Controls,
-        Credits,
-        Exit;
+        Level1,
+        Level2,
+        Level3,
+        Level4,
+        Level5;
 
         public MenuState next() {
             int nextOrdinal = (this.ordinal() + 1) % MenuState.values().length;
@@ -24,15 +26,15 @@ public class MainMenuView extends GameStateView {
         public MenuState previous() {
             int previousOrdinal = (this.ordinal() - 1) % MenuState.values().length;
             if (previousOrdinal < 0) {
-                previousOrdinal = Exit.ordinal();
+                previousOrdinal = Level5.ordinal();
             }
             return MenuState.values()[previousOrdinal];
         }
     }
 
-    private MenuState currentSelection = MenuState.NewGame;
+    private MenuState currentSelection = MenuState.Level1;
     private KeyboardInput inputKeyboard;
-    private GameStateEnum nextGameState = GameStateEnum.MainMenu;
+    private GameStateEnum nextGameState = GameStateEnum.NewGame;
     private Font fontMenu;
     private Font fontSelected;
 
@@ -54,17 +56,24 @@ public class MainMenuView extends GameStateView {
         // When Enter is pressed, set the appropriate new game state
         inputKeyboard.registerCommand(GLFW_KEY_ENTER, true, (double elapsedTime) -> {
             nextGameState = switch (currentSelection) {
-                case MenuState.NewGame -> GameStateEnum.NewGame;
-                case MenuState.Controls -> GameStateEnum.Controls;
-                case MenuState.Credits -> GameStateEnum.Credits;
-                case MenuState.Exit -> GameStateEnum.Exit;
+                case MenuState.Level1 -> GameStateEnum.GamePlay; //TODO: Figure out how to pass in the level selected to gamemodel
+                case MenuState.Level2 -> GameStateEnum.GamePlay;
+                case MenuState.Level3 -> GameStateEnum.GamePlay;
+                case MenuState.Level4 -> GameStateEnum.GamePlay;
+                case MenuState.Level5 -> GameStateEnum.GamePlay;
             };
+        });
+        // When ESC is pressed, set the appropriate new game state
+        inputKeyboard.registerCommand(GLFW_KEY_ESCAPE, true, (double elapsedTime) -> {
+            nextGameState = GameStateEnum.MainMenu;
         });
     }
 
     @Override
     public void initializeSession() {
-        nextGameState = GameStateEnum.MainMenu;
+        inputKeyboard.setKeyPressed(GLFW_KEY_ENTER);
+        inputKeyboard.setKeyPressed(GLFW_KEY_ESCAPE);
+        nextGameState = GameStateEnum.NewGame;
     }
 
     @Override
@@ -81,11 +90,12 @@ public class MainMenuView extends GameStateView {
     @Override
     public void render(double elapsedTime) {
         final float HEIGHT_MENU_ITEM = 0.075f;
-        float top = -0.2f;
-        top = renderMenuItem(currentSelection == MenuState.NewGame ? fontSelected : fontMenu, "New Game", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.NewGame ? Color.GREEN : Color.WHITE);
-        top = renderMenuItem(currentSelection == MenuState.Controls ? fontSelected : fontMenu, "Controls", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.Controls ? Color.GREEN : Color.WHITE);
-        top = renderMenuItem(currentSelection == MenuState.Credits ? fontSelected : fontMenu, "Credits", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.Credits ? Color.GREEN : Color.WHITE);
-        renderMenuItem(currentSelection == MenuState.Exit ? fontSelected : fontMenu, "Exit", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.Exit ? Color.GREEN : Color.WHITE);
+        float top = -0.25f;
+        top = renderMenuItem(currentSelection == MenuState.Level1 ? fontSelected : fontMenu, "Level 1", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.Level1 ? Color.GREEN : Color.WHITE);
+        top = renderMenuItem(currentSelection == MenuState.Level2 ? fontSelected : fontMenu, "Level 2", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.Level2 ? Color.GREEN : Color.WHITE);
+        top = renderMenuItem(currentSelection == MenuState.Level3 ? fontSelected : fontMenu, "Level 3", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.Level3 ? Color.GREEN : Color.WHITE);
+        top = renderMenuItem(currentSelection == MenuState.Level4 ? fontSelected : fontMenu, "Level 4", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.Level4 ? Color.GREEN : Color.WHITE);
+        renderMenuItem(currentSelection == MenuState.Level5 ? fontSelected : fontMenu, "Level 5", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.Level5 ? Color.GREEN : Color.WHITE);
     }
 
     /**

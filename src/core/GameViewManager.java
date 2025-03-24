@@ -22,10 +22,10 @@ public class GameViewManager {
         states = new HashMap<>() {
             {
                 put(GameStateEnum.MainMenu, new MainMenuView());
+                put(GameStateEnum.NewGame, new NewGameView());
                 put(GameStateEnum.GamePlay, new GamePlayView());
-                put(GameStateEnum.HighScores, new HighScoresView());
-                put(GameStateEnum.Help, new HelpView());
-                put(GameStateEnum.About, new AboutView());
+                put(GameStateEnum.Controls, new ControlsView());
+                put(GameStateEnum.Credits, new CreditsView());
             }
         };
 
@@ -67,7 +67,7 @@ public class GameViewManager {
 
     private void update(double elapsedTime) {
         // Special case for exiting the game
-        if (nextStateEnum == GameStateEnum.Quit) {
+        if (nextStateEnum == GameStateEnum.Exit) {
             glfwSetWindowShouldClose(graphics.getWindow(), true);
         } else {
             if (nextStateEnum == prevStateEnum) {
