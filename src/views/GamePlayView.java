@@ -26,7 +26,8 @@ public class GamePlayView extends GameStateView {
 
     @Override
     public void initializeSession() {
-        gameModel = new GameModel();
+        int level = gameViewManager.getSelectedLevel();
+        gameModel = new GameModel(level);
         gameModel.initialize(graphics);
         nextGameState = GameStateEnum.GamePlay;
     }

@@ -9,16 +9,19 @@ import java.util.List;
 
 public class GameModel {
 
-
+    private final int level;
     private final List<Entity> removeThese = new ArrayList<>();
     private final List<Entity> addThese = new ArrayList<>();
     private KeyboardInput sysKeyboardInput;
 
+    public GameModel(int level) {
+        this.level = level;
+    }
 
     public void initialize(Graphics2D graphics) {
-
         sysKeyboardInput = new KeyboardInput(graphics.getWindow());
-
+        System.out.println("GameModel initialized with Level: " + level);
+        // TODO: Initialize level-specific entities based on this.level
     }
 
     public void update(double elapsedTime) {

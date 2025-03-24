@@ -13,6 +13,7 @@ public class GameViewManager {
     private IGameState currentState;
     GameStateEnum nextStateEnum = GameStateEnum.MainMenu;
     GameStateEnum prevStateEnum = GameStateEnum.MainMenu;
+    private int selectedLevel = 1;  // Default to level 1
 
     public GameViewManager(Graphics2D graphics) {
         this.graphics = graphics;
@@ -31,11 +32,22 @@ public class GameViewManager {
 
         // Give all game states a chance to initialize, other than the constructor
         for (var state : states.values()) {
+            if (state instanceof GameStateView) {
+                ((GameStateView)state).setGameViewManager(this);
+            }
             state.initialize(graphics);
         }
 
         currentState = states.get(GameStateEnum.MainMenu);
         currentState.initializeSession();
+    }
+
+    public void setSelectedLevel(int level) {
+        this.selectedLevel = level;
+    }
+
+    public int getSelectedLevel() {
+        return selectedLevel;
     }
 
     public void shutdown() {

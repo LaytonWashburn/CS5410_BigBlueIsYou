@@ -2,6 +2,7 @@ package views;
 
 import core.GameStateEnum;
 import core.KeyboardInput;
+import core.GameViewManager;
 import edu.usu.graphics.Color;
 import edu.usu.graphics.Font;
 import edu.usu.graphics.Graphics2D;
@@ -37,6 +38,7 @@ public class NewGameView extends GameStateView {
     private GameStateEnum nextGameState = GameStateEnum.NewGame;
     private Font fontMenu;
     private Font fontSelected;
+    private int selectedLevel = 1;  // Default to level 1
 
     @Override
     public void initialize(Graphics2D graphics) {
@@ -55,13 +57,10 @@ public class NewGameView extends GameStateView {
         });
         // When Enter is pressed, set the appropriate new game state
         inputKeyboard.registerCommand(GLFW_KEY_ENTER, true, (double elapsedTime) -> {
-            nextGameState = switch (currentSelection) {
-                case MenuState.Level1 -> GameStateEnum.GamePlay; //TODO: Figure out how to pass in the level selected to gamemodel
-                case MenuState.Level2 -> GameStateEnum.GamePlay;
-                case MenuState.Level3 -> GameStateEnum.GamePlay;
-                case MenuState.Level4 -> GameStateEnum.GamePlay;
-                case MenuState.Level5 -> GameStateEnum.GamePlay;
-            };
+            selectedLevel = currentSelection.ordinal() + 1;
+            // Pass the selected level to GameViewManager
+            gameViewManager.setSelectedLevel(selectedLevel);
+            nextGameState = GameStateEnum.GamePlay;
         });
         // When ESC is pressed, set the appropriate new game state
         inputKeyboard.registerCommand(GLFW_KEY_ESCAPE, true, (double elapsedTime) -> {
