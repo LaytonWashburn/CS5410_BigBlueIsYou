@@ -11,7 +11,7 @@ public class Rock {
 
         rock.add(new ecs.Components.Sprite());
         rock.add(new ecs.Components.Position(posX, posY));
-        rock.add(new ecs.Components.Noun(NounType.FLAG));
+        rock.add(new ecs.Components.Noun(NounType.ROCK));
         if(pushable){
             rock.add(new ecs.Components.Property(Properties.PUSHABLE));
         }

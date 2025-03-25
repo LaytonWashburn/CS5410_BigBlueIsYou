@@ -33,7 +33,7 @@ public class GameViewManager {
         // Give all game states a chance to initialize, other than the constructor
         for (var state : states.values()) {
             if (state instanceof GameStateView) {
-                ((GameStateView)state).setGameViewManager(this);
+                ((GameStateView)state).setGameViewManager(this);    // Each view has a reference to this Manager (to keep track of selected level)
             }
             state.initialize(graphics);
         }

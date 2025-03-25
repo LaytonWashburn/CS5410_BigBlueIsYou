@@ -1,10 +1,20 @@
 package ecs.Components;
 
+import utils.TextType;
+
 public class Text extends Component{
 
-    String content;
+    TextType type;
 
-    public Text(String content){
-        this.content = content;
+    public Text(TextType type){
+        this.type = type;
+    }
+
+    public void setTextType(TextType type){
+        this.type = type;
+    }
+
+    public TextType getTextType(TextType type){
+        return this.type;
     }
 }
