@@ -5,30 +5,98 @@ import core.KeyboardInput;
 import edu.usu.graphics.Color;
 import edu.usu.graphics.Font;
 import edu.usu.graphics.Graphics2D;
+import utils.KeyBindSerializer;
+import utils.KeyBinds;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public class ControlsView extends GameStateView {
 
+    enum ControlState {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        RESET,
+        UNDO,
+        EXIT;
+
+        public ControlsView.ControlState next() {
+            int nextOrdinal = (this.ordinal() + 1) % ControlsView.ControlState.values().length;
+            return ControlsView.ControlState.values()[nextOrdinal];
+        }
+
+        public ControlsView.ControlState previous() {
+            int previousOrdinal = (this.ordinal() - 1) % ControlsView.ControlState.values().length;
+            if (previousOrdinal < 0) {
+                previousOrdinal = EXIT.ordinal();
+            }
+            return ControlsView.ControlState.values()[previousOrdinal];
+        }
+    }
+
+    private ControlState currentSelection;
     private KeyboardInput inputKeyboard;
     private GameStateEnum nextGameState = GameStateEnum.Controls;
     private Font font;
+    private Font fontMenu;
+    private Font fontSelected;
+    private boolean waitingForNewKey;
+    private boolean initialized = false;
+    private KeyBindSerializer keyBindSerializer;
+    private KeyBinds keyBinds;
+
+    public ControlsView(KeyBindSerializer keyBindSerializer, KeyBinds keyBinds){
+        this.keyBindSerializer = keyBindSerializer;
+        this.keyBinds = keyBinds;
+    }
+
 
     @Override
     public void initialize(Graphics2D graphics) {
         super.initialize(graphics);
 
+        waitingForNewKey = false;
         font = new Font("resources/fonts/ChakraPetch-Regular.ttf", 48, false);
-
+        fontMenu = new Font("resources/fonts/ChakraPetch-Regular.ttf", 48, false);
+        fontSelected = new Font("resources/fonts/ChakraPetch-Bold.ttf", 48, false);
+        currentSelection = ControlState.UP;
         inputKeyboard = new KeyboardInput(graphics.getWindow());
+        // Arrow keys to navigate the menu
+        inputKeyboard.registerCommand(GLFW_KEY_UP, true, (double elapsedTime) -> {
+            currentSelection = currentSelection.previous();
+        });
+        inputKeyboard.registerCommand(GLFW_KEY_DOWN, true, (double elapsedTime) -> {
+            currentSelection = currentSelection.next();
+        });
+        // When Enter is pressed, set the appropriate new game state
+        inputKeyboard.registerCommand(GLFW_KEY_ENTER, true, (double elapsedTime) -> {
+            if(initialized){
+                System.out.println("Changing enter");
+                waitingForNewKey = !waitingForNewKey;
+            }
+//            nextGameState = switch (currentSelection) {
+//                case ControlState.UP  -> null;
+//                case ControlState.DOWN  -> null;
+//                case ControlState.LEFT  -> null;
+//                case ControlState.RIGHT -> null;
+//                case ControlState.RESET -> null;
+//                case ControlState.UNDO -> null;
+//                case ControlState.EXIT -> null;
+//            };
+        });
+
         // When ESC is pressed, set the appropriate new game state
         inputKeyboard.registerCommand(GLFW_KEY_ESCAPE, true, (double elapsedTime) -> {
             nextGameState = GameStateEnum.MainMenu;
         });
+
+
     }
 
     @Override
     public void initializeSession() {
+
         nextGameState = GameStateEnum.Controls;
     }
 
@@ -36,19 +104,79 @@ public class ControlsView extends GameStateView {
     public GameStateEnum processInput(double elapsedTime) {
         // Updating the keyboard can change the nextGameState
         inputKeyboard.update(elapsedTime);
+
+        if(waitingForNewKey){
+
+            System.out.println("Waiting for a new key");
+
+            for (int key = GLFW_KEY_SPACE; key <= GLFW_KEY_LAST; key++) {
+
+                if (glfwGetKey(graphics.getWindow(), key) == GLFW_PRESS) {
+
+                    switch (currentSelection) {
+                        case ControlState.UP:
+                            this.keyBinds.UP = key;
+                            break;
+                        case ControlState.DOWN:
+                            this.keyBinds.DOWN = key;
+                            break;
+                        case ControlState.LEFT:
+                            this.keyBinds.LEFT = key;
+                            break;
+                        case ControlState.RIGHT:
+                            this.keyBinds.RIGHT = key;
+                            break;
+                        case ControlState.RESET:
+                            this.keyBinds.RESET = key;
+                            break;
+                        case ControlState.UNDO:
+                            this.keyBinds.UNDO = key;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
         return nextGameState;
     }
 
     @Override
     public void update(double elapsedTime) {
+
+        initialized = true; // This will make this true every update, need to find a new place
+
     }
 
     @Override
     public void render(double elapsedTime) {
-        final String message = "This is how to play the game";
-        final float height = 0.075f;
-        final float width = font.measureTextWidth(message, height);
+        final float HEIGHT_MENU_ITEM = 0.075f;
+        float top = -0.2f;
 
-        graphics.drawTextByHeight(font, message, 0.0f - width / 2, 0 - height / 2, height, Color.YELLOW);
+        this.keyBindSerializer.loadGameState(this.keyBinds); // Find a better spot for this
+
+        top = renderMenuItem(currentSelection == ControlsView.ControlState.UP ? fontSelected : fontMenu, "UP : " + glfwGetKeyName(this.keyBinds.UP, glfwGetKeyScancode(this.keyBinds.UP)), top, HEIGHT_MENU_ITEM, currentSelection == ControlState.UP? Color.GREEN : Color.WHITE);
+        top = renderMenuItem(currentSelection == ControlsView.ControlState.DOWN ? fontSelected : fontMenu, "DOWN : " + glfwGetKeyName(this.keyBinds.DOWN, glfwGetKeyScancode(this.keyBinds.DOWN)), top, HEIGHT_MENU_ITEM, currentSelection == ControlState.DOWN ? Color.GREEN : Color.WHITE);
+        top = renderMenuItem(currentSelection == ControlsView.ControlState.LEFT ? fontSelected : fontMenu, "LEFT : " + glfwGetKeyName(this.keyBinds.LEFT, glfwGetKeyScancode(this.keyBinds.LEFT)), top, HEIGHT_MENU_ITEM, currentSelection == ControlState.LEFT ? Color.GREEN : Color.WHITE);
+        top = renderMenuItem(currentSelection == ControlsView.ControlState.RIGHT ? fontSelected : fontMenu, "RIGHT : " + glfwGetKeyName(this.keyBinds.RIGHT, glfwGetKeyScancode(this.keyBinds.RIGHT)), top, HEIGHT_MENU_ITEM, currentSelection == ControlState.RIGHT? Color.GREEN : Color.WHITE);
+        top = renderMenuItem(currentSelection == ControlsView.ControlState.RESET ? fontSelected : fontMenu, "RESET : " + glfwGetKeyName(this.keyBinds.RESET, glfwGetKeyScancode(this.keyBinds.RESET)), top, HEIGHT_MENU_ITEM, currentSelection == ControlState.RESET ? Color.GREEN : Color.WHITE);
+        top = renderMenuItem(currentSelection == ControlsView.ControlState.UNDO ? fontSelected : fontMenu, "UNDO : " + glfwGetKeyName(this.keyBinds.UNDO, glfwGetKeyScancode(this.keyBinds.UNDO)), top, HEIGHT_MENU_ITEM, currentSelection == ControlState.UNDO ? Color.GREEN : Color.WHITE);
+        top = renderMenuItem(currentSelection == ControlsView.ControlState.EXIT ? fontSelected : fontMenu, "EXIT", top, HEIGHT_MENU_ITEM, currentSelection == ControlState.EXIT ? Color.GREEN : Color.WHITE);
+
+        if(waitingForNewKey){
+            renderMenuItem(fontSelected , "SETTING NEW KEY", top, HEIGHT_MENU_ITEM, Color.RED);
+        }
+    }
+
+    /**
+     * Centers the text horizontally, at the specified top position.
+     * It also returns the vertical position to draw the next menu item
+     */
+    private float renderMenuItem(Font font, String text, float top, float height, Color color) {
+        float width = font.measureTextWidth(text, height);
+        graphics.drawTextByHeight(font, text, 0.0f - width / 2, top, height, color);
+
+        return top + height;
     }
 }

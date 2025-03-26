@@ -2,6 +2,8 @@ package core;
 
 import edu.usu.graphics.*;
 import level.Level;
+import utils.KeyBindSerializer;
+import utils.KeyBinds;
 import views.*;
 
 import java.util.HashMap;
@@ -16,17 +18,26 @@ public class GameViewManager {
     GameStateEnum prevStateEnum = GameStateEnum.MainMenu;
     private Level selectedLevel = new Level("Null", 0, 0, new char[0][0], new char[0][0]);
 
+    public KeyBindSerializer keyBindSerializer;
+    public KeyBinds keyBind;
+
     public GameViewManager(Graphics2D graphics) {
+
         this.graphics = graphics;
+        this.keyBind = new KeyBinds();
+
     }
 
     public void initialize() {
+
+        this.keyBindSerializer = new KeyBindSerializer();
+
         states = new HashMap<>() {
             {
                 put(GameStateEnum.MainMenu, new MainMenuView());
                 put(GameStateEnum.NewGame, new NewGameView());
                 put(GameStateEnum.GamePlay, new GamePlayView());
-                put(GameStateEnum.Controls, new ControlsView());
+                put(GameStateEnum.Controls, new ControlsView(keyBindSerializer, keyBind));
                 put(GameStateEnum.Credits, new CreditsView());
             }
         };
