@@ -3,25 +3,27 @@ package core;
 import ecs.Entities.*;
 import ecs.Systems.KeyboardInput;
 import edu.usu.graphics.*;
+import level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameModel {
 
-    private final int level;
+    private final Level level;
+
     private final List<Entity> removeThese = new ArrayList<>();
     private final List<Entity> addThese = new ArrayList<>();
     private KeyboardInput sysKeyboardInput;
 
-    public GameModel(int level) {
+    public GameModel(Level level) {
         this.level = level;
     }
 
     public void initialize(Graphics2D graphics) {
         sysKeyboardInput = new KeyboardInput(graphics.getWindow());
-        System.out.println("GameModel initialized with Level: " + level);
-        // TODO: Initialize level-specific entities based on this.level
+
+        System.out.println("GameModel initialized with level: " + level);
     }
 
     public void update(double elapsedTime) {

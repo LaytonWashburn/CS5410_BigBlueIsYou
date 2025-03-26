@@ -4,6 +4,7 @@ import core.GameModel;
 import core.GameStateEnum;
 import core.KeyboardInput;
 import edu.usu.graphics.Graphics2D;
+import level.Level;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
@@ -26,7 +27,7 @@ public class GamePlayView extends GameStateView {
 
     @Override
     public void initializeSession() {
-        int level = gameViewManager.getSelectedLevel();
+        Level level = gameViewManager.getSelectedLevel();
         gameModel = new GameModel(level);
         gameModel.initialize(graphics);
         nextGameState = GameStateEnum.GamePlay;

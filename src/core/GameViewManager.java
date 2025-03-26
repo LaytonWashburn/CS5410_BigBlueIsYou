@@ -1,6 +1,7 @@
 package core;
 
 import edu.usu.graphics.*;
+import level.Level;
 import views.*;
 
 import java.util.HashMap;
@@ -13,7 +14,7 @@ public class GameViewManager {
     private IGameState currentState;
     GameStateEnum nextStateEnum = GameStateEnum.MainMenu;
     GameStateEnum prevStateEnum = GameStateEnum.MainMenu;
-    private int selectedLevel = 1;  // Default to level 1
+    private Level selectedLevel = new Level("Null", 0, 0, new char[0][0], new char[0][0]);
 
     public GameViewManager(Graphics2D graphics) {
         this.graphics = graphics;
@@ -42,11 +43,11 @@ public class GameViewManager {
         currentState.initializeSession();
     }
 
-    public void setSelectedLevel(int level) {
+    public void setSelectedLevel(Level level) {
         this.selectedLevel = level;
     }
 
-    public int getSelectedLevel() {
+    public Level getSelectedLevel() {
         return selectedLevel;
     }
 
