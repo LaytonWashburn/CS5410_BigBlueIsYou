@@ -42,13 +42,15 @@ public class ControlsView extends GameStateView {
     private Font fontMenu;
     private Font fontSelected;
     private boolean waitingForNewKey;
-    private boolean initialized = false;
+    private boolean initialized;
     private KeyBindSerializer keyBindSerializer;
     private KeyBinds keyBinds;
 
     public ControlsView(KeyBindSerializer keyBindSerializer, KeyBinds keyBinds){
         this.keyBindSerializer = keyBindSerializer;
         this.keyBinds = keyBinds;
+        this.initialized = false;
+        this.waitingForNewKey = false;
     }
 
 
@@ -56,7 +58,7 @@ public class ControlsView extends GameStateView {
     public void initialize(Graphics2D graphics) {
         super.initialize(graphics);
 
-        waitingForNewKey = false;
+
         font = new Font("resources/fonts/ChakraPetch-Regular.ttf", 48, false);
         fontMenu = new Font("resources/fonts/ChakraPetch-Regular.ttf", 48, false);
         fontSelected = new Font("resources/fonts/ChakraPetch-Bold.ttf", 48, false);
@@ -71,6 +73,11 @@ public class ControlsView extends GameStateView {
         });
         // When Enter is pressed, set the appropriate new game state
         inputKeyboard.registerCommand(GLFW_KEY_ENTER, true, (double elapsedTime) -> {
+
+            if(currentSelection == ControlState.EXIT){
+                nextGameState = GameStateEnum.MainMenu;
+            }
+
             if(initialized){
                 waitingForNewKey = !waitingForNewKey;
             }
@@ -80,13 +87,14 @@ public class ControlsView extends GameStateView {
         inputKeyboard.registerCommand(GLFW_KEY_ESCAPE, true, (double elapsedTime) -> {
             nextGameState = GameStateEnum.MainMenu;
         });
-
+        waitingForNewKey = false;
 
     }
 
     @Override
     public void initializeSession() {
         nextGameState = GameStateEnum.Controls;
+        waitingForNewKey = false;
     }
 
     @Override
@@ -123,6 +131,7 @@ public class ControlsView extends GameStateView {
                             break;
                     }
                     this.keyBindSerializer.saveGameState(this.keyBinds); // Save the new key binds
+                    waitingForNewKey = false;
                 }
             }
         }
