@@ -2,6 +2,7 @@ package core;
 
 import edu.usu.graphics.*;
 import level.Level;
+import level.Serializer;
 import utils.KeyBindSerializer;
 import utils.KeyBinds;
 import views.*;
@@ -20,6 +21,7 @@ public class GameViewManager {
 
     public KeyBindSerializer keyBindSerializer;
     public KeyBinds keyBind;
+    public Serializer levelSerializer;
 
     public GameViewManager(Graphics2D graphics) {
 
@@ -30,12 +32,12 @@ public class GameViewManager {
     public void initialize() {
 
         this.keyBindSerializer = new KeyBindSerializer(keyBind);
-
+        this.levelSerializer = new Serializer();
 
         states = new HashMap<>() {
             {
                 put(GameStateEnum.MainMenu, new MainMenuView());
-                put(GameStateEnum.NewGame, new NewGameView());
+                put(GameStateEnum.NewGame, new NewGameView(levelSerializer, graphics));
                 put(GameStateEnum.GamePlay, new GamePlayView());
                 put(GameStateEnum.Controls, new ControlsView(keyBindSerializer, keyBind));
                 put(GameStateEnum.Credits, new CreditsView());
@@ -63,6 +65,8 @@ public class GameViewManager {
     }
 
     public void shutdown() {
+        this.keyBindSerializer.shutdown();
+        this.levelSerializer.shutdown();
     }
 
     public void run() {

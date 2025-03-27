@@ -72,6 +72,7 @@ public class Serializer implements Runnable {
     /// Public method used to signal this code to perform a graceful shutdown
     public void shutdown() {
         try {
+            System.out.println("In the shutdown levels serializer");
             lockSignal.lock();
 
             doThis = Activity.Nothing;

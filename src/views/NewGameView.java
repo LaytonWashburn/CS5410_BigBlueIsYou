@@ -22,14 +22,20 @@ public class NewGameView extends GameStateView {
     private GameStateEnum nextGameState = GameStateEnum.NewGame;
     private Font fontMenu;
     private Font fontSelected;
+    private final Graphics2D graphics;
 
+    public NewGameView(Serializer serializer, Graphics2D graphics){
+        this.serializer = serializer;
+        this.graphics =  graphics;
+    }
     private Level selectedLevel = new Level("Null", 0, 0, new char[0][0], new char[0][0]);  // Default to empty level
 
     @Override
-    public void initialize(Graphics2D graphics) {
+    public void initialize(Graphics2D graphic) {
+
         super.initialize(graphics);
 
-        this.serializer = new Serializer();
+        // this.serializer = new Serializer();
         this.levelState = new LevelState();
 
         // Set up callback for when loading completes
@@ -52,7 +58,7 @@ public class NewGameView extends GameStateView {
         fontMenu = new Font("resources/fonts/ChakraPetch-Regular.ttf", 48, false);
         fontSelected = new Font("resources/fonts/ChakraPetch-Bold.ttf", 48, false);
 
-        inputKeyboard = new KeyboardInput(graphics.getWindow());
+        inputKeyboard = new KeyboardInput(this.graphics.getWindow());
         // Arrow keys to navigate the menu
         inputKeyboard.registerCommand(GLFW_KEY_UP, true, (double elapsedTime) -> {
             if (areLevelsLoaded && !this.levelState.levels.isEmpty()) {
@@ -76,7 +82,7 @@ public class NewGameView extends GameStateView {
         // When ESC is pressed, set the appropriate new game state
         inputKeyboard.registerCommand(GLFW_KEY_ESCAPE, true, (double elapsedTime) -> {
             nextGameState = GameStateEnum.MainMenu;
-            serializer.shutdown();
+            // serializer.shutdown();
         });
     }
 
