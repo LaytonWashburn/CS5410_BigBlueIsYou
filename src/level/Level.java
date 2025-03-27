@@ -14,8 +14,24 @@ public class Level {
         this.group2 = group2;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public char[][] getGroup1() {
+        return group1;
+    }
+
+    public char[][] getGroup2() {
+        return group2;
     }
 
     @Override

@@ -114,7 +114,7 @@ public class Serializer implements Runnable {
                 levelState.add(new Level(name, width, height, group1, group2));
             }
         } catch (Exception ex) {
-            this.levelState.errorOccured = true;
+            this.levelState.errorOccurred = true;
             System.out.println(ex.getMessage());
         }
     }

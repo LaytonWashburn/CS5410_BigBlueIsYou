@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class LevelState {
     public boolean initialized;
-    public boolean errorOccured;
+    public boolean errorOccurred;
 
     public ArrayList<Level> levels;
 

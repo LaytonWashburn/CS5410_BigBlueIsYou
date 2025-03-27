@@ -24,6 +24,20 @@ public class GameModel {
         sysKeyboardInput = new KeyboardInput(graphics.getWindow());
 
         System.out.println("GameModel initialized with level: " + level);
+
+        for (int i = 0; i < level.getHeight(); i++) {
+            for (int j = 0; j < level.getWidth(); j++) {
+                System.out.print(level.getGroup1()[i][j]);
+            }
+            System.out.println();
+        }
+        for (int i = 0; i < level.getHeight(); i++) {
+            for (int j = 0; j < level.getWidth(); j++) {
+                System.out.print(level.getGroup2()[i][j]);
+            }
+            System.out.println();
+        }
+
     }
 
     public void update(double elapsedTime) {

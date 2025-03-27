@@ -40,7 +40,7 @@ public class NewGameView extends GameStateView {
 
         // Set up callback for when loading completes
         this.serializer.setOnLoadComplete(() -> {
-            if (this.levelState.initialized && !this.levelState.errorOccured) {
+            if (this.levelState.initialized && !this.levelState.errorOccurred) {
                 System.out.println("Levels loaded");
                 this.areLevelsLoaded = true;
                 // Reset selection if it's out of bounds
