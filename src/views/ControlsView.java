@@ -72,18 +72,8 @@ public class ControlsView extends GameStateView {
         // When Enter is pressed, set the appropriate new game state
         inputKeyboard.registerCommand(GLFW_KEY_ENTER, true, (double elapsedTime) -> {
             if(initialized){
-                System.out.println("Changing enter");
                 waitingForNewKey = !waitingForNewKey;
             }
-//            nextGameState = switch (currentSelection) {
-//                case ControlState.UP  -> null;
-//                case ControlState.DOWN  -> null;
-//                case ControlState.LEFT  -> null;
-//                case ControlState.RIGHT -> null;
-//                case ControlState.RESET -> null;
-//                case ControlState.UNDO -> null;
-//                case ControlState.EXIT -> null;
-//            };
         });
 
         // When ESC is pressed, set the appropriate new game state
@@ -96,7 +86,6 @@ public class ControlsView extends GameStateView {
 
     @Override
     public void initializeSession() {
-
         nextGameState = GameStateEnum.Controls;
     }
 
@@ -107,12 +96,10 @@ public class ControlsView extends GameStateView {
 
         if(waitingForNewKey){
 
-            System.out.println("Waiting for a new key");
-
             for (int key = GLFW_KEY_SPACE; key <= GLFW_KEY_LAST; key++) {
 
-                if (glfwGetKey(graphics.getWindow(), key) == GLFW_PRESS) {
-
+                // This is a hacky solution, using the second part of the boolean
+                if (glfwGetKey(graphics.getWindow(), key) == GLFW_PRESS && glfwGetKeyName(key, glfwGetKeyScancode(key)) != null) {
                     switch (currentSelection) {
                         case ControlState.UP:
                             this.keyBinds.UP = key;
@@ -135,6 +122,7 @@ public class ControlsView extends GameStateView {
                         default:
                             break;
                     }
+                    this.keyBindSerializer.saveGameState(this.keyBinds); // Save the new key binds
                 }
             }
         }

@@ -25,12 +25,12 @@ public class GameViewManager {
 
         this.graphics = graphics;
         this.keyBind = new KeyBinds();
-
     }
 
     public void initialize() {
 
-        this.keyBindSerializer = new KeyBindSerializer();
+        this.keyBindSerializer = new KeyBindSerializer(keyBind);
+
 
         states = new HashMap<>() {
             {

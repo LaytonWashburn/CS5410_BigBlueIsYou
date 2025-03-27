@@ -28,9 +28,11 @@ public class KeyBindSerializer implements Runnable {
 
     private final Thread tInternal;
 
-    public KeyBindSerializer() {
+    public KeyBindSerializer(KeyBinds binds) {
         this.tInternal = new Thread(this);
         this.tInternal.start();
+        this.keybinds = binds; // Set the key binds to the serializer
+        this.saveSomething(); // Save the game state
     }
 
     @Override
@@ -104,7 +106,7 @@ public class KeyBindSerializer implements Runnable {
     /// could have been stored using a binary serializer for more efficient storage
     private synchronized void saveSomething() {
         System.out.println("saving something...");
-        try (FileWriter writer = new FileWriter("keybinds.json")) {
+        try (FileWriter writer = new FileWriter("src/data/keybinds.json")) {
             Gson gson = new Gson();
             gson.toJson(this.keybinds, writer); // this.gameScores
         } catch (Exception ex) {
@@ -117,7 +119,7 @@ public class KeyBindSerializer implements Runnable {
     /// Same note as above regarding the choice to use JSON formatting.
     public synchronized void loadSomething() {
         System.out.println("loading something...");
-        try (FileReader reader = new FileReader("keybinds.json")) {
+        try (FileReader reader = new FileReader("src/data/keybinds.json")) {
             // GameScores state = (new Gson()).fromJson(reader, GameScores.class);
             // this.gameScores.scores = state.scores;
             // this.gameScores.initialized = true;
