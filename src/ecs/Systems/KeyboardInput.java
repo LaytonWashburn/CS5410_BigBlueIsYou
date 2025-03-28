@@ -11,7 +11,8 @@ public class KeyboardInput extends System {
 
     public KeyboardInput(long window) {
 
-        super(ecs.Components.KeyboardControlled.class);
+        super();
+//        super(ecs.Components.KeyboardControlled.class);
 
         this.window = window;
     }
