@@ -33,6 +33,8 @@ import static org.lwjgl.opengl.GL32.*;
 public class ShaderProgram {
 
     private final int programId;
+    // Add a cache for uniform locations
+    private final Map<String, Integer> uniformLocationCache = new HashMap<>();
 
     public ShaderProgram(List<ShaderModuleData> shaderModuleDataList) {
         programId = glCreateProgram();
@@ -55,6 +57,8 @@ public class ShaderProgram {
         if (programId != 0) {
             glDeleteProgram(programId);
         }
+        // Clear the cache when cleaning up
+        uniformLocationCache.clear();
     }
 
     protected int createShader(String shaderCode, int shaderType) {
@@ -77,6 +81,23 @@ public class ShaderProgram {
 
     public int getProgramId() {
         return programId;
+    }
+
+    /**
+     * Get the location of a uniform variable in the shader program.
+     * This method caches the uniform locations to avoid repeated OpenGL calls.
+     *
+     * @param uniformName The name of the uniform variable
+     * @return The location of the uniform variable
+     */
+    public int getUniformLocation(String uniformName) {
+        if (uniformLocationCache.containsKey(uniformName)) {
+            return uniformLocationCache.get(uniformName);
+        }
+        
+        int location = glGetUniformLocation(programId, uniformName);
+        uniformLocationCache.put(uniformName, location);
+        return location;
     }
 
     private void link(List<Integer> shaderModules) {

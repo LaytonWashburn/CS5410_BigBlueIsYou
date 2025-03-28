@@ -43,6 +43,7 @@ public class ControlsView extends GameStateView {
     private Font fontSelected;
     private boolean waitingForNewKey;
     private boolean initialized;
+    private boolean deregisterArrows;
     private KeyBindSerializer keyBindSerializer;
     private KeyBinds keyBinds;
 
@@ -51,6 +52,7 @@ public class ControlsView extends GameStateView {
         this.keyBinds = keyBinds;
         this.initialized = false;
         this.waitingForNewKey = false;
+        this.deregisterArrows = false;
     }
 
 
@@ -71,6 +73,7 @@ public class ControlsView extends GameStateView {
         inputKeyboard.registerCommand(GLFW_KEY_DOWN, true, (double elapsedTime) -> {
             currentSelection = currentSelection.next();
         });
+
         // When Enter is pressed, set the appropriate new game state
         inputKeyboard.registerCommand(GLFW_KEY_ENTER, true, (double elapsedTime) -> {
 
@@ -78,15 +81,21 @@ public class ControlsView extends GameStateView {
                 nextGameState = GameStateEnum.MainMenu;
             }
 
+//            // Remove the current key bind
+//            this.inputKeyboard.deregisterCommand(glfwGetKeyScancode(this.currentSelection.ordinal()));
+
             if(initialized){
-                waitingForNewKey = !waitingForNewKey;
+                waitingForNewKey = true; // !waitingForNewKey;
+                deregisterArrows = true;
             }
+
         });
 
         // When ESC is pressed, set the appropriate new game state
         inputKeyboard.registerCommand(GLFW_KEY_ESCAPE, true, (double elapsedTime) -> {
             nextGameState = GameStateEnum.MainMenu;
         });
+
         waitingForNewKey = false;
 
     }
@@ -101,6 +110,12 @@ public class ControlsView extends GameStateView {
     public GameStateEnum processInput(double elapsedTime) {
         // Updating the keyboard can change the nextGameState
         inputKeyboard.update(elapsedTime);
+
+        if(deregisterArrows){
+            this.inputKeyboard.deregisterCommand(GLFW_KEY_UP);
+            this.inputKeyboard.deregisterCommand(GLFW_KEY_DOWN);
+            deregisterArrows = false;
+        }
 
         if(waitingForNewKey){
 
@@ -132,6 +147,14 @@ public class ControlsView extends GameStateView {
                     }
                     this.keyBindSerializer.saveGameState(this.keyBinds); // Save the new key binds
                     waitingForNewKey = false;
+
+                    // Arrow keys to navigate the menu
+                    inputKeyboard.registerCommand(GLFW_KEY_UP, true, (double elapsedTime_) -> {
+                        currentSelection = currentSelection.previous();
+                    });
+                    inputKeyboard.registerCommand(GLFW_KEY_DOWN, true, (double elapsedTime_) -> {
+                        currentSelection = currentSelection.next();
+                    });
                 }
             }
         }

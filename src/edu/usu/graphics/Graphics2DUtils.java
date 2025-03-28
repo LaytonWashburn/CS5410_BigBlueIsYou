@@ -21,20 +21,10 @@ THE SOFTWARE.
 */
 package edu.usu.graphics;
 
-import edu.usu.utils.*;
-
-import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
-import org.lwjgl.system.MemoryStack;
-import org.lwjgl.system.MemoryUtil;
 
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.lwjgl.opengl.GL32.*;
 
 public class Graphics2DUtils {
 
@@ -62,29 +52,33 @@ public class Graphics2DUtils {
         public int[] indices;
     }
 
-    public static BuffersColor prepareLinesColorBuffers(ArrayList<Tuple3<Vector3f, Vector3f, Color>> lines) {
-        float[] positions = new float[lines.size() * 6];
-        float[] colors = new float[lines.size() * 6];
-        int[] indices = new int[lines.size() * 2];
+    public static BuffersColor prepareLinesColorBuffers(List<RenderQueue.RenderLineOperation> operations) {
+        float[] positions = new float[operations.size() * 6];
+        float[] colors = new float[operations.size() * 6];
+        int[] indices = new int[operations.size() * 2];
 
         int rIndex = 0;
         int iIndex = 0;
-        for (var l : lines) {
-            positions[rIndex * 3 + 0] = l.item1().x;
-            positions[rIndex * 3 + 1] = l.item1().y;
-            positions[rIndex * 3 + 2] = l.item1().z;
+        for (var op : operations) {
+            Vector3f start = op.getStart();
+            Vector3f end = op.getEnd();
+            Color color = op.getColor();
 
-            positions[rIndex * 3 + 3] = l.item2().x;
-            positions[rIndex * 3 + 4] = l.item2().y;
-            positions[rIndex * 3 + 5] = l.item2().z;
+            positions[rIndex * 3 + 0] = start.x;
+            positions[rIndex * 3 + 1] = start.y;
+            positions[rIndex * 3 + 2] = start.z;
 
-            colors[rIndex * 3 + 0] = l.item3().r;
-            colors[rIndex * 3 + 1] = l.item3().g;
-            colors[rIndex * 3 + 2] = l.item3().b;
+            positions[rIndex * 3 + 3] = end.x;
+            positions[rIndex * 3 + 4] = end.y;
+            positions[rIndex * 3 + 5] = end.z;
 
-            colors[rIndex * 3 + 3] = l.item3().r;
-            colors[rIndex * 3 + 4] = l.item3().g;
-            colors[rIndex * 3 + 5] = l.item3().b;
+            colors[rIndex * 3 + 0] = color.r;
+            colors[rIndex * 3 + 1] = color.g;
+            colors[rIndex * 3 + 2] = color.b;
+
+            colors[rIndex * 3 + 3] = color.r;
+            colors[rIndex * 3 + 4] = color.g;
+            colors[rIndex * 3 + 5] = color.b;
 
             indices[iIndex + 0] = rIndex + 0;
             indices[iIndex + 1] = rIndex + 1;
@@ -96,37 +90,40 @@ public class Graphics2DUtils {
         return new BuffersColor(positions, colors, indices);
     }
 
-    public static BuffersColor prepareTrisSolidColorBuffers(ArrayList<Tuple3<Triangle, Color, Matrix4f>> triangles) {
-        float[] positions = new float[triangles.size() * 9];
-        float[] colors = new float[triangles.size() * 9];
-        int[] indices = new int[triangles.size() * 3];
+    public static BuffersColor prepareTrisSolidColorBuffers(List<RenderQueue.RenderSolidTriangleOperation> operations) {
+        float[] positions = new float[operations.size() * 9];
+        float[] colors = new float[operations.size() * 9];
+        int[] indices = new int[operations.size() * 3];
 
         int rIndex = 0;
         int iIndex = 0;
-        for (var t : triangles) {
-            positions[rIndex * 3 + 0] = t.item1().pt1.x;
-            positions[rIndex * 3 + 1] = t.item1().pt1.y;
-            positions[rIndex * 3 + 2] = t.item1().pt1.z;
+        for (var op : operations) {
+            Triangle triangle = op.getTriangle();
+            Color color = op.getColor();
 
-            positions[rIndex * 3 + 3] = t.item1().pt2.x;
-            positions[rIndex * 3 + 4] = t.item1().pt2.y;
-            positions[rIndex * 3 + 5] = t.item1().pt2.z;
+            positions[rIndex * 3 + 0] = triangle.pt1.x;
+            positions[rIndex * 3 + 1] = triangle.pt1.y;
+            positions[rIndex * 3 + 2] = triangle.pt1.z;
 
-            positions[rIndex * 3 + 6] = t.item1().pt3.x;
-            positions[rIndex * 3 + 7] = t.item1().pt3.y;
-            positions[rIndex * 3 + 8] = t.item1().pt3.z;
+            positions[rIndex * 3 + 3] = triangle.pt2.x;
+            positions[rIndex * 3 + 4] = triangle.pt2.y;
+            positions[rIndex * 3 + 5] = triangle.pt2.z;
 
-            colors[rIndex * 3 + 0] = t.item2().r;
-            colors[rIndex * 3 + 1] = t.item2().g;
-            colors[rIndex * 3 + 2] = t.item2().b;
+            positions[rIndex * 3 + 6] = triangle.pt3.x;
+            positions[rIndex * 3 + 7] = triangle.pt3.y;
+            positions[rIndex * 3 + 8] = triangle.pt3.z;
 
-            colors[rIndex * 3 + 3] = t.item2().r;
-            colors[rIndex * 3 + 4] = t.item2().g;
-            colors[rIndex * 3 + 5] = t.item2().b;
+            colors[rIndex * 3 + 0] = color.r;
+            colors[rIndex * 3 + 1] = color.g;
+            colors[rIndex * 3 + 2] = color.b;
 
-            colors[rIndex * 3 + 6] = t.item2().r;
-            colors[rIndex * 3 + 7] = t.item2().g;
-            colors[rIndex * 3 + 8] = t.item2().b;
+            colors[rIndex * 3 + 3] = color.r;
+            colors[rIndex * 3 + 4] = color.g;
+            colors[rIndex * 3 + 5] = color.b;
+
+            colors[rIndex * 3 + 6] = color.r;
+            colors[rIndex * 3 + 7] = color.g;
+            colors[rIndex * 3 + 8] = color.b;
 
             indices[iIndex + 0] = rIndex + 0;
             indices[iIndex + 1] = rIndex + 1;
@@ -139,45 +136,48 @@ public class Graphics2DUtils {
         return new BuffersColor(positions, colors, indices);
     }
 
-    public static BuffersColor prepareRectsSolidColorBuffers(ArrayList<Tuple3<Rectangle, Color, Matrix4f>> rectangles) {
-        float[] positions = new float[rectangles.size() * 12];
-        float[] colors = new float[rectangles.size() * 12];
-        int[] indices = new int[rectangles.size() * 6];
+    public static BuffersColor prepareRectsSolidColorBuffers(List<RenderQueue.RenderSolidRectangleOperation> operations) {
+        float[] positions = new float[operations.size() * 12];
+        float[] colors = new float[operations.size() * 12];
+        int[] indices = new int[operations.size() * 6];
 
         int rIndex = 0;
         int iIndex = 0;
-        for (var r : rectangles) {
-            positions[rIndex * 3 + 0] = r.item1().left;
-            positions[rIndex * 3 + 1] = r.item1().top;
-            positions[rIndex * 3 + 2] = r.item1().z;
+        for (var op : operations) {
+            Rectangle rect = op.getRectangle();
+            Color color = op.getColor();
 
-            positions[rIndex * 3 + 3] = r.item1().left + r.item1().width;
-            positions[rIndex * 3 + 4] = r.item1().top;
-            positions[rIndex * 3 + 5] = r.item1().z;
+            positions[rIndex * 3 + 0] = rect.left;
+            positions[rIndex * 3 + 1] = rect.top;
+            positions[rIndex * 3 + 2] = rect.z;
 
-            positions[rIndex * 3 + 6] = r.item1().left + r.item1().width;
-            positions[rIndex * 3 + 7] = r.item1().top + r.item1().height;
-            positions[rIndex * 3 + 8] = r.item1().z;
+            positions[rIndex * 3 + 3] = rect.left + rect.width;
+            positions[rIndex * 3 + 4] = rect.top;
+            positions[rIndex * 3 + 5] = rect.z;
 
-            positions[rIndex * 3 + 9] = r.item1().left;
-            positions[rIndex * 3 + 10] = r.item1().top + r.item1().height;
-            positions[rIndex * 3 + 11] = r.item1().z;
+            positions[rIndex * 3 + 6] = rect.left + rect.width;
+            positions[rIndex * 3 + 7] = rect.top + rect.height;
+            positions[rIndex * 3 + 8] = rect.z;
 
-            colors[rIndex * 3 + 0] = r.item2().r;
-            colors[rIndex * 3 + 1] = r.item2().g;
-            colors[rIndex * 3 + 2] = r.item2().b;
+            positions[rIndex * 3 + 9] = rect.left;
+            positions[rIndex * 3 + 10] = rect.top + rect.height;
+            positions[rIndex * 3 + 11] = rect.z;
 
-            colors[rIndex * 3 + 3] = r.item2().r;
-            colors[rIndex * 3 + 4] = r.item2().g;
-            colors[rIndex * 3 + 5] = r.item2().b;
+            colors[rIndex * 3 + 0] = color.r;
+            colors[rIndex * 3 + 1] = color.g;
+            colors[rIndex * 3 + 2] = color.b;
 
-            colors[rIndex * 3 + 6] = r.item2().r;
-            colors[rIndex * 3 + 7] = r.item2().g;
-            colors[rIndex * 3 + 8] = r.item2().b;
+            colors[rIndex * 3 + 3] = color.r;
+            colors[rIndex * 3 + 4] = color.g;
+            colors[rIndex * 3 + 5] = color.b;
 
-            colors[rIndex * 3 + 9] = r.item2().r;
-            colors[rIndex * 3 + 10] = r.item2().g;
-            colors[rIndex * 3 + 11] = r.item2().b;
+            colors[rIndex * 3 + 6] = color.r;
+            colors[rIndex * 3 + 7] = color.g;
+            colors[rIndex * 3 + 8] = color.b;
+
+            colors[rIndex * 3 + 9] = color.r;
+            colors[rIndex * 3 + 10] = color.g;
+            colors[rIndex * 3 + 11] = color.b;
 
             indices[iIndex + 0] = rIndex + 0;
             indices[iIndex + 1] = rIndex + 1;
@@ -194,45 +194,50 @@ public class Graphics2DUtils {
         return new BuffersColor(positions, colors, indices);
     }
 
-    public static BuffersTexture prepareRectsTextureBuffers(ArrayList<Tuple5<Texture, Rectangle, Rectangle, Matrix4f, Vector3f>> rectangles) {
-        float[] positions = new float[rectangles.size() * 12];
-        float[] coords = new float[rectangles.size() * 8];
-        int[] indices = new int[rectangles.size() * 6];
+    public static BuffersTexture prepareRectsTextureBuffers(List<RenderQueue.RenderTexturedRectangleOperation> operations) {
+        float[] positions = new float[operations.size() * 12];
+        float[] coords = new float[operations.size() * 8];
+        int[] indices = new int[operations.size() * 6];
 
         int rIndex = 0;
         int iIndex = 0;
-        for (var r : rectangles) {
-            positions[rIndex * 3 + 0] = r.item2().left;
-            positions[rIndex * 3 + 1] = r.item2().top;
-            positions[rIndex * 3 + 2] = r.item2().z;
+        for (var op : operations) {
+            Texture texture = op.getTexture();
+            Rectangle rect = op.getDestination();
+            Rectangle subImage = op.getSubImage();
 
-            positions[rIndex * 3 + 3] = r.item2().left + r.item2().width;
-            positions[rIndex * 3 + 4] = r.item2().top;
-            positions[rIndex * 3 + 5] = r.item2().z;
+            positions[rIndex * 3 + 0] = rect.left;
+            positions[rIndex * 3 + 1] = rect.top;
+            positions[rIndex * 3 + 2] = rect.z;
 
-            positions[rIndex * 3 + 6] = r.item2().left + r.item2().width;
-            positions[rIndex * 3 + 7] = r.item2().top + r.item2().height;
-            positions[rIndex * 3 + 8] = r.item2().z;
+            positions[rIndex * 3 + 3] = rect.left + rect.width;
+            positions[rIndex * 3 + 4] = rect.top;
+            positions[rIndex * 3 + 5] = rect.z;
 
-            positions[rIndex * 3 + 9] = r.item2().left;
-            positions[rIndex * 3 + 10] = r.item2().top + r.item2().height;
-            positions[rIndex * 3 + 11] = r.item2().z;
+            positions[rIndex * 3 + 6] = rect.left + rect.width;
+            positions[rIndex * 3 + 7] = rect.top + rect.height;
+            positions[rIndex * 3 + 8] = rect.z;
 
-            // r.item3 is the sub image to render, in pixels coord.
-            // we have to convert them to texture coords for correct rendering.
+            positions[rIndex * 3 + 9] = rect.left;
+            positions[rIndex * 3 + 10] = rect.top + rect.height;
+            positions[rIndex * 3 + 11] = rect.z;
 
-            if (r.item3() != null) {
-                coords[rIndex * 2 + 0] = r.item3().left / r.item1().getWidth();
-                coords[rIndex * 2 + 1] = r.item3().top / r.item1().getHeight();
+            // Convert pixel coordinates to texture coordinates
+            float texWidth = texture.getWidth();
+            float texHeight = texture.getHeight();
 
-                coords[rIndex * 2 + 2] = (r.item3().left + r.item3().width) / r.item1().getWidth();
-                coords[rIndex * 2 + 3] = r.item3().top / r.item1().getHeight();
+            if (subImage != null) {
+                coords[rIndex * 2 + 0] = subImage.left / texWidth;
+                coords[rIndex * 2 + 1] = subImage.top / texHeight;
 
-                coords[rIndex * 2 + 4] = (r.item3().left + r.item3().width) / r.item1().getWidth();
-                coords[rIndex * 2 + 5] = (r.item3().top + r.item3().height) / r.item1().getHeight();
+                coords[rIndex * 2 + 2] = (subImage.left + subImage.width) / texWidth;
+                coords[rIndex * 2 + 3] = subImage.top / texHeight;
 
-                coords[rIndex * 2 + 6] = r.item3().left / r.item1().getWidth();
-                coords[rIndex * 2 + 7] = (r.item3().top + r.item3().height) / r.item1().getHeight();
+                coords[rIndex * 2 + 4] = (subImage.left + subImage.width) / texWidth;
+                coords[rIndex * 2 + 5] = (subImage.top + subImage.height) / texHeight;
+
+                coords[rIndex * 2 + 6] = subImage.left / texWidth;
+                coords[rIndex * 2 + 7] = (subImage.top + subImage.height) / texHeight;
             } else {
                 coords[rIndex * 2 + 0] = 0.0f;
                 coords[rIndex * 2 + 1] = 0.0f;
@@ -262,41 +267,90 @@ public class Graphics2DUtils {
         return new BuffersTexture(positions, coords, indices);
     }
 
-    public static BuffersTexture prepareTextGlyphBuffers(ArrayList<Tuple8<Texture, Rectangle, Vector2f, Vector2f, Vector2f, Vector2f, Matrix4f, Vector3f>> rectangles) {
-        float[] positions = new float[rectangles.size() * 12];
-        float[] coords = new float[rectangles.size() * 8];
-        int[] indices = new int[rectangles.size() * 6];
+    public static BuffersTexture prepareTrianglesTextureBuffers(List<RenderQueue.RenderTexturedTriangleOperation> operations) {
+        float[] positions = new float[operations.size() * 9];
+        float[] coords = new float[operations.size() * 6];
+        int[] indices = new int[operations.size() * 3];
+
+        int tIndex = 0;
+        int iIndex = 0;
+        for (var op : operations) {
+            Triangle triangle = op.getTriangle();
+            TriangleTexCoords texCoords = op.getTexCoords();
+
+            positions[tIndex * 3 + 0] = triangle.pt1.x;
+            positions[tIndex * 3 + 1] = triangle.pt1.y;
+            positions[tIndex * 3 + 2] = triangle.pt1.z;
+
+            positions[tIndex * 3 + 3] = triangle.pt2.x;
+            positions[tIndex * 3 + 4] = triangle.pt2.y;
+            positions[tIndex * 3 + 5] = triangle.pt2.z;
+
+            positions[tIndex * 3 + 6] = triangle.pt3.x;
+            positions[tIndex * 3 + 7] = triangle.pt3.y;
+            positions[tIndex * 3 + 8] = triangle.pt3.z;
+
+            coords[tIndex * 2 + 0] = texCoords.pt1.x;
+            coords[tIndex * 2 + 1] = texCoords.pt1.y;
+
+            coords[tIndex * 2 + 2] = texCoords.pt2.x;
+            coords[tIndex * 2 + 3] = texCoords.pt2.y;
+
+            coords[tIndex * 2 + 4] = texCoords.pt3.x;
+            coords[tIndex * 2 + 5] = texCoords.pt3.y;
+
+            indices[iIndex + 0] = tIndex + 0;
+            indices[iIndex + 1] = tIndex + 1;
+            indices[iIndex + 2] = tIndex + 2;
+
+            tIndex += 3;
+            iIndex += 3;
+        }
+
+        return new BuffersTexture(positions, coords, indices);
+    }
+
+    public static BuffersTexture prepareTextGlyphBuffers(List<RenderQueue.RenderTextGlyphOperation> operations) {
+        float[] positions = new float[operations.size() * 12];
+        float[] coords = new float[operations.size() * 8];
+        int[] indices = new int[operations.size() * 6];
 
         int rIndex = 0;
         int iIndex = 0;
-        for (var r : rectangles) {
-            positions[rIndex * 3 + 0] = r.item2().left;
-            positions[rIndex * 3 + 1] = r.item2().top;
-            positions[rIndex * 3 + 2] = r.item2().z;
+        for (var op : operations) {
+            Rectangle rect = op.getDestination();
+            Vector2f p1 = op.getP1();
+            Vector2f p2 = op.getP2();
+            Vector2f p3 = op.getP3();
+            Vector2f p4 = op.getP4();
 
-            positions[rIndex * 3 + 3] = r.item2().left + r.item2().width;
-            positions[rIndex * 3 + 4] = r.item2().top;
-            positions[rIndex * 3 + 5] = r.item2().z;
+            positions[rIndex * 3 + 0] = rect.left;
+            positions[rIndex * 3 + 1] = rect.top;
+            positions[rIndex * 3 + 2] = rect.z;
 
-            positions[rIndex * 3 + 6] = r.item2().left + r.item2().width;
-            positions[rIndex * 3 + 7] = r.item2().top + r.item2().height;
-            positions[rIndex * 3 + 8] = r.item2().z;
+            positions[rIndex * 3 + 3] = rect.left + rect.width;
+            positions[rIndex * 3 + 4] = rect.top;
+            positions[rIndex * 3 + 5] = rect.z;
 
-            positions[rIndex * 3 + 9] = r.item2().left;
-            positions[rIndex * 3 + 10] = r.item2().top + r.item2().height;
-            positions[rIndex * 3 + 11] = r.item2().z;
+            positions[rIndex * 3 + 6] = rect.left + rect.width;
+            positions[rIndex * 3 + 7] = rect.top + rect.height;
+            positions[rIndex * 3 + 8] = rect.z;
 
-            coords[rIndex * 2 + 0] = r.item3().x;
-            coords[rIndex * 2 + 1] = r.item3().y;
+            positions[rIndex * 3 + 9] = rect.left;
+            positions[rIndex * 3 + 10] = rect.top + rect.height;
+            positions[rIndex * 3 + 11] = rect.z;
 
-            coords[rIndex * 2 + 2] = r.item4().x;
-            coords[rIndex * 2 + 3] = r.item4().y;
+            coords[rIndex * 2 + 0] = p1.x;
+            coords[rIndex * 2 + 1] = p1.y;
 
-            coords[rIndex * 2 + 4] = r.item5().x;
-            coords[rIndex * 2 + 5] = r.item5().y;
+            coords[rIndex * 2 + 2] = p2.x;
+            coords[rIndex * 2 + 3] = p2.y;
 
-            coords[rIndex * 2 + 6] = r.item6().x;
-            coords[rIndex * 2 + 7] = r.item6().y;
+            coords[rIndex * 2 + 4] = p3.x;
+            coords[rIndex * 2 + 5] = p3.y;
+
+            coords[rIndex * 2 + 6] = p4.x;
+            coords[rIndex * 2 + 7] = p4.y;
 
             indices[iIndex + 0] = rIndex + 0;
             indices[iIndex + 1] = rIndex + 1;
@@ -311,406 +365,5 @@ public class Graphics2DUtils {
         }
 
         return new BuffersTexture(positions, coords, indices);
-    }
-
-    public static void renderTriangles(Matrix4f mProjection, ShaderProgram shader, BuffersColor buffers, ArrayList<Tuple3<Triangle, Color, Matrix4f>> triangles) {
-        if (triangles.isEmpty()) {
-            return;
-        }
-
-        List<FloatBuffer> memBuffers = new ArrayList<>();
-        int vaoId = glGenVertexArrays();
-        glBindVertexArray(vaoId);
-
-        int vboVerts = glGenBuffers();
-        FloatBuffer bufferPositions = MemoryUtil.memAllocFloat(buffers.positions.length);
-        bufferPositions.put(0, buffers.positions);
-        glBindBuffer(GL_ARRAY_BUFFER, vboVerts);
-        glBufferData(GL_ARRAY_BUFFER, bufferPositions, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferPositions);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
-
-        int vboColors = glGenBuffers();
-        FloatBuffer bufferColors = MemoryUtil.memAllocFloat(buffers.colors.length);
-        bufferColors.put(0, buffers.colors);
-        glBindBuffer(GL_ARRAY_BUFFER, vboColors);
-        glBufferData(GL_ARRAY_BUFFER, bufferColors, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferColors);
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 3, GL_FLOAT, false, 0, 0);
-
-        int vboIndex = glGenBuffers();
-        IntBuffer bufferIndex = MemoryUtil.memAllocInt(buffers.indices.length);
-        bufferIndex.put(0, buffers.indices);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboIndex);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, bufferIndex, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferIndex);
-
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindVertexArray(0);
-
-        shader.bind();
-
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            // Now, step through the list of rectangles and see which ones we can draw together and
-            // which ones need to be drawn individually.
-            int locationProjection = glGetUniformLocation(shader.getProgramId(), "mProjection");
-            glUniformMatrix4fv(locationProjection, false, mProjection.get(stack.mallocFloat(16)));
-            int locationModel = glGetUniformLocation(shader.getProgramId(), "mModel");
-
-            glBindVertexArray(vaoId);
-
-            int startIndex = 0;
-            Matrix4f mModelGroup = triangles.get(0).item3();
-            for (int t = 1; t <= triangles.size(); t++) {
-                if (t == triangles.size() || mModelGroup != triangles.get(t).item3()) {
-                    memBuffers.add(MemoryUtil.memAllocFloat(16));
-                    glUniformMatrix4fv(locationModel, false, mModelGroup.get(memBuffers.get(memBuffers.size() - 1)));
-                    // * 3 because three values per index
-                    glDrawElements(GL_TRIANGLES, (t - startIndex) * 3, GL_UNSIGNED_INT, (long) startIndex * 3 * Integer.BYTES);
-
-                    startIndex = t;
-                    if (t < triangles.size()) {
-                        mModelGroup = triangles.get(t).item3();
-                    }
-                }
-            }
-
-            glBindVertexArray(0);
-            shader.unbind();
-
-            glDeleteBuffers(vboVerts);
-            glDeleteBuffers(vboColors);
-            glDeleteBuffers(vboIndex);
-            glDeleteVertexArrays(vaoId);
-        }
-
-        for (var memory : memBuffers) {
-            MemoryUtil.memFree(memory);
-        }
-    }
-
-    public static void renderLines(Matrix4f mProjection, ShaderProgram shader, BuffersColor buffers, ArrayList<Tuple3<Vector3f, Vector3f, Color>> lines) {
-        if (lines.isEmpty()) {
-            return;
-        }
-
-        List<FloatBuffer> memBuffers = new ArrayList<>();
-        int vaoId = glGenVertexArrays();
-        glBindVertexArray(vaoId);
-
-        int vboVerts = glGenBuffers();
-        FloatBuffer bufferPositions = MemoryUtil.memAllocFloat(buffers.positions.length);
-        bufferPositions.put(0, buffers.positions);
-        glBindBuffer(GL_ARRAY_BUFFER, vboVerts);
-        glBufferData(GL_ARRAY_BUFFER, bufferPositions, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferPositions);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
-
-        int vboColors = glGenBuffers();
-        FloatBuffer bufferColors = MemoryUtil.memAllocFloat(buffers.colors.length);
-        bufferColors.put(0, buffers.colors);
-        glBindBuffer(GL_ARRAY_BUFFER, vboColors);
-        glBufferData(GL_ARRAY_BUFFER, bufferColors, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferColors);
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 3, GL_FLOAT, false, 0, 0);
-
-        int vboIndex = glGenBuffers();
-        IntBuffer bufferIndex = MemoryUtil.memAllocInt(buffers.indices.length);
-        bufferIndex.put(0, buffers.indices);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboIndex);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, bufferIndex, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferIndex);
-
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindVertexArray(0);
-
-        shader.bind();
-
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            // Now, step through the list of rectangles and see which ones we can draw together and
-            // which ones need to be drawn individually.
-            int locationProjection = glGetUniformLocation(shader.getProgramId(), "mProjection");
-            glUniformMatrix4fv(locationProjection, false, mProjection.get(stack.mallocFloat(16)));
-            int locationModel = glGetUniformLocation(shader.getProgramId(), "mModel");
-
-            glBindVertexArray(vaoId);
-
-            Matrix4f mModelGroup = (new Matrix4f()).identity();
-            memBuffers.add(MemoryUtil.memAllocFloat(16));
-            glUniformMatrix4fv(locationModel, false, mModelGroup.get(memBuffers.get(memBuffers.size() - 1)));
-            // * 2 because three values per index
-            glDrawElements(GL_LINES, lines.size() * 2, GL_UNSIGNED_INT, (long) 0);
-
-            glBindVertexArray(0);
-            shader.unbind();
-
-            glDeleteBuffers(vboVerts);
-            glDeleteBuffers(vboColors);
-            glDeleteBuffers(vboIndex);
-            glDeleteVertexArrays(vaoId);
-        }
-
-        for (var memory : memBuffers) {
-            MemoryUtil.memFree(memory);
-        }
-    }
-
-    public static void renderRectangles(Matrix4f mProjection, ShaderProgram shader, BuffersColor buffers, ArrayList<Tuple3<Rectangle, Color, Matrix4f>> rectangles) {
-        if (rectangles.isEmpty()) {
-            return;
-        }
-
-        List<FloatBuffer> memBuffers = new ArrayList<>();
-        int vaoId = glGenVertexArrays();
-        glBindVertexArray(vaoId);
-
-        int vboVerts = glGenBuffers();
-        FloatBuffer bufferPositions = MemoryUtil.memAllocFloat(buffers.positions.length);
-        bufferPositions.put(0, buffers.positions);
-        glBindBuffer(GL_ARRAY_BUFFER, vboVerts);
-        glBufferData(GL_ARRAY_BUFFER, bufferPositions, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferPositions);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
-
-        int vboColors = glGenBuffers();
-        FloatBuffer bufferColors = MemoryUtil.memAllocFloat(buffers.colors.length);
-        bufferColors.put(0, buffers.colors);
-        glBindBuffer(GL_ARRAY_BUFFER, vboColors);
-        glBufferData(GL_ARRAY_BUFFER, bufferColors, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferColors);
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 3, GL_FLOAT, false, 0, 0);
-
-        int vboIndex = glGenBuffers();
-        IntBuffer bufferIndex = MemoryUtil.memAllocInt(buffers.indices.length);
-        bufferIndex.put(0, buffers.indices);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboIndex);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, bufferIndex, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferIndex);
-
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindVertexArray(0);
-
-        shader.bind();
-
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            // Now, step through the list of rectangles and see which ones we can draw together and
-            // which ones need to be drawn individually.
-            int locationProjection = glGetUniformLocation(shader.getProgramId(), "mProjection");
-            glUniformMatrix4fv(locationProjection, false, mProjection.get(stack.mallocFloat(16)));
-            int locationModel = glGetUniformLocation(shader.getProgramId(), "mModel");
-
-            glBindVertexArray(vaoId);
-
-            int startIndex = 0;
-            Matrix4f mModelGroup = rectangles.get(0).item3();
-            for (int r = 1; r <= rectangles.size(); r++) {
-                if (r == rectangles.size() || mModelGroup != rectangles.get(r).item3()) {
-                    memBuffers.add(MemoryUtil.memAllocFloat(16));
-                    glUniformMatrix4fv(locationModel, false, mModelGroup.get(memBuffers.get(memBuffers.size() - 1)));
-                    // * 3 because three values per index
-                    // * 2 because two triangles per rectangle
-                    glDrawElements(GL_TRIANGLES, (r - startIndex) * 3 * 2, GL_UNSIGNED_INT, (long) startIndex * 3 * 2 * Integer.BYTES);
-
-                    startIndex = r;
-                    if (r < rectangles.size()) {
-                        mModelGroup = rectangles.get(r).item3();
-                    }
-                }
-            }
-
-            glBindVertexArray(0);
-            shader.unbind();
-
-            glDeleteBuffers(vboVerts);
-            glDeleteBuffers(vboColors);
-            glDeleteBuffers(vboIndex);
-            glDeleteVertexArrays(vaoId);
-        }
-
-        for (var memory : memBuffers) {
-            MemoryUtil.memFree(memory);
-        }
-    }
-
-    public static void renderRectangles(Matrix4f mProjection, ShaderProgram shader, BuffersTexture buffers, ArrayList<Tuple5<Texture, Rectangle, Rectangle, Matrix4f, Vector3f>> rectangles) {
-        if (rectangles.isEmpty()) {
-            return;
-        }
-
-        List<FloatBuffer> memBuffers = new ArrayList<>();
-
-        int vaoId = glGenVertexArrays();
-        glBindVertexArray(vaoId);
-
-        int vboVerts = glGenBuffers();
-        FloatBuffer bufferPositions = MemoryUtil.memAllocFloat(buffers.positions.length);
-        bufferPositions.put(0, buffers.positions);
-        glBindBuffer(GL_ARRAY_BUFFER, vboVerts);
-        glBufferData(GL_ARRAY_BUFFER, bufferPositions, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferPositions);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
-
-        int vboCoords = glGenBuffers();
-        FloatBuffer bufferTexCoords = MemoryUtil.memAllocFloat(buffers.coords.length);
-        bufferTexCoords.put(0, buffers.coords);
-        glBindBuffer(GL_ARRAY_BUFFER, vboCoords);
-        glBufferData(GL_ARRAY_BUFFER, bufferTexCoords, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferTexCoords);
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
-
-        int vboIndex = glGenBuffers();
-        IntBuffer bufferIndex = MemoryUtil.memAllocInt(buffers.indices.length);
-        bufferIndex.put(0, buffers.indices);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboIndex);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, bufferIndex, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferIndex);
-
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindVertexArray(0);
-
-        shader.bind();
-
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            // Now, step through the list of rectangles and see which ones we can draw together and
-            // which ones need to be drawn individually.
-            int locationProjection = glGetUniformLocation(shader.getProgramId(), "mProjection");
-            glUniformMatrix4fv(locationProjection, false, mProjection.get(stack.mallocFloat(16)));
-            int locationModel = glGetUniformLocation(shader.getProgramId(), "mModel");
-            int locationColor = glGetUniformLocation(shader.getProgramId(), "color");
-
-            glBindVertexArray(vaoId);
-
-            int startIndex = 0;
-            Matrix4f mModelGroup = rectangles.get(0).item4();
-            for (int r = 1; r <= rectangles.size(); r++) {
-                if (r == rectangles.size() || rectangles.get(r - 1).item1() != rectangles.get(r).item1() || rectangles.get(r - 1).item5() != rectangles.get(r).item5() || mModelGroup != rectangles.get(r).item4()) {
-
-                    memBuffers.add(MemoryUtil.memAllocFloat(16));
-                    glUniformMatrix4fv(locationModel, false, mModelGroup.get(memBuffers.get(memBuffers.size() - 1)));
-                    memBuffers.add(MemoryUtil.memAllocFloat(3));
-                    glUniform3fv(locationColor, rectangles.get(r - 1).item5().get(memBuffers.get(memBuffers.size() - 1)));
-
-                    glActiveTexture(GL_TEXTURE0);
-                    rectangles.get(r - 1).item1().bind();
-
-                    // * 3 because three values per index
-                    // * 2 because two triangles per rectangle
-                    glDrawElements(GL_TRIANGLES, (r - startIndex) * 3 * 2, GL_UNSIGNED_INT, (long) startIndex * 3 * 2 * Integer.BYTES);
-
-                    startIndex = r;
-                    if (r < rectangles.size()) {
-                        mModelGroup = rectangles.get(r).item4();
-                    }
-                }
-            }
-
-            glBindVertexArray(0);
-            shader.unbind();
-
-            glDeleteBuffers(vboVerts);
-            glDeleteBuffers(vboCoords);
-            glDeleteBuffers(vboIndex);
-            glDeleteVertexArrays(vaoId);
-        }
-
-        for (var memory : memBuffers) {
-            MemoryUtil.memFree(memory);
-        }
-    }
-
-    public static void renderTextGlyphRectangles(Matrix4f mProjection, ShaderProgram shader, BuffersTexture buffers, ArrayList<Tuple8<Texture, Rectangle, Vector2f, Vector2f, Vector2f, Vector2f, Matrix4f, Vector3f>> rectangles) {
-        if (rectangles.isEmpty()) {
-            return;
-        }
-
-        List<FloatBuffer> memBuffers = new ArrayList<>();
-
-        int vaoId = glGenVertexArrays();
-        glBindVertexArray(vaoId);
-
-        int vboVerts = glGenBuffers();
-        FloatBuffer bufferPositions = MemoryUtil.memAllocFloat(buffers.positions.length);
-        bufferPositions.put(0, buffers.positions);
-        glBindBuffer(GL_ARRAY_BUFFER, vboVerts);
-        glBufferData(GL_ARRAY_BUFFER, bufferPositions, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferPositions);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
-
-        int vboCoords = glGenBuffers();
-        FloatBuffer bufferTexCoords = MemoryUtil.memAllocFloat(buffers.coords.length);
-        bufferTexCoords.put(0, buffers.coords);
-        glBindBuffer(GL_ARRAY_BUFFER, vboCoords);
-        glBufferData(GL_ARRAY_BUFFER, bufferTexCoords, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferTexCoords);
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
-
-        int vboIndex = glGenBuffers();
-        IntBuffer bufferIndex = MemoryUtil.memAllocInt(buffers.indices.length);
-        bufferIndex.put(0, buffers.indices);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboIndex);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, bufferIndex, GL_STATIC_DRAW);
-        MemoryUtil.memFree(bufferIndex);
-
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindVertexArray(0);
-
-        shader.bind();
-
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            // Now, step through the list of rectangles and see which ones we can draw together and
-            // which ones need to be drawn individually.
-            int locationProjection = glGetUniformLocation(shader.getProgramId(), "mProjection");
-            glUniformMatrix4fv(locationProjection, false, mProjection.get(stack.mallocFloat(16)));
-            int locationModel = glGetUniformLocation(shader.getProgramId(), "mModel");
-            int locationColor = glGetUniformLocation(shader.getProgramId(), "color");
-
-            glBindVertexArray(vaoId);
-
-            int startIndex = 0;
-            Matrix4f mModelGroup = rectangles.get(0).item7();
-            for (int r = 1; r <= rectangles.size(); r++) {
-                if (r == rectangles.size() || rectangles.get(r - 1).item1() != rectangles.get(r).item1() || rectangles.get(r - 1).item8() != rectangles.get(r).item8() || mModelGroup != rectangles.get(r).item7()) {
-
-                    memBuffers.add(MemoryUtil.memAllocFloat(16));
-                    glUniformMatrix4fv(locationModel, false, mModelGroup.get(memBuffers.get(memBuffers.size() - 1)));
-                    memBuffers.add(MemoryUtil.memAllocFloat(3));
-                    glUniform3fv(locationColor, rectangles.get(r - 1).item8().get(memBuffers.get(memBuffers.size() - 1)));
-
-                    glActiveTexture(GL_TEXTURE0);
-                    rectangles.get(r - 1).item1().bind();
-
-                    // * 3 because three values per index
-                    // * 2 because two triangles per rectangle
-                    glDrawElements(GL_TRIANGLES, (r - startIndex) * 3 * 2, GL_UNSIGNED_INT, (long) startIndex * 3 * 2 * Integer.BYTES);
-
-                    startIndex = r;
-                    if (r < rectangles.size()) {
-                        mModelGroup = rectangles.get(r).item7();
-                    }
-                }
-            }
-
-            glBindVertexArray(0);
-            shader.unbind();
-
-            glDeleteBuffers(vboVerts);
-            glDeleteBuffers(vboCoords);
-            glDeleteBuffers(vboIndex);
-            glDeleteVertexArrays(vaoId);
-        }
-
-        for (var memory : memBuffers) {
-            MemoryUtil.memFree(memory);
-        }
     }
 }

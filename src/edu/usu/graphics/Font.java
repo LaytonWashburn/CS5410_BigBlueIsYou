@@ -33,7 +33,6 @@ import java.util.ArrayList;
 public class Font {
     private FontTexture texture;
 
-
     public Font(String name, int style, int size, boolean outline) {
         try {
             java.awt.Font font = new java.awt.Font(name, style, size);
