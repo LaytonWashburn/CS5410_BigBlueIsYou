@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="controls menu fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/keybinds.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/keybinds.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/KeyBindSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/KeyBindSerializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/ControlsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ControlsView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +94,20 @@
       <option name="presentableId" value="Default" />
       <updated>1714403754133</updated>
     </task>
+    <task id="LOCAL-00001" summary="controls menu fixes">
+      <option name="closed" value="true" />
+      <created>1743563454210</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743563454210</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="controls menu fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="controls menu fixes" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
