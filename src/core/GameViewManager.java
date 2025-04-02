@@ -38,7 +38,7 @@ public class GameViewManager {
             {
                 put(GameStateEnum.MainMenu, new MainMenuView());
                 put(GameStateEnum.NewGame, new NewGameView(levelSerializer, graphics));
-                put(GameStateEnum.GamePlay, new GamePlayView());
+                put(GameStateEnum.GamePlay, new GamePlayView(keyBindSerializer));
                 put(GameStateEnum.Controls, new ControlsView(keyBindSerializer, keyBind));
                 put(GameStateEnum.Credits, new CreditsView());
             }

@@ -5,6 +5,8 @@ import core.GameStateEnum;
 import core.KeyboardInput;
 import edu.usu.graphics.Graphics2D;
 import level.Level;
+import utils.KeyBindSerializer;
+import utils.KeyBinds;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
@@ -13,6 +15,14 @@ public class GamePlayView extends GameStateView {
     private KeyboardInput inputKeyboard;
     private GameStateEnum nextGameState = GameStateEnum.GamePlay;
     private GameModel gameModel;
+
+    private KeyBindSerializer keyBindSerializer;
+    private KeyBinds keyBinds;
+
+    public GamePlayView(KeyBindSerializer serializer){
+        this.keyBindSerializer = serializer;
+        this.keyBinds = this.keyBindSerializer.keybinds;
+    }
 
     @Override
     public void initialize(Graphics2D graphics) {
@@ -28,7 +38,8 @@ public class GamePlayView extends GameStateView {
     @Override
     public void initializeSession() {
         Level level = gameViewManager.getSelectedLevel();
-        gameModel = new GameModel(level);
+        this.keyBindSerializer.loadGameState(this.keyBinds);
+        gameModel = new GameModel(level, this.keyBinds);
         gameModel.initialize(graphics);
         nextGameState = GameStateEnum.GamePlay;
     }

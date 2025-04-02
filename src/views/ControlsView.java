@@ -136,29 +136,37 @@ public class ControlsView extends GameStateView {
                 // This is a hacky solution, using the second part of the boolean
                 if (glfwGetKey(graphics.getWindow(), key) == GLFW_PRESS &&
                         (glfwGetKeyName(key, glfwGetKeyScancode(key)) != null || (262 <= key && key <= 263))) {
-                    System.out.println(key);
+                    System.out.println("Here is the new key: " + key);
                     switch (currentSelection) {
                         case ControlState.UP:
+                            System.out.println("In the UP");
                             this.keyBinds.UP = key;
                             break;
                         case ControlState.DOWN:
+                            System.out.println("In the DOWN");
                             this.keyBinds.DOWN = key;
                             break;
                         case ControlState.LEFT:
+                            System.out.println("In the LEFT");
                             this.keyBinds.LEFT = key;
                             break;
                         case ControlState.RIGHT:
+                            System.out.println("In the RIGHT");
                             this.keyBinds.RIGHT = key;
                             break;
                         case ControlState.RESET:
+                            System.out.println("In the RESET");
                             this.keyBinds.RESET = key;
                             break;
                         case ControlState.UNDO:
+                            System.out.println("In the UNDO");
                             this.keyBinds.UNDO = key;
                             break;
                         default:
+                            System.out.println("In the Default");
                             break;
                     }
+
                     this.keyBindSerializer.saveGameState(this.keyBinds); // Save the new key binds
                     waitingForNewKey = false;
 

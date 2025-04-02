@@ -24,7 +24,7 @@ public class KeyBindSerializer implements Runnable {
     private final Condition doSomething = lockSignal.newCondition();
     private Activity doThis = Activity.Nothing;
 
-    private KeyBinds keybinds;
+    public KeyBinds keybinds;
 
     private final Thread tInternal;
 

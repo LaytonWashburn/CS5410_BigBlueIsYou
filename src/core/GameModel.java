@@ -7,23 +7,28 @@ import level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
+import utils.KeyBinds;
 
 public class GameModel {
 
     private final Level level;
+    private KeyBinds keybinds;
 
     private final List<Entity> removeThese = new ArrayList<>();
     private final List<Entity> addThese = new ArrayList<>();
     private KeyboardInput sysKeyboardInput;
 
-    public GameModel(Level level) {
+    public GameModel(Level level, KeyBinds keybinds) {
+
         this.level = level;
+        this.keybinds = keybinds;
     }
 
     public void initialize(Graphics2D graphics) {
         sysKeyboardInput = new KeyboardInput(graphics.getWindow());
 
         System.out.println("GameModel initialized with level: " + level);
+        keybinds.printKeyBinds();
 
         for (int i = 0; i < level.getHeight(); i++) {
             for (int j = 0; j < level.getWidth(); j++) {
