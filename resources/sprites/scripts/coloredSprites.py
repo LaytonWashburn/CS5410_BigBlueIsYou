@@ -4,60 +4,52 @@
 
 from PIL import Image
 from os import mkdir
-import os
-import cv2 
 
-#open sprite sheet
+# open all sprite sheet
 sheet1 = Image.open('sheets/babaSheetObjects.png')
 sheet2 = Image.open('sheets/babaSheetObjects2.png')
 sheet3 = Image.open('sheets/babaSheetObjects3.png')
 sheet4 = Image.open('sheets/babaSheetObjects4.png')
+sheet5 = Image.open('sheets/babaSheetObjects5.png')
+sheet6 = Image.open('sheets/babaSheetObjects6.png')
 
-
-# -------------------------------------------------------------------
-#
-#
-# -------------------------------------------------------------------
-def removeBackground(src):
-  # Convert image to image gray 
-  tmp = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY) 
-    
-  # Applying thresholding technique 
-  _, alpha = cv2.threshold(tmp, 0, 255, cv2.THRESH_BINARY) 
-    
-  # Using cv2.split() to split channels  
-  # of coloured image 
-  b, g, r = cv2.split(src) 
-    
-  # Making list of Red, Green, Blue 
-  # Channels and alpha 
-  rgba = [b, g, r, alpha] 
-    
-  # Using cv2.merge() to merge rgba 
-  # into a coloured/multi-channeled image 
-  dst = cv2.merge(rgba, 4) 
-
-  return dst
 # -------------------------------------------------------------------
 #
 # Extracts a 3 state, vertically oriented, animated sprite
 #
 # -------------------------------------------------------------------
-def extractSprite3(filename, left, top, sheet):
-  size = 25 # everything is 24 pixels in size
+def extractSprite3(filename, left, top, sheet, colors, size):
   posX = size * left
   posY = size * top
 
   name = filename.replace(".png", "")
   for i in range(3):
     sprite = sheet.crop((posX, posY + i * size, posX + size, posY + (i + 1) * size))
-    sprite = removeBackground(sprite) 
-    #posY += size
-    sprite.save(f'{name}_{i}.png')
+    
+    # Convert sprite to RGBA mode for transparency
+    sprite = sprite.convert('RGBA')
+    
+    # Get the pixel data
+    pixels = sprite.load()
+    
+    # Loop through each pixel
+    for x in range(sprite.width):
+        for y in range(sprite.height):
+            r, g, b, a = pixels[x, y]
+            
+            # Check if the pixel matches any of our green colors
+            for green_r, green_g, green_b in colors:
+                if r == green_r and g == green_g and b == green_b:
+                    # Make the pixel transparent
+                    pixels[x, y] = (0, 0, 0, 0)
+                    break
+            print(r, g, b, a)
+
+    sprite.save(f'sprites/{name}_{i}.png')
   
   spriteSheet = Image.new('RGBA', (3 * size, size))
   for i in range(3):
-    spriteSheet.paste(Image.open(f'{name}_{i}.png'), ((i * size, 0)))
+    spriteSheet.paste(Image.open(f'sprites/{name}_{i}.png'), ((i * size, 0)))
   spriteSheet.save(filename)
 
 # LAVA 36
@@ -69,32 +61,46 @@ def extractSprite3(filename, left, top, sheet):
 # Extract all the object types required for the CS 5410 game
 #
 # -------------------------------------------------------------------
-extractSprite3('water.png', 19, 63, sheet4)
-# extractSprite3('lava.png', 16, 57)
-# extractSprite3('hedge.png', 15, 51)
-# extractSprite3('wall.png', 19, 21)
-# extractSprite3('rock.png', 15, 21)
-# extractSprite3('floor.png', 15, 45)
-# extractSprite3('flowers.png', 14, 24)
-# extractSprite3('grass.png', 10, 24)
-# extractSprite3('flag.png', 6, 21)
+## List of green background colors to check (in RGB format)
+## sheet, col, row
+# extractSprite3('water.png', 19, 63, sheet4, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('lava.png', 19, 36, sheet5, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('hedge.png', 19, 30, sheet5, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('wall.png',  19, 91, sheet5, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51), (0, 0, 255)], 25)
+# extractSprite3('grass.png',19, 27, sheet5, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('flag.png',  4, 9, sheet2,[(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('flowers.png', 9, 9, sheet2,[(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('rock.png', 9, 24, sheet2, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('floor.png', 11, 27, sheet2, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+
+##### DIDN'T WORK FOR ROCK and FLOOR
+
+
 
 # # -------------------------------------------------------------------
 # #
 # # Extract all the word types required for the CS 5410 game
 # #
 # # -------------------------------------------------------------------
-# extractSprite3('word-wall.png', 27, 33)
-# extractSprite3('word-rock.png', 11, 33)
-# extractSprite3('word-flag.png', 1, 30)
-# extractSprite3('word-baba.png', 6, 27)
-# extractSprite3('word-is.png', 18, 30)
-# extractSprite3('word-stop.png', 12, 42)
-# extractSprite3('word-push.png', 2, 42)
-# extractSprite3('word-lava.png', 24, 30)
-# extractSprite3('word-water.png', 28, 33)
-# extractSprite3('word-you.png', 20, 42)
-# extractSprite3('word-win.png', 17, 42)
-# extractSprite3('word-sink.png', 9, 42)
-# extractSprite3('word-kill.png', 5, 39)
+# extractSprite3('word-wall.png', 18, 60, sheet4, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('word-rock.png', 8, 24, sheet1, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('word-flag.png', 3, 9, sheet2,[(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('word-baba.png', 22, 0, sheet6, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('word-is.png', 9, 3, sheet3, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('word-stop.png', 6, 12, sheet3, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('word-push.png', 2, 12, sheet3, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('word-lava.png', 17, 36, sheet5, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('word-water.png', 17, 63, sheet4, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('word-you.png', 10, 9, sheet3, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25)
+# extractSprite3('word-win.png', 11, 45, sheet3, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25) ## Not quite right
+# extractSprite3('word-sink.png', 3, 152, sheet3, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25) ## Not quite right
+# extractSprite3('word-kill.png', 6, 149, sheet3, [(84, 165, 75),(58, 100, 51),(27, 89, 153),(58, 111, 51)], 25) ## Not quite right
 
+## Didn't work
+
+
+sheet1.close()
+sheet2.close()
+sheet3.close()
+sheet4.close()
+sheet5.close()
