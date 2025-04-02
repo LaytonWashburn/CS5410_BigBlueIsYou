@@ -119,7 +119,7 @@ public class KeyBindSerializer implements Runnable {
     /// This is where the actual deserialization of the game state is performed.
     /// Same note as above regarding the choice to use JSON formatting.
     public synchronized void loadSomething() {
-        System.out.println("loading something...");
+//        System.out.println("loading something...");
         try (FileReader reader = new FileReader("src/data/keybinds.json")) {
             // GameScores state = (new Gson()).fromJson(reader, GameScores.class);
             // this.gameScores.scores = state.scores;
