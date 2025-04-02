@@ -76,7 +76,6 @@ public class ControlsView extends GameStateView {
 
         // When Enter is pressed, set the appropriate new game state
         inputKeyboard.registerCommand(GLFW_KEY_ENTER, true, (double elapsedTime) -> {
-
             if(currentSelection == ControlState.EXIT){
                 nextGameState = GameStateEnum.MainMenu;
             }
@@ -102,8 +101,16 @@ public class ControlsView extends GameStateView {
 
     @Override
     public void initializeSession() {
+        inputKeyboard.setKeyPressed(GLFW_KEY_ENTER);
+        inputKeyboard.setKeyPressed(GLFW_KEY_ESCAPE);
         nextGameState = GameStateEnum.Controls;
         waitingForNewKey = false;
+        inputKeyboard.registerCommand(GLFW_KEY_UP, true, (double elapsedTime) -> {
+            currentSelection = currentSelection.previous();
+        });
+        inputKeyboard.registerCommand(GLFW_KEY_DOWN, true, (double elapsedTime) -> {
+            currentSelection = currentSelection.next();
+        });
     }
 
     @Override
