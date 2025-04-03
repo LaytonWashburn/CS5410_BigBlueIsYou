@@ -20,15 +20,18 @@ public class GameModel {
     private final List<Entity> removeThese = new ArrayList<>();
     private final List<Entity> addThese = new ArrayList<>();
     private KeyboardInput sysKeyboardInput;
+    private ArrayList<ecs.Systems.System> systems;
 
     public GameModel(Level level, KeyBinds keybinds) {
 
         this.level = level;
         this.keybinds = keybinds;
+        systems = new ArrayList<>();
     }
 
     public void initialize(Graphics2D graphics) {
         sysKeyboardInput = new KeyboardInput(graphics.getWindow());
+        systems.add(sysKeyboardInput);
 
         System.out.println("GameModel initialized with level: " + level);
         keybinds.printKeyBinds();
