@@ -3,13 +3,15 @@ package core;
 import ecs.Entities.*;
 import ecs.Systems.KeyboardInput;
 import edu.usu.graphics.*;
+import edu.usu.graphics.Color;
+import edu.usu.graphics.Graphics2D;
 import level.Level;
 
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.joml.Vector2f;
 import utils.KeyBinds;
 
 public class GameModel {
@@ -21,6 +23,11 @@ public class GameModel {
     private final List<Entity> addThese = new ArrayList<>();
     private KeyboardInput sysKeyboardInput;
 
+    private Graphics2D graphics;
+
+    private Texture texFlag = new Texture("resources/sprites/sprites/objects/flag/flag.png");
+    private AnimatedSprite flagAnimated = new AnimatedSprite(texFlag, new float[] {.1f, .1f, .1f}, new Vector2f(.2f, .2f), new Vector2f(0f, 0f));
+
     public GameModel(Level level, KeyBinds keybinds) {
 
         this.level = level;
@@ -29,6 +36,8 @@ public class GameModel {
 
     public void initialize(Graphics2D graphics) {
         sysKeyboardInput = new KeyboardInput(graphics.getWindow());
+
+        this.graphics = graphics;
 
         System.out.println("GameModel initialized with level: " + level);
         keybinds.printKeyBinds();
@@ -45,25 +54,9 @@ public class GameModel {
             }
             System.out.println();
         }
-
     }
 
-
-
     public void update(double elapsedTime) {
-
-//        Map changed = new HashMap<Long, Entity>();
-//        for (var system : ) {
-//                for (var entity in system.update(…)) {
-//                    changed.put(entity.getId(), entity);
-//                }
-//            }
-//
-//        for (var entity : changed.values()) {
-//                for (var system in systems) {
-//                    system.updatedEntity(entity);
-//                }
-//            }
         // Because ECS framework, input processing is now part of the update
         sysKeyboardInput.update(elapsedTime);
 
@@ -78,6 +71,8 @@ public class GameModel {
         addThese.clear();
 
         // Because ECS framework, rendering is now part of the update
+        flagAnimated.update(elapsedTime);
+        flagAnimated.draw(graphics, Color.WHITE);
     }
 
     private void addEntity(Entity entity) {
