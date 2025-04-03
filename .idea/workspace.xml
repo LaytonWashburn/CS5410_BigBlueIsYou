@@ -4,10 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="controls menu fixes">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="AnimatedSprite example">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Sprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/Sprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Adjective.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Adjective.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/BigBlue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/BigBlue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Flag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Flag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Lava.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Lava.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Noun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Noun.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Rock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Rock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Verb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Verb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Wall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Water.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Water.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderAnimatedSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/RenderAnimatedSprite.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +74,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ecs.Components" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.Driver - Windows/Linux">
     <configuration name="Driver - Windows/Linux" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="ECSStarter" />
@@ -102,12 +117,21 @@
       <option name="project" value="LOCAL" />
       <updated>1743563454210</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="AnimatedSprite example">
+      <option name="closed" value="true" />
+      <created>1743652673101</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1743652673101</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="controls menu fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="controls menu fixes" />
+    <MESSAGE value="AnimatedSprite example" />
+    <option name="LAST_COMMIT_MESSAGE" value="AnimatedSprite example" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

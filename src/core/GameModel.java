@@ -2,6 +2,7 @@ package core;
 
 import ecs.Entities.*;
 import ecs.Systems.KeyboardInput;
+import ecs.Systems.RenderAnimatedSprite;
 import edu.usu.graphics.*;
 import edu.usu.graphics.Color;
 import edu.usu.graphics.Graphics2D;
@@ -14,7 +15,11 @@ import java.util.List;
 import org.joml.Vector2f;
 import utils.KeyBinds;
 
+import javax.swing.*;
+
 public class GameModel {
+
+    private RenderAnimatedSprite sysRenderAnimatedSprite;
 
     private final Level level;
     private KeyBinds keybinds;
@@ -26,7 +31,7 @@ public class GameModel {
     private Graphics2D graphics;
 
     private Texture texFlag = new Texture("resources/sprites/sprites/objects/flag/flag.png");
-    private AnimatedSprite flagAnimated = new AnimatedSprite(texFlag, new float[] {.1f, .1f, .1f}, new Vector2f(.2f, .2f), new Vector2f(0f, 0f));
+    private Texture texRock = new Texture("resources/sprites/sprites/objects/rock/rock.png");
 
     public GameModel(Level level, KeyBinds keybinds) {
 
@@ -38,6 +43,8 @@ public class GameModel {
         sysKeyboardInput = new KeyboardInput(graphics.getWindow());
 
         this.graphics = graphics;
+
+        this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics);
 
         System.out.println("GameModel initialized with level: " + level);
         keybinds.printKeyBinds();
@@ -54,11 +61,16 @@ public class GameModel {
             }
             System.out.println();
         }
+
+        addEntityTemp(Flag.create(texFlag, 0f, 0f));
+        addEntityTemp(Rock.create(texRock, .25f, .25f, true));
     }
 
     public void update(double elapsedTime) {
         // Because ECS framework, input processing is now part of the update
         sysKeyboardInput.update(elapsedTime);
+
+        sysRenderAnimatedSprite.update(elapsedTime);
 
         for (var entity : removeThese) {
             removeEntity(entity);
@@ -71,13 +83,19 @@ public class GameModel {
         addThese.clear();
 
         // Because ECS framework, rendering is now part of the update
-        flagAnimated.update(elapsedTime);
-        flagAnimated.draw(graphics, Color.WHITE);
     }
 
     private void addEntity(Entity entity) {
         sysKeyboardInput.add(entity);
 
+    }
+
+    private void addEntityTemp(Entity entity) {
+        sysRenderAnimatedSprite.add(entity);
+    }
+
+    private void removeEntityTemp(Entity entity) {
+        sysRenderAnimatedSprite.remove(entity.getId());
     }
 
     private void removeEntity(Entity entity) {
