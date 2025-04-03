@@ -32,12 +32,6 @@ public class KeyBinds {
     }
 
     public void printKeyBinds(){
-//        System.out.println("LEFT: " + this.LEFT);
-//        System.out.println("RIGHT: " + this.RIGHT);
-//        System.out.println("UP: " + this.UP);
-//        System.out.println("DOWN: " + this.DOWN);
-//        System.out.println("RESET: " + this.RESET);
-//        System.out.println("UNDO: " + this.UNDO );
         System.out.println("LEFT: " + glfwGetKeyName(this.LEFT, glfwGetKeyScancode(this.LEFT)));
         System.out.println("RIGHT: " + glfwGetKeyName(this.RIGHT, glfwGetKeyScancode(this.RIGHT)));
         System.out.println("UP: " + glfwGetKeyName(this.UP, glfwGetKeyScancode(this.UP)));

@@ -135,7 +135,7 @@ public class ControlsView extends GameStateView {
 
                 // This is a hacky solution, using the second part of the boolean
                 if (glfwGetKey(graphics.getWindow(), key) == GLFW_PRESS &&
-                        (glfwGetKeyName(key, glfwGetKeyScancode(key)) != null || (262 <= key && key <= 263))) {
+                        (glfwGetKeyName(key, glfwGetKeyScancode(key)) != null || (262 <= key && key <= 265))) {
                     System.out.println("Here is the new key: " + key);
                     switch (currentSelection) {
                         case ControlState.UP:

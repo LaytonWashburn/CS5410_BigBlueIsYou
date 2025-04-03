@@ -6,7 +6,10 @@ import edu.usu.graphics.*;
 import level.Level;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import utils.KeyBinds;
 
 public class GameModel {
@@ -45,7 +48,22 @@ public class GameModel {
 
     }
 
+
+
     public void update(double elapsedTime) {
+
+//        Map changed = new HashMap<Long, Entity>();
+//        for (var system : ) {
+//                for (var entity in system.update(…)) {
+//                    changed.put(entity.getId(), entity);
+//                }
+//            }
+//
+//        for (var entity : changed.values()) {
+//                for (var system in systems) {
+//                    system.updatedEntity(entity);
+//                }
+//            }
         // Because ECS framework, input processing is now part of the update
         sysKeyboardInput.update(elapsedTime);
 
