@@ -73,7 +73,7 @@ public class GameModel {
     }
 
     public void initialize(Graphics2D graphics) {
-        sysKeyboardInput = new KeyboardInput(graphics.getWindow());
+        sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
         sysRenderSprite = new RenderSprite(graphics);
         this.graphics = graphics;
 
@@ -166,7 +166,7 @@ public class GameModel {
                 sysRenderAnimatedSprite.add(Floor.create(texFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'b': // big blue
-                addEntity(BigBlue.create(texBigBlue, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(BigBlue.create(texBigBlue, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, keybinds));
                 break;
             case 'l':  // floor
                 sysRenderAnimatedSprite.add(CreateSprites.createFloor(texFloor, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));

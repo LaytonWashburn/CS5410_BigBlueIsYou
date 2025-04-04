@@ -8,7 +8,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/RenderSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Components/KeyboardControlled.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/KeyboardControlled.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/BigBlue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/BigBlue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/KeyboardInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/KeyboardInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Direction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
