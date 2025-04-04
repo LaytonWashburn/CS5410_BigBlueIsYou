@@ -10,16 +10,16 @@ public class CreateSprites {
     static float frameTime = EntityConstants.frameTime;
     static float rectSize = EntityConstants.rectSize;
 
-    public static Entity createBigBlue(Texture texture, float posX, float posY){
-        Entity bigBlue = new Entity();
-
-        bigBlue.add(new ecs.Components.Sprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
-        bigBlue.add(new ecs.Components.Position(posX, posY));
-        bigBlue.add(new ecs.Components.Noun(NounType.LAVA));
-
-        return bigBlue;
-
-    }
+//    public static Entity createBigBlue(Texture texture, float posX, float posY){
+//        Entity bigBlue = new Entity();
+//
+//        bigBlue.add(new ecs.Components.Sprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
+//        bigBlue.add(new ecs.Components.Position(posX, posY));
+//        bigBlue.add(new ecs.Components.Noun(NounType.LAVA));
+//
+//        return bigBlue;
+//
+//    }
 
     public static Entity createWordWall(Texture texture, float posX, float posY){
         Entity wordWall = new Entity();
@@ -140,6 +140,17 @@ public class CreateSprites {
         wordWater.add(new ecs.Components.Noun(NounType.LAVA));
 
         return wordWater;
+
+    }
+
+    public static Entity createFloor(Texture texture, float posX, float posY){
+        Entity floor = new Entity();
+
+        floor.add(new ecs.Components.Sprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
+        floor.add(new ecs.Components.Position(posX, posY));
+        floor.add(new ecs.Components.Noun(NounType.LAVA));
+
+        return floor;
 
     }
 

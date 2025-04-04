@@ -3,6 +3,7 @@ package core;
 import ecs.Entities.*;
 import ecs.Systems.KeyboardInput;
 import ecs.Systems.RenderAnimatedSprite;
+import ecs.Systems.RenderSprite;
 import edu.usu.graphics.*;
 import edu.usu.graphics.Color;
 import edu.usu.graphics.Graphics2D;
@@ -29,7 +30,11 @@ public class GameModel {
 
     private final List<Entity> removeThese = new ArrayList<>();
     private final List<Entity> addThese = new ArrayList<>();
+
+    // Systems
     private KeyboardInput sysKeyboardInput;
+    private RenderSprite sysRenderSprite;
+
 
     private Graphics2D graphics;
 
@@ -69,7 +74,7 @@ public class GameModel {
 
     public void initialize(Graphics2D graphics) {
         sysKeyboardInput = new KeyboardInput(graphics.getWindow());
-
+        sysRenderSprite = new RenderSprite(graphics);
         this.graphics = graphics;
 
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics);
@@ -85,7 +90,7 @@ public class GameModel {
     public void update(double elapsedTime) {
         // Because ECS framework, input processing is now part of the update
         sysKeyboardInput.update(elapsedTime);
-
+        sysRenderSprite.update(elapsedTime);
         sysRenderAnimatedSprite.update(elapsedTime);
 
         for (var entity : removeThese) {
@@ -103,6 +108,7 @@ public class GameModel {
 
     private void addEntity(Entity entity) {
         sysKeyboardInput.add(entity);
+        sysRenderSprite.add(entity);
 
     }
 
@@ -116,6 +122,7 @@ public class GameModel {
 
     private void removeEntity(Entity entity) {
         sysKeyboardInput.remove(entity.getId());
+        sysRenderSprite.remove(entity.getId());
     }
 
     private void initializeObjectTypes(Level level){
@@ -159,10 +166,10 @@ public class GameModel {
                 sysRenderAnimatedSprite.add(Floor.create(texFlag, spriteRectTopLeftCorners[row][col].x, spriteRectTopLeftCorners[row][col].y));
                 break;
             case 'b': // big blue
-                sysRenderAnimatedSprite.add(CreateSprites.createBigBlue(texBigBlue, spriteRectTopLeftCorners[row][col].x, spriteRectTopLeftCorners[row][col].y));
+                addEntity(BigBlue.create(texBigBlue, spriteRectTopLeftCorners[row][col].x, spriteRectTopLeftCorners[row][col].y));
                 break;
             case 'l':  // floor
-                sysRenderAnimatedSprite.add(Lava.create(texLava, spriteRectTopLeftCorners[row][col].x, spriteRectTopLeftCorners[row][col].y));
+                sysRenderAnimatedSprite.add(CreateSprites.createFloor(texFloor, spriteRectTopLeftCorners[row][col].x, spriteRectTopLeftCorners[row][col].y));
                 break;
             case 'h': // hedge
                 sysRenderAnimatedSprite.add(Hedge.create(texHedge, spriteRectTopLeftCorners[row][col].x, spriteRectTopLeftCorners[row][col].y));

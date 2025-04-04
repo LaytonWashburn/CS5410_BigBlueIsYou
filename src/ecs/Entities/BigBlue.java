@@ -14,7 +14,9 @@ public class BigBlue {
 
         Entity bigBlue = new Entity();
 
-        bigBlue.add(new ecs.Components.Sprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
+        bigBlue.add(new ecs.Components.BigBlue());
+        bigBlue.add(new ecs.Components.Sprite());
+        bigBlue.add(new ecs.Components.Appearance(texture));
         bigBlue.add(new ecs.Components.Position(posX, posY));
         bigBlue.add(new ecs.Components.Noun(NounType.BIGBLUE));
 

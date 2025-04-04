@@ -10,16 +10,38 @@
 package ecs.Systems;
 
 
+import ecs.Entities.Entity;
+import edu.usu.graphics.Color;
+import edu.usu.graphics.Graphics2D;
+import edu.usu.graphics.Rectangle;
+import utils.EntityConstants;
+
 public class RenderSprite extends System{
 
-    public RenderSprite(){
-        super(ecs.Components.Sprite.class);
-
+    Graphics2D graphics;
+    Rectangle rectangle;
+    public RenderSprite(Graphics2D graphics){
+        super(ecs.Components.BigBlue.class,
+              ecs.Components.Sprite.class);
+        this.graphics = graphics;
     }
 
     @Override
     public void update(double elapsedTime) {
 
+        for(Entity entity : entities.values()){
+            renderEntity(entity);
+        }
+
+    }
+
+    public void renderEntity(Entity entity){
+
+        java.lang.System.out.println("In the render for Render Sprite");
+        var texture = entity.get(ecs.Components.Appearance.class).getTexture();
+        var position = entity.get(ecs.Components.Position.class);
+        rectangle = new Rectangle(position.posX, position.posY, EntityConstants.rectSize, EntityConstants.rectSize);
+        graphics.draw(texture, rectangle, Color.WHITE);
     }
 
 
