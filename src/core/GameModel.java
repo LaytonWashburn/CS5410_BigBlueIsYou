@@ -67,13 +67,21 @@ public class GameModel {
     private Texture texWordKill = new Texture("resources/sprites/sprites/words/kill/word-kill.png");
 
 
-    // Constructor
+    /**
+     * Method: Game Model
+     * @param level - Current level to wrap the game model around
+     * @param keybinds - Current key bind configuration for the game
+     */
     public GameModel(Level level, KeyBinds keybinds) {
         this.level = level;
         this.spriteRectCenters = getSpriteRectCenters();
         this.keybinds = keybinds;
     }
 
+    /**
+     * Method: Initialize
+     * @param graphics - Graphics 2D object
+     */
     public void initialize(Graphics2D graphics) {
         this.graphics = graphics;
 
@@ -82,13 +90,14 @@ public class GameModel {
         this.sysMovement = new Movement(graphics);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics);
 
-
         initializeObjectTypes(level);
 
-//        addEntityTemp(Flag.create(texFlag, 0f, 0f));
-//        addEntityTemp(Rock.create(texRock, .25f, .25f, true));
     }
 
+    /**
+     * Method: Update
+     * @param elapsedTime - Elapsed time since the last update
+     */
     public void update(double elapsedTime) {
         // Because ECS framework, input processing is now part of the update
         sysKeyboardInput.update(elapsedTime);
@@ -109,6 +118,11 @@ public class GameModel {
         // Because ECS framework, rendering is now part of the update
     }
 
+    /**
+     * Method: Add Entity
+     * Description: Passes entity to systems and each system determines if they are interested
+     * @param entity - Entity to add to systems
+     */
     private void addEntity(Entity entity) {
         sysKeyboardInput.add(entity);
         sysRenderSprite.add(entity);
@@ -116,20 +130,40 @@ public class GameModel {
 
     }
 
+
+    /**
+     * Method: Add Entity Temp
+     * @param entity - Entity to add to the animated sprite system
+     */
     private void addEntityTemp(Entity entity) {
         sysRenderAnimatedSprite.add(entity);
     }
 
+    /**
+     * Method: Remove Entity Temp
+     * @param entity - Entity to remove from animated sprite system
+     */
     private void removeEntityTemp(Entity entity) {
         sysRenderAnimatedSprite.remove(entity.getId());
     }
 
+    /**
+     * Method: Remove Entity
+     * Description: Passes entity to system and systems
+     * @param entity - Entity to remove
+     */
     private void removeEntity(Entity entity) {
         sysKeyboardInput.remove(entity.getId());
         sysRenderSprite.remove(entity.getId());
         sysMovement.remove(entity.getId());
     }
 
+
+    /**
+     * Method: Initialize Object Types
+     * Description: Method to iterate through the level input and call create layout method
+     * @param level - Input Level
+     */
     private void initializeObjectTypes(Level level){
 
         for (int i = 0; i < level.getHeight(); i++) {
@@ -148,6 +182,10 @@ public class GameModel {
         }
     }
 
+    /**
+     * Method: Get Sprite Rect Centers
+     * @return - Returns the top left corners
+     */
     private Vector2f[][] getSpriteRectCenters() {
         Vector2f[][] topLeftCorners = new Vector2f[level.getHeight()][level.getWidth()];
         for (int i = 0; i < level.getHeight(); i++) {
@@ -159,6 +197,13 @@ public class GameModel {
         return topLeftCorners;
     }
 
+    /**
+     * Method Create Layout
+     * Description: Method to take a character and create corresponding object
+     * @param symbol - Input symbol
+     * @param col - Column placement in game board
+     * @param row - Row placement in game board
+     */
     private void createLayout(Character symbol, int col, int row){
         switch (symbol) {
 
@@ -183,6 +228,9 @@ public class GameModel {
             case 'v': // Lava
                 sysRenderAnimatedSprite.add(CreateSprites.createLava(texLava, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
+            case 'g': // Grass
+                sysRenderAnimatedSprite.add(CreateSprites.createGrass(texGrass, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                break;
             case 'l':  // floor
                 sysRenderAnimatedSprite.add(CreateSprites.createFloor(texFloor, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
@@ -190,7 +238,7 @@ public class GameModel {
                 sysRenderAnimatedSprite.add(CreateSprites.createWordWall(texWordWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'R': // Word Rock
-                sysRenderAnimatedSprite.add(CreateSprites.createRock(texWordRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, true));
+                sysRenderAnimatedSprite.add(CreateSprites.createWordRock(texWordRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'F': // Word Flag
                 sysRenderAnimatedSprite.add(CreateSprites.createFloor(texWordFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));

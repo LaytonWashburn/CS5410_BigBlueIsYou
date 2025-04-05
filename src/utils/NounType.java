@@ -8,5 +8,8 @@ public enum NounType{
     FLAG,
     ROCK,
     LAVA,
+    FLOOR,
+    GRASS,
+    HEDGE,
     WATER
 }
