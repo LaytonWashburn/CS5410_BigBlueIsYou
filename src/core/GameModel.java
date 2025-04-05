@@ -161,6 +161,7 @@ public class GameModel {
 
     private void createLayout(Character symbol, int col, int row){
         switch (symbol) {
+
             case 'w': // wall
                 sysRenderAnimatedSprite.add(CreateSprites.createWall(texWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
@@ -173,9 +174,6 @@ public class GameModel {
             case 'b': // big blue
                 addEntity(CreateSprites.createBigBlue(texBigBlue, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, keybinds));
                 break;
-            case 'l':  // floor
-                sysRenderAnimatedSprite.add(CreateSprites.createFloor(texFloor, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
-                break;
             case 'h': // hedge
                 sysRenderAnimatedSprite.add(CreateSprites.createHedge(texHedge, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
@@ -184,6 +182,9 @@ public class GameModel {
                 break;
             case 'v': // Lava
                 sysRenderAnimatedSprite.add(CreateSprites.createLava(texLava, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                break;
+            case 'l':  // floor
+                sysRenderAnimatedSprite.add(CreateSprites.createFloor(texFloor, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'W': // Word Wall
                 sysRenderAnimatedSprite.add(CreateSprites.createWordWall(texWordWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
