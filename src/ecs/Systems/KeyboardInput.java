@@ -6,6 +6,7 @@ import utils.KeyBinds;
 import utils.EntityConstants;
 
 import java.security.Key;
+import java.util.ArrayList;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.GLFW.glfwGetKey;
@@ -24,7 +25,7 @@ public class KeyboardInput extends System {
     }
 
     @Override
-    public void update(double gameTime) {
+    public ArrayList<Entity> update(double gameTime) {
 
         for(Entity entity : entities.values()){
             var input = entity.get(ecs.Components.KeyboardControlled.class);
@@ -55,6 +56,6 @@ public class KeyboardInput extends System {
             input.keysPressed.put(Direction.DOWN, glfwGetKey(window, keyBinds.DOWN) == GLFW_PRESS);
 
         }
-
+        return new ArrayList<>(entities.values());
     }
 }

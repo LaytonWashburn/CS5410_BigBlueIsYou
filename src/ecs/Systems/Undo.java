@@ -1,8 +1,12 @@
 package ecs.Systems;
 
+import ecs.Entities.Entity;
+
+import java.util.ArrayList;
+
 public class Undo extends System{
     @Override
-    public void update(double elapsedTime) {
-
+    public ArrayList<Entity> update(double elapsedTime) {
+        return new ArrayList<>(entities.values());
     }
 }

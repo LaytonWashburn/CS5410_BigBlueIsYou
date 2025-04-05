@@ -13,6 +13,8 @@ import ecs.Entities.Entity;
 
 import edu.usu.graphics.*;
 
+import java.util.ArrayList;
+
 public class RenderAnimatedSprite extends System{
 
     private Graphics2D graphics;
@@ -24,7 +26,7 @@ public class RenderAnimatedSprite extends System{
     }
 
     @Override
-    public void update(double elapsedTime) {
+    public ArrayList<Entity> update(double elapsedTime) {
 
         for (Entity entity : entities.values()) {
             var animatedSprite = entity.get(ecs.Components.Sprite.class);
@@ -32,5 +34,7 @@ public class RenderAnimatedSprite extends System{
             animatedSprite.animatedSprite.update(elapsedTime);
             animatedSprite.animatedSprite.draw(graphics, edu.usu.graphics.Color.WHITE);
         }
+
+        return new ArrayList<>(entities.values());
     }
 }

@@ -60,6 +60,7 @@ public final class Entity implements Cloneable{
 
     /**
      * Method: Clone
+     * Description: Clone method to make a deep clone of the entity
      * @return Entity - Deep cloned entity
      */
     @Override

@@ -44,7 +44,7 @@ public class CreateSprites {
      * @param pushable - Boolean to represent it's pushable or not
      * @return Entity - Entity created
      */
-    public static Entity createRock(Texture texture, float posX, float posY, boolean pushable){
+    public static Entity createRock(Texture texture, float posX, float posY){
         float frameTime = EntityConstants.frameTime;
         float rectSize = EntityConstants.rectSize;
 
@@ -53,9 +53,6 @@ public class CreateSprites {
         rock.add(new ecs.Components.Sprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
         rock.add(new ecs.Components.Position(posX, posY));
         rock.add(new ecs.Components.Noun(NounType.ROCK));
-        if(pushable){
-            rock.add(new ecs.Components.Property(Properties.PUSHABLE));
-        }
 
         return rock;
 

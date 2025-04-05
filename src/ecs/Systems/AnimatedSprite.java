@@ -12,7 +12,7 @@ public class AnimatedSprite extends System{
                 ecs.Components.Animated.class);
     }
     @Override
-    public void update(double elapsedTime) {
-
+    public ArrayList<Entity> update(double elapsedTime) {
+        return new ArrayList<>(entities.values());
     }
 }

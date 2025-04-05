@@ -16,6 +16,8 @@ import edu.usu.graphics.Graphics2D;
 import edu.usu.graphics.Rectangle;
 import utils.EntityConstants;
 
+import java.util.ArrayList;
+
 public class RenderSprite extends System{
 
     Graphics2D graphics;
@@ -27,12 +29,12 @@ public class RenderSprite extends System{
     }
 
     @Override
-    public void update(double elapsedTime) {
+    public ArrayList<Entity> update(double elapsedTime) {
 
         for(Entity entity : entities.values()){
             renderEntity(entity);
         }
-
+        return new ArrayList<>(entities.values());
     }
 
     public void renderEntity(Entity entity){

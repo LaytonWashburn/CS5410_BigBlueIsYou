@@ -3,6 +3,7 @@ package ecs.Systems;
 import ecs.Components.Component;
 import ecs.Entities.Entity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,10 +17,13 @@ public abstract class System {
 
     protected Map<Long, Entity> entities = new HashMap<>();
     private final Class<? extends Component>[] componentTypes;
+    public static ArrayList<System> systems = new ArrayList<>();
 
     @SafeVarargs
     public System(Class<? extends Component>... types) {
+
         this.componentTypes = types;
+        systems.add(this);
     }
 
     /**
@@ -58,5 +62,13 @@ public abstract class System {
     /**
      * Derived systems must override this method to perform update logic specific to that system.
      */
-    public abstract void update(double elapsedTime);
+    // public abstract void update(double elapsedTime);
+    public abstract ArrayList<Entity> update(double elapsedTime);
+
+    public void updatedEntity(Entity entity) {
+        boolean interested = isInterested(entity);
+        if (!interested) {
+            entities.remove(entity.getId());
+        }
+    }
 }

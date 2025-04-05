@@ -12,10 +12,12 @@ import level.Level;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.joml.Vector2f;
 import utils.KeyBinds;
+import static ecs.Systems.System.*;
 
 import javax.swing.*;
 
@@ -76,6 +78,7 @@ public class GameModel {
         this.level = level;
         this.spriteRectCenters = getSpriteRectCenters();
         this.keybinds = keybinds;
+        systems.clear(); // clear the system list if you're starting a fresh game
     }
 
     /**
@@ -90,6 +93,8 @@ public class GameModel {
         this.sysMovement = new Movement(graphics);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics);
 
+        System.out.println("Size of the systems is: " + systems.size());
+
         initializeObjectTypes(level);
 
         Entity a = CreateSprites.createLava(texLava, 0.0f, 0.0f);
@@ -103,10 +108,41 @@ public class GameModel {
      */
     public void update(double elapsedTime) {
         // Because ECS framework, input processing is now part of the update
-        sysKeyboardInput.update(elapsedTime);
-        sysRenderSprite.update(elapsedTime);
-        sysRenderAnimatedSprite.update(elapsedTime);
-        sysMovement.update(elapsedTime);
+
+    // Leaving this system updates in in-case something weird happens
+// //        sysKeyboardInput.update(elapsedTime);
+// //        sysRenderSprite.update(elapsedTime);
+// //        sysRenderAnimatedSprite.update(elapsedTime);
+// //        sysMovement.update(elapsedTime);
+
+        var changed = new HashMap<Long, Entity>();
+        for(ecs.Systems.System system : systems) {
+            for(Entity entity : system.update(elapsedTime)){
+                changed.put(entity.getId(), entity);
+            }
+        }
+
+        for (var entity : changed.values()) {
+            for (var system : systems) {
+                system.updatedEntity(entity);
+            }
+        }
+
+//        var changed = new HashMap<Long, Entity>();
+//        for (var system in systems) {
+//            for (var entity in system.update(…)) {
+//                changed.put(entity.getId(), entity);
+//            }
+//        }
+//
+//        for (var entity in changed) {
+//            for (var system in systems) {
+//                system.updatedEntity(entity);
+//            }
+//        }
+
+
+
 
         for (var entity : removeThese) {
             removeEntity(entity);
@@ -214,7 +250,7 @@ public class GameModel {
                 sysRenderAnimatedSprite.add(CreateSprites.createWall(texWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'r': // rock
-                sysRenderAnimatedSprite.add(CreateSprites.createRock(texRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, true));
+                sysRenderAnimatedSprite.add(CreateSprites.createRock(texRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'f': // flag
                 sysRenderAnimatedSprite.add(CreateSprites.createFlag(texFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
