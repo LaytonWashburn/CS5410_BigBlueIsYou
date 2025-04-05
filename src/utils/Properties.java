@@ -1,5 +1,8 @@
 package utils;
 
 public enum Properties {
-    PUSHABLE
+    PUSHABLE,
+    MOVE,
+    WIN,
+    KILL
 }

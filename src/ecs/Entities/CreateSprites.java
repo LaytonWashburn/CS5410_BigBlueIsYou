@@ -3,12 +3,124 @@ package ecs.Entities;
 import edu.usu.graphics.AnimatedSprite;
 import edu.usu.graphics.Texture;
 import org.joml.Vector2f;
-import utils.EntityConstants;
-import utils.NounType;
+import utils.*;
+
+import java.util.Map;
 
 public class CreateSprites {
     static float frameTime = EntityConstants.frameTime;
     static float rectSize = EntityConstants.rectSize;
+
+    public static Entity createLava(Texture texture, float posX, float posY){
+        float frameTime = EntityConstants.frameTime;
+        float rectSize = EntityConstants.rectSize;
+
+        Entity lava = new Entity();
+
+        lava.add(new ecs.Components.Sprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
+        lava.add(new ecs.Components.Position(posX, posY));
+        lava.add(new ecs.Components.Noun(NounType.LAVA));
+
+        return lava;
+
+    }
+
+    public static Entity createWater(Texture texture, float posX, float posY){
+        float frameTime = EntityConstants.frameTime;
+        float rectSize = EntityConstants.rectSize;
+
+        Entity water = new Entity();
+
+        water.add(new ecs.Components.Sprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
+        water.add(new ecs.Components.Position(posX, posY));
+        water.add(new ecs.Components.Noun(NounType.WATER));
+
+        return water;
+
+    }
+
+    public static Entity createHedge(Texture texture, float posX, float posY){
+        float frameTime = EntityConstants.frameTime;
+        float rectSize = EntityConstants.rectSize;
+
+        Entity hedge = new Entity();
+
+        hedge.add(new ecs.Components.Sprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
+        hedge.add(new ecs.Components.Position(posX, posY));
+        hedge.add(new ecs.Components.Noun(NounType.WALL));
+
+        return hedge;
+    }
+
+    public static Entity createBigBlue(Texture texture, float posX, float posY, KeyBinds keybinds){
+        float frameTime = EntityConstants.frameTime;
+        float rectSize = EntityConstants.rectSize;
+
+        Entity bigBlue = new Entity();
+
+        bigBlue.add(new ecs.Components.BigBlue());
+        bigBlue.add(new ecs.Components.Sprite());
+        bigBlue.add(new ecs.Components.Appearance(texture));
+        bigBlue.add(new ecs.Components.Position(posX - EntityConstants.rectSize / 2, posY - EntityConstants.rectSize / 2));
+        bigBlue.add(new ecs.Components.Noun(NounType.BIGBLUE));
+        bigBlue.add(new ecs.Components.Movement(Direction.STOP));
+        bigBlue.add(new ecs.Components.Property(Properties.MOVE));
+        bigBlue.add(new ecs.Components.KeyboardControlled(
+                Map.of(keybinds.UP, Direction.UP,
+                        keybinds.DOWN, Direction.DOWN,
+                        keybinds.RIGHT, Direction.RIGHT,
+                        keybinds.LEFT, Direction.LEFT
+                )
+        ));
+
+        return  bigBlue;
+
+    }
+
+    public static Entity createFlag(Texture texture, float posX, float posY){
+        float frameTime = EntityConstants.frameTime;
+        float rectSize = EntityConstants.rectSize;
+
+        Entity flag = new Entity();
+
+        flag.add(new ecs.Components.Sprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
+        flag.add(new ecs.Components.Position(posX, posY));
+        flag.add(new ecs.Components.Noun(NounType.FLAG));
+
+        return flag;
+
+    }
+
+    public static Entity createRock(Texture texture, float posX, float posY, boolean pushable){
+        float frameTime = EntityConstants.frameTime;
+        float rectSize = EntityConstants.rectSize;
+
+        Entity rock = new Entity();
+
+        rock.add(new ecs.Components.Sprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
+        rock.add(new ecs.Components.Position(posX, posY));
+        rock.add(new ecs.Components.Noun(NounType.ROCK));
+        if(pushable){
+            rock.add(new ecs.Components.Property(Properties.PUSHABLE));
+        }
+
+        return rock;
+
+    }
+
+    public static Entity createWall(Texture texture, float posX, float posY){
+        float frameTime = EntityConstants.frameTime;
+        float rectSize = EntityConstants.rectSize;
+
+        Entity wall = new Entity();
+
+        wall.add(new ecs.Components.Sprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
+        wall.add(new ecs.Components.Position(posX, posY));
+        wall.add(new ecs.Components.Noun(NounType.WALL));
+
+        return wall;
+
+    }
 
     public static Entity createWordWall(Texture texture, float posX, float posY){
         Entity wordWall = new Entity();

@@ -162,31 +162,37 @@ public class GameModel {
     private void createLayout(Character symbol, int col, int row){
         switch (symbol) {
             case 'w': // wall
-                sysRenderAnimatedSprite.add(Wall.create(texWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                sysRenderAnimatedSprite.add(CreateSprites.createWall(texWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'r': // rock
-                sysRenderAnimatedSprite.add(Rock.create(texRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, true));
+                sysRenderAnimatedSprite.add(CreateSprites.createRock(texRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, true));
                 break;
             case 'f': // flag
-                sysRenderAnimatedSprite.add(Floor.create(texFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                sysRenderAnimatedSprite.add(CreateSprites.createFlag(texFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'b': // big blue
-                addEntity(BigBlue.create(texBigBlue, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, keybinds));
+                addEntity(CreateSprites.createBigBlue(texBigBlue, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, keybinds));
                 break;
             case 'l':  // floor
                 sysRenderAnimatedSprite.add(CreateSprites.createFloor(texFloor, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'h': // hedge
-                sysRenderAnimatedSprite.add(Hedge.create(texHedge, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                sysRenderAnimatedSprite.add(CreateSprites.createHedge(texHedge, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                break;
+            case 'a': // Water / goop
+                sysRenderAnimatedSprite.add(CreateSprites.createWater(texWater, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                break;
+            case 'v': // Lava
+                sysRenderAnimatedSprite.add(CreateSprites.createLava(texLava, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'W': // Word Wall
                 sysRenderAnimatedSprite.add(CreateSprites.createWordWall(texWordWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'R': // Word Rock
-                sysRenderAnimatedSprite.add(Rock.create(texWordRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, true));
+                sysRenderAnimatedSprite.add(CreateSprites.createRock(texWordRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, true));
                 break;
             case 'F': // Word Flag
-                sysRenderAnimatedSprite.add(Floor.create(texWordFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                sysRenderAnimatedSprite.add(CreateSprites.createFloor(texWordFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'B': // Word Big Blue
                 sysRenderAnimatedSprite.add(CreateSprites.createWordBaba(texWordBaba, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
@@ -206,7 +212,7 @@ public class GameModel {
             case 'A': // Word Water
                 sysRenderAnimatedSprite.add(CreateSprites.createWordWater(texWordWater, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
-            case 'Y': // Word You
+            case 'Y': // Word, You
                 sysRenderAnimatedSprite.add(CreateSprites.createWordYou(texWordYou, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'X': // Word Win

@@ -4,13 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="BigBlue movement">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Moved movement to Movement system.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/BigBlue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/BigBlue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/KeyboardInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/KeyboardInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/RenderSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/BigBlue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Flag.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Floor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Hedge.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Lava.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Rock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Wall.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Water.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/Properties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Properties.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,12 +41,12 @@
     &quot;assignee&quot;: &quot;LaytonWashburn&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:LaytonWashburn/CS5410_BigBlueIsYou.git",
-    "accountId": "bb1a2716-acc5-4b6d-aca9-35ee4e29f2c7"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:LaytonWashburn/CS5410_BigBlueIsYou.git&quot;,
+    &quot;accountId&quot;: &quot;bb1a2716-acc5-4b6d-aca9-35ee4e29f2c7&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -131,7 +137,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743728626064</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Moved movement to Movement system.">
+      <option name="closed" value="true" />
+      <created>1743873825792</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1743873825792</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,7 +155,8 @@
     <MESSAGE value="controls menu fixes" />
     <MESSAGE value="AnimatedSprite example" />
     <MESSAGE value="BigBlue movement" />
-    <option name="LAST_COMMIT_MESSAGE" value="BigBlue movement" />
+    <MESSAGE value="Moved movement to Movement system." />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved movement to Movement system." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
