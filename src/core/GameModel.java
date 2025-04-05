@@ -2,6 +2,7 @@ package core;
 
 import ecs.Entities.*;
 import ecs.Systems.KeyboardInput;
+import ecs.Systems.Movement;
 import ecs.Systems.RenderAnimatedSprite;
 import ecs.Systems.RenderSprite;
 import edu.usu.graphics.*;
@@ -34,6 +35,7 @@ public class GameModel {
     // Systems
     private KeyboardInput sysKeyboardInput;
     private RenderSprite sysRenderSprite;
+    private Movement sysMovement;
 
 
     private Graphics2D graphics;
@@ -73,13 +75,13 @@ public class GameModel {
     }
 
     public void initialize(Graphics2D graphics) {
-        sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
-        sysRenderSprite = new RenderSprite(graphics);
         this.graphics = graphics;
 
+        this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
+        this.sysRenderSprite = new RenderSprite(graphics);
+        this.sysMovement = new Movement(graphics);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics);
 
-        keybinds.printKeyBinds();
 
         initializeObjectTypes(level);
 
@@ -92,6 +94,7 @@ public class GameModel {
         sysKeyboardInput.update(elapsedTime);
         sysRenderSprite.update(elapsedTime);
         sysRenderAnimatedSprite.update(elapsedTime);
+        sysMovement.update(elapsedTime);
 
         for (var entity : removeThese) {
             removeEntity(entity);
@@ -109,6 +112,7 @@ public class GameModel {
     private void addEntity(Entity entity) {
         sysKeyboardInput.add(entity);
         sysRenderSprite.add(entity);
+        sysMovement.add(entity);
 
     }
 
@@ -123,6 +127,7 @@ public class GameModel {
     private void removeEntity(Entity entity) {
         sysKeyboardInput.remove(entity.getId());
         sysRenderSprite.remove(entity.getId());
+        sysMovement.remove(entity.getId());
     }
 
     private void initializeObjectTypes(Level level){

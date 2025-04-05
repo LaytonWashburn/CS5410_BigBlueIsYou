@@ -38,7 +38,7 @@ public class RenderSprite extends System{
     public void renderEntity(Entity entity){
         var texture = entity.get(ecs.Components.Appearance.class).getTexture();
         var position = entity.get(ecs.Components.Position.class);
-        rectangle = new Rectangle(position.posX, position.posY, EntityConstants.rectSize, EntityConstants.rectSize);
+        rectangle = new Rectangle(position.posX, position.posY, EntityConstants.rectSize, EntityConstants.rectSize, 1.0f);
         graphics.draw(texture, rectangle, Color.WHITE);
     }
 

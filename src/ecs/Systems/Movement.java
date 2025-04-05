@@ -2,6 +2,8 @@ package ecs.Systems;
 
 import ecs.Entities.Entity;
 import edu.usu.graphics.Graphics2D;
+import utils.Direction;
+import utils.EntityConstants;
 
 public class Movement extends System{
 
@@ -25,6 +27,23 @@ public class Movement extends System{
     }
 
     public void renderEntity(Entity entity){
+        var position = entity.get(ecs.Components.Position.class);
+        var moving = entity.get(ecs.Components.Movement.class);
 
+        switch (moving.moving){
+            case Direction.UP:
+                position.posY -= EntityConstants.rectSize;
+                break;
+            case Direction.DOWN:
+                position.posY += EntityConstants.rectSize;
+                break;
+            case Direction.LEFT:
+                position.posX -= EntityConstants.rectSize;
+                break;
+            case Direction.RIGHT:
+                position.posX += EntityConstants.rectSize;
+                break;
+            default:
+        }
     }
 }

@@ -28,22 +28,24 @@ public class KeyboardInput extends System {
 
         for(Entity entity : entities.values()){
             var input = entity.get(ecs.Components.KeyboardControlled.class);
-            var position = entity.get(ecs.Components.Position.class);
+            var moving = entity.get(ecs.Components.Movement.class);
+
+            moving.moving = Direction.STOP;
 
             if (glfwGetKey(window, input.lookup.get(Direction.LEFT)) == GLFW_PRESS && !input.keysPressed.get(Direction.LEFT)) {
-                position.posX -= EntityConstants.rectSize;
+                moving.moving = Direction.LEFT;
                 input.keysPressed.put(Direction.LEFT, true);
             }
             if (glfwGetKey(window, input.lookup.get(Direction.RIGHT)) == GLFW_PRESS && !input.keysPressed.get(Direction.RIGHT)) {
-                position.posX += EntityConstants.rectSize;
+                moving.moving = Direction.RIGHT;
                 input.keysPressed.put(Direction.RIGHT, true);
             }
             if (glfwGetKey(window, input.lookup.get(Direction.UP)) == GLFW_PRESS && !input.keysPressed.get(Direction.UP)) {
-                position.posY -= EntityConstants.rectSize;
+                moving.moving = Direction.UP;
                 input.keysPressed.put(Direction.UP, true);
             }
             if (glfwGetKey(window, input.lookup.get(Direction.DOWN)) == GLFW_PRESS && !input.keysPressed.get(Direction.DOWN)) {
-                position.posY += EntityConstants.rectSize;
+                moving.moving = Direction.DOWN;
                 input.keysPressed.put(Direction.DOWN, true);
             }
 

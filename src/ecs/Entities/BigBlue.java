@@ -21,6 +21,7 @@ public class BigBlue {
         bigBlue.add(new ecs.Components.Appearance(texture));
         bigBlue.add(new ecs.Components.Position(posX - EntityConstants.rectSize / 2, posY - EntityConstants.rectSize / 2));
         bigBlue.add(new ecs.Components.Noun(NounType.BIGBLUE));
+        bigBlue.add(new ecs.Components.Movement(Direction.STOP));
         bigBlue.add(new ecs.Components.KeyboardControlled(
                 Map.of(keybinds.UP, Direction.UP,
                         keybinds.DOWN, Direction.DOWN,
