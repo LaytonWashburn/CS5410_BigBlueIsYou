@@ -82,7 +82,7 @@ public class GameModel {
      * Method: Initialize
      * @param graphics - Graphics 2D object
      */
-    public void initialize(Graphics2D graphics) {
+    public void initialize(Graphics2D graphics) throws CloneNotSupportedException{
         this.graphics = graphics;
 
         this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
@@ -92,6 +92,9 @@ public class GameModel {
 
         initializeObjectTypes(level);
 
+        Entity a = CreateSprites.createLava(texLava, 0.0f, 0.0f);
+        Entity b = a.clone();
+        System.out.println(b);
     }
 
     /**

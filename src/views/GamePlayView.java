@@ -40,7 +40,11 @@ public class GamePlayView extends GameStateView {
         Level level = gameViewManager.getSelectedLevel();
         this.keyBindSerializer.loadGameState(this.keyBinds);
         gameModel = new GameModel(level, this.keyBinds);
-        gameModel.initialize(graphics);
+        try {
+            gameModel.initialize(graphics);
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
         nextGameState = GameStateEnum.GamePlay;
     }
 

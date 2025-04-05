@@ -8,7 +8,7 @@ import java.util.stream.*;
 /**
  * A named entity that contains a collection of Component instances
  */
-public final class Entity {
+public final class Entity implements Cloneable{
     private static long nextId = 0;
 
     private long id;
@@ -56,5 +56,14 @@ public final class Entity {
     @Override
     public String toString() {
         return String.format("%d: %s", id, components.values().stream().map(c -> c.getClass().getSimpleName()).collect(Collectors.joining(", ")));
+    }
+
+    /**
+     * Method: Clone
+     * @return Entity - Deep cloned entity
+     */
+    @Override
+    public Entity clone() throws CloneNotSupportedException {
+        return (Entity) super.clone();
     }
 }
