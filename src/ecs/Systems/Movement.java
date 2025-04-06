@@ -12,15 +12,13 @@ public class Movement extends System{
     Graphics2D graphics;
 
     public Movement(Graphics2D graphics){
-        super(ecs.Components.KeyboardControlled.class,
-                ecs.Components.BigBlue.class);
+        super(ecs.Components.KeyboardControlled.class);
 
         this.graphics = graphics;
 
     }
     @Override
     public ArrayList<Entity> update(double elapsedTime) {
-
 
         for(Entity entity : entities.values()){
             renderEntity(entity);

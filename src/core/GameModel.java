@@ -1,14 +1,13 @@
 package core;
 
 import ecs.Entities.*;
+import ecs.Systems.*;
 import ecs.Systems.KeyboardInput;
-import ecs.Systems.Movement;
-import ecs.Systems.RenderAnimatedSprite;
-import ecs.Systems.RenderStaticSprite;
 import edu.usu.graphics.*;
 import edu.usu.graphics.Graphics2D;
 import level.Level;
 
+import java.lang.System;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +33,7 @@ public class GameModel {
     private KeyboardInput sysKeyboardInput;
     private RenderStaticSprite sysRenderStaticSprite;
     private Movement sysMovement;
+    private Rules sysRules;
 
 
     private Graphics2D graphics;
@@ -91,6 +91,7 @@ public class GameModel {
         this.sysRenderStaticSprite = new RenderStaticSprite(graphics);
         this.sysMovement = new Movement(graphics);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics);
+        this.sysRules = new Rules(keybinds);
 
         System.out.println("Size of the systems is: " + systems.size());
 
@@ -237,7 +238,7 @@ public class GameModel {
                 addEntity(CreateSprites.createFlag(texFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'b': // big blue
-                addEntity(CreateSprites.createBigBlue(texBigBlue, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, keybinds));
+                addEntity(CreateSprites.createBigBlue(texBigBlue, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'h': // hedge
                 addEntity(CreateSprites.createHedge(texHedge, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));

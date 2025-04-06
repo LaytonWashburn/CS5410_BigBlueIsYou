@@ -46,6 +46,10 @@ public class AnimatedSprite {
         this.center = center;
     }
 
+    public void setCenter(Vector2f center) {
+        this.center = center;
+    }
+
     public void update(double elapsedTime) {
         animationTime += elapsedTime;
         if (animationTime >= spriteTime[subImageIndex]) {
