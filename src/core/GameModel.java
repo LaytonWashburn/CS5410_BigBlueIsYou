@@ -72,6 +72,9 @@ public class GameModel {
      */
     public GameModel(Level level, KeyBinds keybinds) {
         this.level = level;
+        System.out.println("Level: " + level.getName());
+        System.out.println("Level Width: " + level.getWidth());
+        System.out.println("Level Height: " + level.getHeight());
         this.spriteRectCenters = getSpriteRectCenters();
         this.keybinds = keybinds;
         systems.clear(); // clear the system list if you're starting a fresh game
@@ -207,8 +210,8 @@ public class GameModel {
         Vector2f[][] centers = new Vector2f[level.getHeight()][level.getWidth()];
         for (int i = 0; i < level.getHeight(); i++) {
             for (int j = 0; j < level.getWidth(); j++) {
-                centers[i][j] = new Vector2f((-EntityConstants.rectSize * ((float) level.getWidth() / 2) + i*EntityConstants.rectSize + EntityConstants.rectSize/2),
-                        (-EntityConstants.rectSize * ((float) level.getHeight() / 2)) + j*EntityConstants.rectSize + EntityConstants.rectSize/2);
+                centers[i][j] = new Vector2f((-EntityConstants.rectSize * ((float) level.getWidth() / 2) + j*EntityConstants.rectSize + EntityConstants.rectSize/2),
+                        (-EntityConstants.rectSize * ((float) level.getHeight() / 2)) + i*EntityConstants.rectSize + EntityConstants.rectSize/2);
             }
         }
         return centers;
@@ -221,7 +224,7 @@ public class GameModel {
      * @param col - Column placement in game board
      * @param row - Row placement in game board
      */
-    private void createLayout(Character symbol, int col, int row){
+    private void createLayout(Character symbol, int row, int col){
         switch (symbol) {
 
             case 'w': // wall

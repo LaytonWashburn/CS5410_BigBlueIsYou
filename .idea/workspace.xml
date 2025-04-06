@@ -4,20 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="properly rendering levels">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Cleanup and refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Animated.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Appearance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/StaticSprite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Sprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/AnimatedSprite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Adjective.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Adjective.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Noun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Noun.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Verb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Verb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/AnimatedSprite.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderAnimatedSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/RenderAnimatedSprite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/RenderStaticSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/levels-all.bbiy" beforeDir="false" afterPath="$PROJECT_DIR$/src/levels-all.bbiy" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +128,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743652673101</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Cleanup and refactoring">
+      <option name="closed" value="true" />
+      <created>1743958937836</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1743958937836</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,7 +145,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="controls menu fixes" />
     <MESSAGE value="AnimatedSprite example" />
-    <option name="LAST_COMMIT_MESSAGE" value="AnimatedSprite example" />
+    <MESSAGE value="Cleanup and refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleanup and refactoring" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
