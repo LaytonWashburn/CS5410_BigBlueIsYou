@@ -2,11 +2,11 @@ package ecs.Components;
 
 import edu.usu.graphics.Texture;
 
-public class Appearance extends Component{
+public class StaticSprite extends Component{
 
     Texture texture;
 
-    public Appearance(Texture texture){
+    public StaticSprite(Texture texture){
         this.texture = texture;
     }
 

@@ -14,7 +14,7 @@ public class Adjective {
 
         Entity adjective = new Entity();
 
-        adjective.add(new ecs.Components.Sprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
+        adjective.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
         adjective.add(new ecs.Components.Position(posX, posY));
         adjective.add(new ecs.Components.Noun(NounType.TEXT));
         adjective.add(new ecs.Components.Text(TextType.ADJECTIVE));

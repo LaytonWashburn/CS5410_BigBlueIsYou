@@ -14,7 +14,7 @@ public class Noun {
 
         Entity noun = new Entity();
 
-        noun.add(new ecs.Components.Sprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
+        noun.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(posX, posY))));
         noun.add(new ecs.Components.Position(posX, posY));
         noun.add(new ecs.Components.Noun(NounType.TEXT));
         noun.add(new ecs.Components.Text(TextType.NOUN));
