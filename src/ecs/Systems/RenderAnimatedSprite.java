@@ -10,9 +10,11 @@
 package ecs.Systems;
 
 import ecs.Components.AnimatedSprite;
+import ecs.Components.Position;
 import ecs.Entities.Entity;
 
 import edu.usu.graphics.*;
+import org.joml.Vector2f;
 
 import java.util.ArrayList;
 
@@ -27,10 +29,13 @@ public class RenderAnimatedSprite extends System{
     }
 
     @Override
-    public ArrayList<Entity> update(double elapsedTime) {
+    public ArrayList<Entity> update(double elapsedTime) {   // Both updates and renders the animated sprites. These could be separated into different Systems
 
         for (Entity entity : entities.values()) {
             var animatedSprite = entity.get(AnimatedSprite.class);
+            var position = entity.get(Position.class);
+
+            animatedSprite.animatedSprite.setCenter(new Vector2f(position.posX, position.posY));    // Sync up the entity position with sprite position
 
             animatedSprite.animatedSprite.update(elapsedTime);
             animatedSprite.animatedSprite.draw(graphics, edu.usu.graphics.Color.WHITE);

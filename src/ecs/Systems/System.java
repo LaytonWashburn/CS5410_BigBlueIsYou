@@ -69,6 +69,8 @@ public abstract class System {
         boolean interested = isInterested(entity);
         if (!interested) {
             entities.remove(entity.getId());
+        } else if (!entities.containsKey(entity.getId())) {
+            entities.put(entity.getId(), entity);
         }
     }
 }
