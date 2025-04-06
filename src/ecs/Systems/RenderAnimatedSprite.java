@@ -9,6 +9,7 @@
 
 package ecs.Systems;
 
+import ecs.Components.AnimatedSprite;
 import ecs.Entities.Entity;
 
 import edu.usu.graphics.*;
@@ -20,7 +21,7 @@ public class RenderAnimatedSprite extends System{
     private Graphics2D graphics;
 
     public RenderAnimatedSprite(Graphics2D graphics) {
-        super(ecs.Components.Sprite.class);
+        super(AnimatedSprite.class);
 
         this.graphics = graphics;
     }
@@ -29,7 +30,7 @@ public class RenderAnimatedSprite extends System{
     public ArrayList<Entity> update(double elapsedTime) {
 
         for (Entity entity : entities.values()) {
-            var animatedSprite = entity.get(ecs.Components.Sprite.class);
+            var animatedSprite = entity.get(AnimatedSprite.class);
 
             animatedSprite.animatedSprite.update(elapsedTime);
             animatedSprite.animatedSprite.draw(graphics, edu.usu.graphics.Color.WHITE);

@@ -4,13 +4,11 @@ import ecs.Entities.*;
 import ecs.Systems.KeyboardInput;
 import ecs.Systems.Movement;
 import ecs.Systems.RenderAnimatedSprite;
-import ecs.Systems.RenderSprite;
+import ecs.Systems.RenderStaticSprite;
 import edu.usu.graphics.*;
-import edu.usu.graphics.Color;
 import edu.usu.graphics.Graphics2D;
 import level.Level;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,8 +16,6 @@ import java.util.List;
 import org.joml.Vector2f;
 import utils.KeyBinds;
 import static ecs.Systems.System.*;
-
-import javax.swing.*;
 
 import utils.EntityConstants;
 
@@ -36,7 +32,7 @@ public class GameModel {
 
     // Systems
     private KeyboardInput sysKeyboardInput;
-    private RenderSprite sysRenderSprite;
+    private RenderStaticSprite sysRenderStaticSprite;
     private Movement sysMovement;
 
 
@@ -76,6 +72,9 @@ public class GameModel {
      */
     public GameModel(Level level, KeyBinds keybinds) {
         this.level = level;
+        System.out.println("Level: " + level.getName());
+        System.out.println("Level Width: " + level.getWidth());
+        System.out.println("Level Height: " + level.getHeight());
         this.spriteRectCenters = getSpriteRectCenters();
         this.keybinds = keybinds;
         systems.clear(); // clear the system list if you're starting a fresh game
@@ -89,7 +88,7 @@ public class GameModel {
         this.graphics = graphics;
 
         this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
-        this.sysRenderSprite = new RenderSprite(graphics);
+        this.sysRenderStaticSprite = new RenderStaticSprite(graphics);
         this.sysMovement = new Movement(graphics);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics);
 
@@ -163,27 +162,9 @@ public class GameModel {
      * @param entity - Entity to add to systems
      */
     private void addEntity(Entity entity) {
-        sysKeyboardInput.add(entity);
-        sysRenderSprite.add(entity);
-        sysMovement.add(entity);
-
-    }
-
-
-    /**
-     * Method: Add Entity Temp
-     * @param entity - Entity to add to the animated sprite system
-     */
-    private void addEntityTemp(Entity entity) {
-        sysRenderAnimatedSprite.add(entity);
-    }
-
-    /**
-     * Method: Remove Entity Temp
-     * @param entity - Entity to remove from animated sprite system
-     */
-    private void removeEntityTemp(Entity entity) {
-        sysRenderAnimatedSprite.remove(entity.getId());
+        for (ecs.Systems.System system : systems) {
+            system.add(entity);
+        }
     }
 
     /**
@@ -192,9 +173,9 @@ public class GameModel {
      * @param entity - Entity to remove
      */
     private void removeEntity(Entity entity) {
-        sysKeyboardInput.remove(entity.getId());
-        sysRenderSprite.remove(entity.getId());
-        sysMovement.remove(entity.getId());
+        for (ecs.Systems.System system : systems) {
+            system.remove(entity.getId());
+        }
     }
 
 
@@ -223,17 +204,17 @@ public class GameModel {
 
     /**
      * Method: Get Sprite Rect Centers
-     * @return - Returns the top left corners
+     * @return - Returns the array of where sprite centers should be
      */
     private Vector2f[][] getSpriteRectCenters() {
-        Vector2f[][] topLeftCorners = new Vector2f[level.getHeight()][level.getWidth()];
+        Vector2f[][] centers = new Vector2f[level.getHeight()][level.getWidth()];
         for (int i = 0; i < level.getHeight(); i++) {
             for (int j = 0; j < level.getWidth(); j++) {
-                topLeftCorners[i][j] = new Vector2f((-EntityConstants.rectSize * ((float) level.getWidth() / 2) + i*EntityConstants.rectSize + EntityConstants.rectSize/2),
-                        (-EntityConstants.rectSize * ((float) level.getHeight() / 2)) + j*EntityConstants.rectSize + EntityConstants.rectSize/2);
+                centers[i][j] = new Vector2f((-EntityConstants.rectSize * ((float) level.getWidth() / 2) + j*EntityConstants.rectSize + EntityConstants.rectSize/2),
+                        (-EntityConstants.rectSize * ((float) level.getHeight() / 2)) + i*EntityConstants.rectSize + EntityConstants.rectSize/2);
             }
         }
-        return topLeftCorners;
+        return centers;
     }
 
     /**
@@ -243,74 +224,74 @@ public class GameModel {
      * @param col - Column placement in game board
      * @param row - Row placement in game board
      */
-    private void createLayout(Character symbol, int col, int row){
+    private void createLayout(Character symbol, int row, int col){
         switch (symbol) {
 
             case 'w': // wall
-                sysRenderAnimatedSprite.add(CreateSprites.createWall(texWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createWall(texWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'r': // rock
-                sysRenderAnimatedSprite.add(CreateSprites.createRock(texRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createRock(texRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'f': // flag
-                sysRenderAnimatedSprite.add(CreateSprites.createFlag(texFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createFlag(texFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'b': // big blue
                 addEntity(CreateSprites.createBigBlue(texBigBlue, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, keybinds));
                 break;
             case 'h': // hedge
-                sysRenderAnimatedSprite.add(CreateSprites.createHedge(texHedge, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createHedge(texHedge, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'a': // Water / goop
-                sysRenderAnimatedSprite.add(CreateSprites.createWater(texWater, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createWater(texWater, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'v': // Lava
-                sysRenderAnimatedSprite.add(CreateSprites.createLava(texLava, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createLava(texLava, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'g': // Grass
-                sysRenderAnimatedSprite.add(CreateSprites.createGrass(texGrass, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createGrass(texGrass, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'l':  // floor
-                sysRenderAnimatedSprite.add(CreateSprites.createFloor(texFloor, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createFloor(texFloor, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'W': // Word Wall
-                sysRenderAnimatedSprite.add(CreateSprites.createWordWall(texWordWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createWordWall(texWordWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'R': // Word Rock
-                sysRenderAnimatedSprite.add(CreateSprites.createWordRock(texWordRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createWordRock(texWordRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'F': // Word Flag
-                sysRenderAnimatedSprite.add(CreateSprites.createFloor(texWordFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createFloor(texWordFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'B': // Word Big Blue
-                sysRenderAnimatedSprite.add(CreateSprites.createWordBaba(texWordBaba, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createWordBaba(texWordBaba, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'I': // Word Is
-                sysRenderAnimatedSprite.add(CreateSprites.createWordIs(texWordIs, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createWordIs(texWordIs, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'S': // Word Stop
-                sysRenderAnimatedSprite.add(CreateSprites.createWordStop(texWordStop, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createWordStop(texWordStop, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'P': // Word Push
-                sysRenderAnimatedSprite.add(CreateSprites.createWordPush(texWordPush, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createWordPush(texWordPush, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case  'V': // Word Lava
-                sysRenderAnimatedSprite.add(CreateSprites.createWordLava(texWordLava, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createWordLava(texWordLava, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'A': // Word Water
-                sysRenderAnimatedSprite.add(CreateSprites.createWordWater(texWordWater, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createWordWater(texWordWater, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'Y': // Word, You
-                sysRenderAnimatedSprite.add(CreateSprites.createWordYou(texWordYou, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createWordYou(texWordYou, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'X': // Word Win
-                sysRenderAnimatedSprite.add(CreateSprites.createWordWin(texWordWin, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createWordWin(texWordWin, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'N': // Word Sink
-                sysRenderAnimatedSprite.add(CreateSprites.createWordSink(texWordSink, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createWordSink(texWordSink, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'K': // Word Kill
-                sysRenderAnimatedSprite.add(CreateSprites.createWordKill(texWordKill, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createWordKill(texWordKill, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             default:
         }
