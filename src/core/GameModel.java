@@ -91,7 +91,7 @@ public class GameModel {
         this.sysRenderStaticSprite = new RenderStaticSprite(graphics);
         this.sysMovement = new Movement(graphics);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics);
-        this.sysRules = new Rules(keybinds);
+        this.sysRules = new Rules(keybinds, level);
 
         System.out.println("Size of the systems is: " + systems.size());
 
@@ -238,7 +238,7 @@ public class GameModel {
                 addEntity(CreateSprites.createFlag(texFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
                 break;
             case 'b': // big blue
-                addEntity(CreateSprites.createBigBlue(texBigBlue, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                addEntity(CreateSprites.createBigBlue(texBigBlue, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, keybinds));
                 break;
             case 'h': // hedge
                 addEntity(CreateSprites.createHedge(texHedge, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
