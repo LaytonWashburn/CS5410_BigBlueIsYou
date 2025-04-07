@@ -22,8 +22,7 @@ public class Movement extends System{
     @Override
     public ArrayList<Entity> update(double elapsedTime) {
 
-        Entity character = findMovable(entities);
-
+        Entity character = findMovable();
         for (Entity entity : entities.values()) {
 
             if(entity == character) {
@@ -32,67 +31,28 @@ public class Movement extends System{
 
                 switch (moving.moving){
                     case Direction.UP:
-                        checkCollisionAt(entity, position.posX, position.posY, moving.moving);
+                        checkCollisionAt(entity, position.posX, position.posY - EntityConstants.rectSize, moving.moving);
                         position.posY -= EntityConstants.rectSize;
                         break;
                     case Direction.DOWN:
-                        checkCollisionAt(entity, position.posX, position.posY, moving.moving);
+                        checkCollisionAt(entity, position.posX, position.posY + EntityConstants.rectSize, moving.moving);
                         position.posY += EntityConstants.rectSize;
                         break;
                     case Direction.LEFT:
-                        checkCollisionAt(entity, position.posX, position.posY,moving.moving);
+                        checkCollisionAt(entity, position.posX - EntityConstants.rectSize, position.posY,moving.moving);
                         position.posX -= EntityConstants.rectSize;
                         break;
                     case Direction.RIGHT:
-                        checkCollisionAt(entity, position.posX, position.posY, moving.moving);
+                        checkCollisionAt(entity, position.posX + EntityConstants.rectSize, position.posY, moving.moving);
                         position.posX += EntityConstants.rectSize;
                         break;
                     default:
                 }
 
             }
-        }
+       }
         return new ArrayList<>(entities.values());
     }
-
-
-
-    public void collide(Entity entity) {
-        var position = entity.get(ecs.Components.Position.class);
-
-        for (Entity other : entities.values()) {
-            if (other == entity) continue; // Skip checking against itself
-
-            var otherPosition = other.get(ecs.Components.Position.class);
-
-            boolean collides = position.posX < otherPosition.posX + EntityConstants.rectSize &&
-                    position.posX + EntityConstants.rectSize > otherPosition.posX &&
-                    position.posY < otherPosition.posY + EntityConstants.rectSize &&
-                    position.posY + EntityConstants.rectSize > otherPosition.posY;
-
-            if (collides) {
-                java.lang.System.out.println("Collision detected between entity " + entity.getId() +
-                        " and entity " + other.getId());
-                break; // Optional: stop after first collision
-            }
-        }
-    }
-
-
-    /**
-     * Returns a collection of all the movable entities.
-     */
-    private Entity findMovable(Map<Long, Entity> entities) {
-
-        for (var entity : entities.values()) {
-            if (entity.contains(ecs.Components.KeyboardControlled.class)) {
-                return entity;
-            }
-        }
-
-        return null;
-    }
-
 
     /**
      * Method: Check Collision At
@@ -104,16 +64,17 @@ public class Movement extends System{
      */
     public boolean checkCollisionAt(Entity entity, float targetX, float targetY, Direction moving) {
 
-        for (Entity other : entities.values()) { // Loop through all entities
-            if (other == entity) continue; // If the entity is itself, jump to next loop
+        int i = 0;
+        for(Entity other : entities.values()) {
+            java.lang.System.out.println(other);
+            java.lang.System.out.println(i++);
+
+            //if (other == entity) continue; // If the entity is itself, jump to next loop
 
             Position otherPosition = other.get(ecs.Components.Position.class);
-
             // Check if the target position of the 'entity' overlaps with the 'other' entity's position
-            boolean collides = targetX < otherPosition.posX + EntityConstants.rectSize &&
-                    targetX + EntityConstants.rectSize > otherPosition.posX &&
-                    targetY < otherPosition.posY + EntityConstants.rectSize &&
-                    targetY + EntityConstants.rectSize > otherPosition.posY;
+            boolean collides = targetX == otherPosition.posX &&
+                               targetY == otherPosition.posY;
 
             if (collides) {
                 java.lang.System.out.println("Potential collision for entity " + entity.getId() +
@@ -135,9 +96,66 @@ public class Movement extends System{
                     default:
                 }
                 return true;
+            } else {
+                java.lang.System.out.println("No collision");
             }
         }
+//
+//        int i = 0;
+//        for (Entity other : entities.values()) { // Loop through all entities
+//            java.lang.System.out.println(i);
+//            i += 1;
+//            // if (other == entity) continue; // If the entity is itself, jump to next loop
+//
+//            Position otherPosition = other.get(ecs.Components.Position.class);
+//
+//            // Check if the target position of the 'entity' overlaps with the 'other' entity's position
+//            boolean collides = targetX == otherPosition.posX &&
+//                               targetY == otherPosition.posY;
+//
+//            if (true) {
+//                java.lang.System.out.println("Potential collision for entity " + entity.getId() +
+//                        " at (" + targetX + ", " + targetY + ") with entity " + other.getId());
+//
+//                switch (moving){
+//                    case Direction.UP:
+//                        otherPosition.posY -= EntityConstants.rectSize;
+//                        break;
+//                    case Direction.DOWN:
+//                        otherPosition.posY += EntityConstants.rectSize;
+//                        break;
+//                    case Direction.LEFT:
+//                        otherPosition.posX -= EntityConstants.rectSize;
+//                        break;
+//                    case Direction.RIGHT:
+//                        otherPosition.posX += EntityConstants.rectSize;
+//                        break;
+//                    default:
+//                }
+//                return true;
+//            } else {
+//                java.lang.System.out.println("No collision");
+//            }
+//        }
         return false;
     }
+
+
+    /**
+     * Returns a collection of all the movable entities.
+     */
+    private Entity findMovable() {
+
+        for (var entity : entities.values()) {
+            if (entity.contains(ecs.Components.KeyboardControlled.class)) {
+                return entity;
+            }
+        }
+
+        return null;
+    }
+
+
+
 
 }

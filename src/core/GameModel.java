@@ -90,8 +90,6 @@ public class GameModel {
     public void initialize(Graphics2D graphics) throws CloneNotSupportedException{
         this.graphics = graphics;
 
-
-
         this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
         this.sysRenderStaticSprite = new RenderStaticSprite(graphics);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics);
