@@ -29,6 +29,8 @@ public class GameModel {
     private final List<Entity> removeThese = new ArrayList<>();
     private final List<Entity> addThese = new ArrayList<>();
 
+    private Entity[][] gameArea; // Holds the game area
+
     // Systems
     private KeyboardInput sysKeyboardInput;
     private RenderStaticSprite sysRenderStaticSprite;
@@ -77,6 +79,7 @@ public class GameModel {
         System.out.println("Level Height: " + level.getHeight());
         this.spriteRectCenters = getSpriteRectCenters();
         this.keybinds = keybinds;
+        this.gameArea = new Entity[level.getWidth()][level.getHeight()];
         systems.clear(); // clear the system list if you're starting a fresh game
     }
 
@@ -87,15 +90,18 @@ public class GameModel {
     public void initialize(Graphics2D graphics) throws CloneNotSupportedException{
         this.graphics = graphics;
 
+
+
         this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
         this.sysRenderStaticSprite = new RenderStaticSprite(graphics);
-        this.sysMovement = new Movement(graphics);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics);
         this.sysRules = new Rules(keybinds, level);
 
         System.out.println("Size of the systems is: " + systems.size());
 
         initializeObjectTypes(level);
+
+        this.sysMovement = new Movement(graphics);
 
         Entity a = CreateSprites.createLava(texLava, 0.0f, 0.0f);
         Entity b = a.clone();
@@ -229,73 +235,78 @@ public class GameModel {
         switch (symbol) {
 
             case 'w': // wall
-                addEntity(CreateSprites.createWall(texWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createWall(texWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'r': // rock
-                addEntity(CreateSprites.createRock(texRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createRock(texRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'f': // flag
-                addEntity(CreateSprites.createFlag(texFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createFlag(texFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'b': // big blue
-                addEntity(CreateSprites.createBigBlue(texBigBlue, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, keybinds));
+                add(CreateSprites.createBigBlue(texBigBlue, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, keybinds), row, col);
                 break;
             case 'h': // hedge
-                addEntity(CreateSprites.createHedge(texHedge, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createHedge(texHedge, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'a': // Water / goop
-                addEntity(CreateSprites.createWater(texWater, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createWater(texWater, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'v': // Lava
-                addEntity(CreateSprites.createLava(texLava, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createLava(texLava, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'g': // Grass
-                addEntity(CreateSprites.createGrass(texGrass, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createGrass(texGrass, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'l':  // floor
-                addEntity(CreateSprites.createFloor(texFloor, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createFloor(texFloor, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'W': // Word Wall
-                addEntity(CreateSprites.createWordWall(texWordWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createWordWall(texWordWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'R': // Word Rock
-                addEntity(CreateSprites.createWordRock(texWordRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createWordRock(texWordRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'F': // Word Flag
-                addEntity(CreateSprites.createFloor(texWordFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createFloor(texWordFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'B': // Word Big Blue
-                addEntity(CreateSprites.createWordBaba(texWordBaba, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createWordBaba(texWordBaba, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'I': // Word Is
-                addEntity(CreateSprites.createWordIs(texWordIs, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createWordIs(texWordIs, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'S': // Word Stop
-                addEntity(CreateSprites.createWordStop(texWordStop, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createWordStop(texWordStop, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'P': // Word Push
-                addEntity(CreateSprites.createWordPush(texWordPush, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createWordPush(texWordPush, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case  'V': // Word Lava
-                addEntity(CreateSprites.createWordLava(texWordLava, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createWordLava(texWordLava, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'A': // Word Water
-                addEntity(CreateSprites.createWordWater(texWordWater, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createWordWater(texWordWater, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'Y': // Word, You
-                addEntity(CreateSprites.createWordYou(texWordYou, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createWordYou(texWordYou, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'X': // Word Win
-                addEntity(CreateSprites.createWordWin(texWordWin, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createWordWin(texWordWin, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'N': // Word Sink
-                addEntity(CreateSprites.createWordSink(texWordSink, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createWordSink(texWordSink, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             case 'K': // Word Kill
-                addEntity(CreateSprites.createWordKill(texWordKill, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y));
+                add(CreateSprites.createWordKill(texWordKill, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
                 break;
             default:
         }
+    }
+
+    public void add(Entity entity, int row, int col) {
+        addEntity(entity);
+        this.gameArea[row][col] = entity;
     }
 
 

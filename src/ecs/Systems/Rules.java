@@ -1,13 +1,9 @@
 package ecs.Systems;
 
 import ecs.Entities.Entity;
-import edu.usu.graphics.Graphics2D;
 import level.Level;
 import utils.*;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
