@@ -5,6 +5,7 @@ import ecs.Entities.Entity;
 import edu.usu.graphics.Graphics2D;
 import utils.Direction;
 import utils.EntityConstants;
+import utils.Properties;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -22,35 +23,31 @@ public class Movement extends System{
     @Override
     public ArrayList<Entity> update(double elapsedTime) {
 
-        Entity movable = findMovable(); // Get the movable entity
+        ArrayList<Entity> movables = findMovable(); // Get the movable entities
 
-        for (Entity entity : entities.values()) { // Loop through the entities
+        for (Entity entity : movables) { // Loop through the entities
 
-            if(entity == movable) { // If movable entity
+            var position = entity.get(ecs.Components.Position.class);
+            var moving = entity.get(ecs.Components.Movement.class);
 
-                var position = entity.get(ecs.Components.Position.class);
-                var moving = entity.get(ecs.Components.Movement.class);
-
-                switch (moving.moving){
-                    case Direction.UP:
-                        checkCollisionAt(entity, position.posX, position.posY - EntityConstants.rectSize, moving.moving);
-                        position.posY -= EntityConstants.rectSize;
-                        break;
-                    case Direction.DOWN:
-                        checkCollisionAt(entity, position.posX, position.posY + EntityConstants.rectSize, moving.moving);
-                        position.posY += EntityConstants.rectSize;
-                        break;
-                    case Direction.LEFT:
-                        checkCollisionAt(entity, position.posX - EntityConstants.rectSize, position.posY,moving.moving);
-                        position.posX -= EntityConstants.rectSize;
-                        break;
-                    case Direction.RIGHT:
-                        checkCollisionAt(entity, position.posX + EntityConstants.rectSize, position.posY, moving.moving);
-                        position.posX += EntityConstants.rectSize;
-                        break;
-                    default:
-                }
-
+            switch (moving.moving){
+                case Direction.UP:
+                    if (!checkCollisionAt(position.i-1, position.j, moving.moving))
+                        position.i -= 1;
+                    break;
+                case Direction.DOWN:
+                    if (!checkCollisionAt(position.i+1, position.j, moving.moving))
+                        position.i += 1;
+                    break;
+                case Direction.LEFT:
+                    if (!checkCollisionAt(position.i, position.j-1, moving.moving))
+                        position.j -= 1;
+                    break;
+                case Direction.RIGHT:
+                    if (!checkCollisionAt(position.i, position.j+1, moving.moving))
+                        position.j += 1;
+                    break;
+                default:
             }
        }
         return new ArrayList<>(entities.values());
@@ -59,87 +56,63 @@ public class Movement extends System{
     /**
      * Method: Check Collision At
      * Description: Checks is the locations collide
-     * @param movingEntity - Entity
-     * @param targetX - Target x coordinate
-     * @param targetY - Target y coordinate
+     * @param targetI - Target i coordinate
+     * @param targetJ - Target j coordinate
      * @return - True for collision and false for no collision
      */
-    public boolean checkCollisionAt(Entity movingEntity, float targetX, float targetY, Direction movingDirection) {
+    public boolean checkCollisionAt(float targetI, float targetJ, Direction movingDirection) {
 
-        var position = movingEntity.get(ecs.Components.Position.class);
+        boolean immovableHit = false;
 
         for (Entity otherEntity : entities.values()) {
 
-            if(otherEntity != movingEntity) {
+            var otherProperties = otherEntity.get(ecs.Components.Property.class);
+
+            if(!otherProperties.getProperties().contains(Properties.MOVE)) {
 
                 var otherPosition = otherEntity.get(ecs.Components.Position.class);
-                boolean x = false;
-                boolean y = false;
 
-                switch(movingDirection) {
-                    case Direction.UP:
-                        y = targetY <= otherPosition.posY &&
-                                targetY >= otherPosition.posY - EntityConstants.rectSize &&
-                                targetX >= otherPosition.posX - EntityConstants.rectSize &&
-                                targetX < otherPosition.posX;
-                        break;
-                    case Direction.DOWN:
-                        y = targetY >= otherPosition.posY - EntityConstants.rectSize &&
-                            targetY <= otherPosition.posY &&
-                            targetX >= otherPosition.posX - EntityConstants.rectSize &&
-                            targetX < otherPosition.posX;
-                        break;
-                    case Direction.LEFT:
-                        x = targetX <= otherPosition.posX &&
-                                targetX > otherPosition.posX - EntityConstants.rectSize &&
-                                targetY > otherPosition.posY - EntityConstants.rectSize &&
-                                targetY < otherPosition.posY;
-                        break;
-                    case Direction.RIGHT:
-                        // The moving entity is moving right, so check if its left side (targetX) has crossed into the right side of the target entity.
-                        x = targetX + EntityConstants.rectSize > otherPosition.posX && // Check if the moving entity's right side is beyond the target entity's left side
-                                targetX < otherPosition.posX + EntityConstants.rectSize && // Check if the moving entity's left side is inside the target entity's right side
-                                targetY >= otherPosition.posY && // Ensure the vertical range is within the target entity's bounds
-                                targetY < otherPosition.posY + EntityConstants.rectSize;
-//                        x = targetX + EntityConstants.rectSize >= otherPosition.posX &&
-//                                targetX < otherPosition.posX + EntityConstants.rectSize &&
-//                                targetY >= otherPosition.posY &&
-//                                targetY < otherPosition.posY + EntityConstants.rectSize;
-                        break;
+                if (targetI == otherPosition.i && targetJ == otherPosition.j && otherProperties.getProperties().contains(Properties.STOP)) {  // If there is a collision and the other entity is immovable
+                    immovableHit = true;
                 }
 
-                 if (x || y) { // If there is a collision
+                if (targetI == otherPosition.i && targetJ == otherPosition.j && otherProperties.getProperties().contains(Properties.PUSHABLE) && !immovableHit) { // If there is a collision and the other entity is pushable
 
-                    switch (movingDirection){
+                    switch (movingDirection) {
                         case Direction.UP:
-                            checkCollisionAt(otherEntity, targetX, otherPosition.posY - EntityConstants.rectSize, movingDirection); // Recursive call
-                            otherPosition.posY -= EntityConstants.rectSize;
+                            immovableHit = checkCollisionAt(otherPosition.i - 1, otherPosition.j, movingDirection); // Recursive call
+                            if (!immovableHit) {
+                                otherPosition.i -= 1;
+                            }
                             break;
                         case Direction.DOWN:
-                            checkCollisionAt(otherEntity, targetX, otherPosition.posY + EntityConstants.rectSize, movingDirection); // Recursive call
-                            otherPosition.posY += EntityConstants.rectSize;
+                            immovableHit = checkCollisionAt(otherPosition.i + 1, otherPosition.j, movingDirection); // Recursive call
+                            if (!immovableHit) {
+                                otherPosition.i += 1;
+                            }
                             break;
                         case Direction.LEFT:
-                            checkCollisionAt(otherEntity, otherPosition.posX - EntityConstants.rectSize, otherPosition.posY, movingDirection); // Recursive call
-                            otherPosition.posX -= EntityConstants.rectSize;
+                            immovableHit = checkCollisionAt(otherPosition.i, otherPosition.j - 1, movingDirection); // Recursive call
+                            if (!immovableHit) {
+                                otherPosition.j -= 1;
+                            }
                             break;
                         case Direction.RIGHT:
-                            checkCollisionAt(otherEntity, otherPosition.posX + EntityConstants.rectSize, otherPosition.posY, movingDirection); // Recursive call
-                            otherPosition.posX += EntityConstants.rectSize;
+                            immovableHit = checkCollisionAt(otherPosition.i, otherPosition.j + 1, movingDirection); // Recursive call
+                            if (!immovableHit) {
+                                otherPosition.j += 1;
+                            }
                             break;
                         default:
                     }
-
 
                 }
 
             }
 
-
-
         }
 
-        return false; // No collision
+        return immovableHit;
     }
 
 
@@ -199,15 +172,17 @@ public class Movement extends System{
     /**
      * Returns a collection of all the movable entities.
      */
-    private Entity findMovable() {
+    private ArrayList<Entity> findMovable() {
+
+        ArrayList<Entity> movables = new ArrayList<>();
 
         for (var entity : entities.values()) {
             if (entity.contains(ecs.Components.KeyboardControlled.class)) {
-                return entity;
+                movables.add(entity);
             }
         }
 
-        return null;
+        return movables;
     }
 
 

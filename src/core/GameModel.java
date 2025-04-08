@@ -23,7 +23,6 @@ public class GameModel {
     private RenderAnimatedSprite sysRenderAnimatedSprite;
 
     private final Level level;;
-    private Vector2f[][] spriteRectCenters;
     private KeyBinds keybinds;
 
     private final List<Entity> removeThese = new ArrayList<>();
@@ -77,9 +76,8 @@ public class GameModel {
         System.out.println("Level: " + level.getName());
         System.out.println("Level Width: " + level.getWidth());
         System.out.println("Level Height: " + level.getHeight());
-        this.spriteRectCenters = getSpriteRectCenters();
         this.keybinds = keybinds;
-        this.gameArea = new Entity[level.getWidth()][level.getHeight()];
+        this.gameArea = new Entity[level.getHeight()][level.getWidth()];
         systems.clear(); // clear the system list if you're starting a fresh game
     }
 
@@ -91,8 +89,8 @@ public class GameModel {
         this.graphics = graphics;
 
         this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
-        this.sysRenderStaticSprite = new RenderStaticSprite(graphics);
-        this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics);
+        this.sysRenderStaticSprite = new RenderStaticSprite(graphics, level);
+        this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics, level);
         this.sysRules = new Rules(keybinds, level);
 
         System.out.println("Size of the systems is: " + systems.size());
@@ -101,7 +99,7 @@ public class GameModel {
 
         this.sysMovement = new Movement(graphics);
 
-        Entity a = CreateSprites.createLava(texLava, 0.0f, 0.0f);
+        Entity a = CreateSprites.createLava(texLava, 0, 0);
         Entity b = a.clone();
         System.out.println(b);
     }
@@ -208,21 +206,6 @@ public class GameModel {
     }
 
     /**
-     * Method: Get Sprite Rect Centers
-     * @return - Returns the array of where sprite centers should be
-     */
-    private Vector2f[][] getSpriteRectCenters() {
-        Vector2f[][] centers = new Vector2f[level.getHeight()][level.getWidth()];
-        for (int i = 0; i < level.getHeight(); i++) {
-            for (int j = 0; j < level.getWidth(); j++) {
-                centers[i][j] = new Vector2f((-EntityConstants.rectSize * ((float) level.getWidth() / 2) + j*EntityConstants.rectSize + EntityConstants.rectSize/2),
-                        (-EntityConstants.rectSize * ((float) level.getHeight() / 2)) + i*EntityConstants.rectSize + EntityConstants.rectSize/2);
-            }
-        }
-        return centers;
-    }
-
-    /**
      * Method Create Layout
      * Description: Method to take a character and create corresponding object
      * @param symbol - Input symbol
@@ -233,70 +216,70 @@ public class GameModel {
         switch (symbol) {
 
             case 'w': // wall
-                add(CreateSprites.createWall(texWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWall(texWall, row, col), row, col);
                 break;
             case 'r': // rock
-                add(CreateSprites.createRock(texRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createRock(texRock, row, col), row, col);
                 break;
             case 'f': // flag
-                add(CreateSprites.createFlag(texFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createFlag(texFlag, row, col), row, col);
                 break;
             case 'b': // big blue
-                add(CreateSprites.createBigBlue(texBigBlue, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y, keybinds), row, col);
+                add(CreateSprites.createBigBlue(texBigBlue, row, col, keybinds), row, col);
                 break;
             case 'h': // hedge
-                add(CreateSprites.createHedge(texHedge, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createHedge(texHedge, row, col), row, col);
                 break;
             case 'a': // Water / goop
-                add(CreateSprites.createWater(texWater, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWater(texWater, row, col), row, col);
                 break;
             case 'v': // Lava
-                add(CreateSprites.createLava(texLava, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createLava(texLava, row, col), row, col);
                 break;
             case 'g': // Grass
-                add(CreateSprites.createGrass(texGrass, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createGrass(texGrass, row, col), row, col);
                 break;
             case 'l':  // floor
-                add(CreateSprites.createFloor(texFloor, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createFloor(texFloor, row, col), row, col);
                 break;
             case 'W': // Word Wall
-                add(CreateSprites.createWordWall(texWordWall, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWordWall(texWordWall, row, col), row, col);
                 break;
             case 'R': // Word Rock
-                add(CreateSprites.createWordRock(texWordRock, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWordRock(texWordRock, row, col), row, col);
                 break;
             case 'F': // Word Flag
-                add(CreateSprites.createFloor(texWordFlag, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWordFlag(texWordFlag, row, col), row, col);
                 break;
             case 'B': // Word Big Blue
-                add(CreateSprites.createWordBaba(texWordBaba, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWordBaba(texWordBaba, row, col), row, col);
                 break;
             case 'I': // Word Is
-                add(CreateSprites.createWordIs(texWordIs, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWordIs(texWordIs, row, col), row, col);
                 break;
             case 'S': // Word Stop
-                add(CreateSprites.createWordStop(texWordStop, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWordStop(texWordStop, row, col), row, col);
                 break;
             case 'P': // Word Push
-                add(CreateSprites.createWordPush(texWordPush, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWordPush(texWordPush, row, col), row, col);
                 break;
             case  'V': // Word Lava
-                add(CreateSprites.createWordLava(texWordLava, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWordLava(texWordLava, row, col), row, col);
                 break;
             case 'A': // Word Water
-                add(CreateSprites.createWordWater(texWordWater, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWordWater(texWordWater, row, col), row, col);
                 break;
             case 'Y': // Word, You
-                add(CreateSprites.createWordYou(texWordYou, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWordYou(texWordYou, row, col), row, col);
                 break;
             case 'X': // Word Win
-                add(CreateSprites.createWordWin(texWordWin, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWordWin(texWordWin, row, col), row, col);
                 break;
             case 'N': // Word Sink
-                add(CreateSprites.createWordSink(texWordSink, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWordSink(texWordSink, row, col), row, col);
                 break;
             case 'K': // Word Kill
-                add(CreateSprites.createWordKill(texWordKill, spriteRectCenters[row][col].x, spriteRectCenters[row][col].y), row, col);
+                add(CreateSprites.createWordKill(texWordKill, row, col), row, col);
                 break;
             default:
         }
