@@ -71,18 +71,16 @@ public class Movement extends System{
             //if (other == entity) continue; // If the entity is itself, jump to next loop
 
             Position otherPosition = other.get(ecs.Components.Position.class);
-            // Check if the target position of the 'entity' overlaps with the 'other' entity's position
-            boolean collides = targetX == otherPosition.posX &&
-                               targetY == otherPosition.posY;
+            float otherX = otherPosition.posX;
+            float otherY = otherPosition.posY;
 
-            java.lang.System.out.println("Other position pos x: " + otherPosition.posX);
-            java.lang.System.out.println("Other position pos y: " + otherPosition.posY);
+            // Check for X-axis overlap
+            boolean xOverlap = targetX < otherX + EntityConstants.rectSize && targetX + EntityConstants.rectSize > otherX;
 
+            // Check for Y-axis overlap
+            boolean yOverlap = targetY < otherY + EntityConstants.rectSize && targetY + EntityConstants.rectSize > otherY;
 
-            java.lang.System.out.println("Target position pos x: " + targetX);
-            java.lang.System.out.println("Target position pos y: " + targetY);
-
-            if (collides) { // If there is a collision
+            if (xOverlap && yOverlap) { // If there is a collision
                 java.lang.System.out.println("Potential collision for entity " + entity.getId() +
                         " at (" + targetX + ", " + targetY + ") with entity " + other.getId());
 
@@ -107,7 +105,7 @@ public class Movement extends System{
                 }
                 return true;
             } else {
-                java.lang.System.out.println("No collision");
+                // java.lang.System.out.println("No collision");
             }
         }
         return false;
