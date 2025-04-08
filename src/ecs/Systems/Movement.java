@@ -26,7 +26,7 @@ public class Movement extends System{
 
         for (Entity entity : entities.values()) { // Loop through the entities
 
-            if(entity == movable) { // If movable
+            if(entity == movable) { // If movable entity
 
                 var position = entity.get(ecs.Components.Position.class);
                 var moving = entity.get(ecs.Components.Movement.class);
@@ -65,57 +65,74 @@ public class Movement extends System{
      * @return - True for collision and false for no collision
      */
     public boolean checkCollisionAt(Entity movingEntity, float targetX, float targetY, Direction movingDirection) {
-        float squareSideLength = EntityConstants.rectSize;
 
-        float targetLeft   = targetX;
-        float targetRight  = targetX + squareSideLength;
-        float targetTop    = targetY;
-        float targetBottom = targetY + squareSideLength;
+        var position = movingEntity.get(ecs.Components.Position.class);
 
         for (Entity otherEntity : entities.values()) {
-            // if (otherEntity == movingEntity) continue;
 
-            Position otherPosition = otherEntity.get(ecs.Components.Position.class);
-            float otherX = otherPosition.posX;
-            float otherY = otherPosition.posY;
+            if(otherEntity != movingEntity) {
 
-            float otherLeft   = otherX;
-            float otherRight  = otherX + squareSideLength;
-            float otherTop    = otherY;
-            float otherBottom = otherY + squareSideLength;
+                var otherPosition = otherEntity.get(ecs.Components.Position.class);
+                boolean x = false;
+                boolean y = false;
 
-            // Precise AABB check — do these rectangles overlap?
-            boolean xOverlap = targetLeft < otherRight && targetRight > otherLeft;
-            boolean yOverlap = targetTop < otherBottom && targetBottom > otherTop;
-
-            if (xOverlap && yOverlap) {
-                java.lang.System.out.println("Collision at (" + targetX + ", " + targetY + ") with (" + otherX + ", " + otherY + ")");
-
-                float nextOtherX = otherX;
-                float nextOtherY = otherY;
-
-                switch (movingDirection){
-                    case Direction.UP:
-                        // checkCollisionAt(otherEntity, otherPosition.posX, otherPosition.posY - EntityConstants.rectSize, movingDirection); // Recursive call
-                        otherPosition.posY -= EntityConstants.rectSize;
-                        break;
+                switch(movingDirection) {
                     case Direction.DOWN:
-                        // checkCollisionAt(otherEntity, otherPosition.posX, otherPosition.posY + EntityConstants.rectSize, movingDirection); // Recursive call
-                        otherPosition.posY += EntityConstants.rectSize;
+                        y = targetY >= otherPosition.posY - EntityConstants.rectSize &&
+                            targetY <= otherPosition.posY &&
+                            targetX >= otherPosition.posX - EntityConstants.rectSize &&
+                            targetX < otherPosition.posX;
+                        break;
+                    case Direction.UP:
+                        y = targetY <= otherPosition.posY &&
+                            targetY >= otherPosition.posY - EntityConstants.rectSize &&
+                            targetX >= otherPosition.posX - EntityConstants.rectSize &&
+                            targetX < otherPosition.posX;
                         break;
                     case Direction.LEFT:
-                        // checkCollisionAt(otherEntity, otherPosition.posX, otherPosition.posY - EntityConstants.rectSize, movingDirection); // Recursive call
-                        otherPosition.posX -= EntityConstants.rectSize;
+                        x = targetY <= otherPosition.posY &&
+                            targetY >= otherPosition.posY + EntityConstants.rectSize &&
+                            targetX <= otherPosition.posX - EntityConstants.rectSize  &&
+                            targetX > otherPosition.posX ;
                         break;
                     case Direction.RIGHT:
-                        // checkCollisionAt(otherEntity, otherPosition.posX, otherPosition.posY + EntityConstants.rectSize, movingDirection); // Recursive call
-                        otherPosition.posX += EntityConstants.rectSize;
+                        x = targetY <= otherPosition.posY &&
+                            targetY >= otherPosition.posY &&
+                            targetX >= otherPosition.posX &&
+                            targetX <= otherPosition.posX + EntityConstants.rectSize;
+
                         break;
                     default:
                 }
+                 if (x || y) {
 
+                    switch (movingDirection){
+                        case Direction.UP:
+                            checkCollisionAt(otherEntity, targetX, otherPosition.posY - EntityConstants.rectSize, movingDirection); // Recursive call
+                            otherPosition.posY -= EntityConstants.rectSize;
+                            break;
+                        case Direction.DOWN:
+                            checkCollisionAt(otherEntity, targetX, otherPosition.posY - EntityConstants.rectSize, movingDirection); // Recursive call
+                            otherPosition.posY += EntityConstants.rectSize;
+                            break;
+                        case Direction.LEFT:
+                            // checkCollisionAt(otherEntity, otherPosition.posX, otherPosition.posY - EntityConstants.rectSize, movingDirection); // Recursive call
+                            otherPosition.posX -= EntityConstants.rectSize;
+                            break;
+                        case Direction.RIGHT:
+                            // checkCollisionAt(otherEntity, otherPosition.posX, otherPosition.posY + EntityConstants.rectSize, movingDirection); // Recursive call
+                            otherPosition.posX += EntityConstants.rectSize;
+                            break;
+                        default:
+                    }
+
+
+                }
 
             }
+
+
+
         }
 
         return false; // No collision
