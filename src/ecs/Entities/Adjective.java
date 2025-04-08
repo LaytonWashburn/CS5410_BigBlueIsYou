@@ -18,6 +18,7 @@ public class Adjective {
         adjective.add(new ecs.Components.Position(i, j));
         adjective.add(new ecs.Components.Noun(NounType.TEXT));
         adjective.add(new ecs.Components.Text(TextType.ADJECTIVE));
+        adjective.add(new ecs.Components.Property());
 
         return adjective;
 

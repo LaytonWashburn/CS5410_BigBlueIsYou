@@ -18,6 +18,8 @@ public class Noun {
         noun.add(new ecs.Components.Position(i, j));
         noun.add(new ecs.Components.Noun(NounType.TEXT));
         noun.add(new ecs.Components.Text(TextType.NOUN));
+        noun.add(new ecs.Components.Property());
+
 
         return noun;
 

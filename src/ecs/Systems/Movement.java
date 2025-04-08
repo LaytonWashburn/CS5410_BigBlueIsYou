@@ -5,6 +5,7 @@ import ecs.Entities.Entity;
 import edu.usu.graphics.Graphics2D;
 import utils.Direction;
 import utils.EntityConstants;
+import utils.Properties;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -22,11 +23,11 @@ public class Movement extends System{
     @Override
     public ArrayList<Entity> update(double elapsedTime) {
 
-        Entity movable = findMovable(); // Get the movable entity
+        ArrayList<Entity> movables = findMovable(); // Get the movable entity
 
         for (Entity entity : entities.values()) { // Loop through the entities
 
-            if(entity == movable) { // If movable entity
+            if(movables.contains(entity)) { // If movable entity
 
                 var position = entity.get(ecs.Components.Position.class);
                 var moving = entity.get(ecs.Components.Movement.class);
@@ -50,8 +51,6 @@ public class Movement extends System{
                         break;
                     default:
                 }
-
-                java.lang.System.out.println(position.i + " " + position.j);
             }
        }
         return new ArrayList<>(entities.values());
@@ -71,11 +70,13 @@ public class Movement extends System{
 
         for (Entity otherEntity : entities.values()) {
 
-            if(otherEntity != movingEntity) {
+            var properties = otherEntity.get(ecs.Components.Property.class);
+
+            if(!properties.getProperties().contains(Properties.MOVE)) {
 
                 var otherPosition = otherEntity.get(ecs.Components.Position.class);
 
-                 if (targetI == otherPosition.i && targetJ == otherPosition.j) { // If there is a collision
+                 if (targetI == otherPosition.i && targetJ == otherPosition.j && properties.getProperties().contains(Properties.PUSHABLE)) { // If there is a collision
 
                     switch (movingDirection){
                         case Direction.UP:
@@ -166,15 +167,17 @@ public class Movement extends System{
     /**
      * Returns a collection of all the movable entities.
      */
-    private Entity findMovable() {
+    private ArrayList<Entity> findMovable() {
+
+        ArrayList<Entity> movables = new ArrayList<>();
 
         for (var entity : entities.values()) {
             if (entity.contains(ecs.Components.KeyboardControlled.class)) {
-                return entity;
+                movables.add(entity);
             }
         }
 
-        return null;
+        return movables;
     }
 
 

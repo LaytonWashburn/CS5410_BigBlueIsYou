@@ -18,6 +18,7 @@ public class Verb {
         verb.add(new ecs.Components.Position(i, j));
         verb.add(new ecs.Components.Noun(NounType.TEXT));
         verb.add(new ecs.Components.Text(TextType.VERB));
+        verb.add(new ecs.Components.Property());
 
         return verb;
 

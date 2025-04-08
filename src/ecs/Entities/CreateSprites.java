@@ -31,6 +31,7 @@ public class CreateSprites {
         wall.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         wall.add(new ecs.Components.Position(i, j));
         wall.add(new ecs.Components.Noun(NounType.WALL));
+        wall.add(new ecs.Components.Property());
 
         return wall;
 
@@ -52,6 +53,7 @@ public class CreateSprites {
         rock.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         rock.add(new ecs.Components.Position(i, j));
         rock.add(new ecs.Components.Noun(NounType.ROCK));
+        rock.add(new ecs.Components.Property(Properties.PUSHABLE));
 
         return rock;
 
@@ -73,6 +75,7 @@ public class CreateSprites {
         flag.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         flag.add(new ecs.Components.Position(i, j));
         flag.add(new ecs.Components.Noun(NounType.FLAG));
+        flag.add(new ecs.Components.Property());
 
         return flag;
 
@@ -113,6 +116,7 @@ public class CreateSprites {
         floor.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         floor.add(new ecs.Components.Position(i, j));
         floor.add(new ecs.Components.Noun(NounType.FLOOR));
+        floor.add(new ecs.Components.Property());
 
         return floor;
 
@@ -134,6 +138,7 @@ public class CreateSprites {
         grass.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         grass.add(new ecs.Components.Position(i, j));
         grass.add(new ecs.Components.Noun(NounType.GRASS));
+        grass.add(new ecs.Components.Property());
 
         return grass;
 
@@ -155,6 +160,7 @@ public class CreateSprites {
         water.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         water.add(new ecs.Components.Position(i, j));
         water.add(new ecs.Components.Noun(NounType.WATER));
+        water.add(new ecs.Components.Property());
 
         return water;
 
@@ -176,6 +182,7 @@ public class CreateSprites {
         lava.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         lava.add(new ecs.Components.Position(i, j));
         lava.add(new ecs.Components.Noun(NounType.LAVA));
+        lava.add(new ecs.Components.Property());
 
         return lava;
 
@@ -197,6 +204,7 @@ public class CreateSprites {
         hedge.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         hedge.add(new ecs.Components.Position(i, j));
         hedge.add(new ecs.Components.Noun(NounType.HEDGE));
+        hedge.add(new ecs.Components.Property(Properties.STOP));
 
         return hedge;
     }
@@ -216,6 +224,7 @@ public class CreateSprites {
         wordWall.add(new ecs.Components.Position(i, j));
         wordWall.add(new ecs.Components.Noun(NounType.TEXT));
         wordWall.add(new ecs.Components.Text(TextType.NOUN));
+        wordWall.add(new ecs.Components.Property());
 
         return wordWall;
 
@@ -235,6 +244,7 @@ public class CreateSprites {
         wordRock.add(new ecs.Components.Position(i, j));
         wordRock.add(new ecs.Components.Noun(NounType.TEXT));
         wordRock.add(new ecs.Components.Text(TextType.NOUN));
+        wordRock.add(new ecs.Components.Property());
 
         return wordRock;
 
@@ -254,6 +264,7 @@ public class CreateSprites {
         wordIs.add(new ecs.Components.Position(i, j));
         wordIs.add(new ecs.Components.Noun(NounType.TEXT));
         wordIs.add(new ecs.Components.Text(TextType.VERB));
+        wordIs.add(new ecs.Components.Property());
 
         return wordIs;
 
@@ -273,6 +284,7 @@ public class CreateSprites {
         wordStop.add(new ecs.Components.Position(i, j));
         wordStop.add(new ecs.Components.Noun(NounType.TEXT));
         wordStop.add(new ecs.Components.Text(TextType.ADJECTIVE));
+        wordStop.add(new ecs.Components.Property());
 
         return wordStop;
 
@@ -292,6 +304,7 @@ public class CreateSprites {
         wordPush.add(new ecs.Components.Position(i, j));
         wordPush.add(new ecs.Components.Noun(NounType.TEXT));
         wordPush.add(new ecs.Components.Text(TextType.ADJECTIVE));
+        wordPush.add(new ecs.Components.Property());
         return wordPush;
 
     }
@@ -310,6 +323,7 @@ public class CreateSprites {
         wordWin.add(new ecs.Components.Position(i, j));
         wordWin.add(new ecs.Components.Noun(NounType.TEXT));
         wordWin.add(new ecs.Components.Text(TextType.ADJECTIVE));
+        wordWin.add(new ecs.Components.Property());
 
         return wordWin;
 
@@ -329,6 +343,7 @@ public class CreateSprites {
         wordYou.add(new ecs.Components.Position(i, j));
         wordYou.add(new ecs.Components.Noun(NounType.TEXT));
         wordYou.add(new ecs.Components.Text(TextType.ADJECTIVE));
+        wordYou.add(new ecs.Components.Property());
 
         return wordYou;
 
@@ -348,6 +363,7 @@ public class CreateSprites {
         wordSink.add(new ecs.Components.Position(i, j));
         wordSink.add(new ecs.Components.Noun(NounType.TEXT));
         wordSink.add(new ecs.Components.Text(TextType.ADJECTIVE));
+        wordSink.add(new ecs.Components.Property());
 
         return wordSink;
 
@@ -367,6 +383,7 @@ public class CreateSprites {
         wordKill.add(new ecs.Components.Position(i, j));
         wordKill.add(new ecs.Components.Noun(NounType.TEXT));
         wordKill.add(new ecs.Components.Text(TextType.ADJECTIVE));
+        wordKill.add(new ecs.Components.Property());
 
         return wordKill;
 
@@ -387,6 +404,7 @@ public class CreateSprites {
         wordBaba.add(new ecs.Components.Position(i, j));
         wordBaba.add(new ecs.Components.Noun(NounType.TEXT));
         wordBaba.add(new ecs.Components.Text(TextType.NOUN));
+        wordBaba.add(new ecs.Components.Property());
 
         return wordBaba;
 
@@ -406,6 +424,7 @@ public class CreateSprites {
         wordLava.add(new ecs.Components.Position(i, j));
         wordLava.add(new ecs.Components.Noun(NounType.TEXT));
         wordLava.add(new ecs.Components.Text(TextType.NOUN));
+        wordLava.add(new ecs.Components.Property());
 
         return wordLava;
 
@@ -425,6 +444,7 @@ public class CreateSprites {
         wordWater.add(new ecs.Components.Position(i, j));
         wordWater.add(new ecs.Components.Noun(NounType.TEXT));
         wordWater.add(new ecs.Components.Text(TextType.NOUN));
+        wordWater.add(new ecs.Components.Property());
         return wordWater;
 
     }
