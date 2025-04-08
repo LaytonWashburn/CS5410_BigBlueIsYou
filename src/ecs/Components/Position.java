@@ -2,11 +2,11 @@ package ecs.Components;
 
 public class Position extends Component{
 
-    public float posX;
-    public float posY;
+    public float i;
+    public float j;
 
-    public Position(float posX, float posY){
-        this.posX = posX;
-        this.posY = posY;
+    public Position(int i, int j){
+        this.i = i;
+        this.j = j;
     }
 }

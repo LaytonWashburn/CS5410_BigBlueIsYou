@@ -4,9 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Saving for the night">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="fix level rendering for different sizes of levels">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Adjective.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Adjective.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Noun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Noun.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Verb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Verb.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderAnimatedSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/RenderAnimatedSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderStaticSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/RenderStaticSprite.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,8 +42,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:LaytonWashburn/CS5410_BigBlueIsYou.git&quot;,
-    &quot;accountId&quot;: &quot;bb1a2716-acc5-4b6d-aca9-35ee4e29f2c7&quot;
+    &quot;url&quot;: &quot;https://github.com/LaytonWashburn/CS5410_BigBlueIsYou.git&quot;,
+    &quot;accountId&quot;: &quot;bb396ab9-696d-4548-90f7-1790c215295f&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -55,7 +64,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/layto/USU/CS5410/ClassNotes/ECS - Snake Game/ECS - Snake Game&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ben Tomlinson/IdeaProjects/Project 3 - Lunar Lander&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
@@ -92,6 +101,14 @@
       <item itemvalue="Application.Driver - Windows/Linux" />
       <item itemvalue="Application.Driver - macOS" />
     </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -135,79 +152,7 @@
       <option name="project" value="LOCAL" />
       <updated>1743962362093</updated>
     </task>
-    <task id="LOCAL-00005" summary="Working on the rule structure.">
-      <option name="closed" value="true" />
-      <created>1744002401282</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1744002401282</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Working on movement collision. Can move entities but it isn't accurate for the entity it grabs">
-      <option name="closed" value="true" />
-      <created>1744061420200</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1744061420200</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Collision still not working">
-      <option name="closed" value="true" />
-      <created>1744063511524</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1744063511524</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Framework for collision is there but collision formula is wrong">
-      <option name="closed" value="true" />
-      <created>1744076992183</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1744076992183</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Closer to the correct collision but not quite there">
-      <option name="closed" value="true" />
-      <created>1744078538938</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1744078538938</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Saving changes">
-      <option name="closed" value="true" />
-      <created>1744079279678</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1744079279679</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Closet one so far">
-      <option name="closed" value="true" />
-      <created>1744080975466</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1744080975466</updated>
-    </task>
-    <task id="LOCAL-00012" summary="One the right collision path hopefully">
-      <option name="closed" value="true" />
-      <created>1744088480011</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1744088480011</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Saving for the night">
-      <option name="closed" value="true" />
-      <created>1744088781699</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1744088781699</updated>
-    </task>
-    <option name="localTasksCounter" value="14" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -218,18 +163,7 @@
     <MESSAGE value="AnimatedSprite example" />
     <MESSAGE value="Cleanup and refactoring" />
     <MESSAGE value="fix level rendering for different sizes of levels" />
-    <MESSAGE value="Changed the GameModel.update to account for if systems are still interested or not" />
-    <MESSAGE value="Merge branch 'main' of github.com:LaytonWashburn/CS5410_BigBlueIsYou&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
-    <MESSAGE value="Working on the rule structure." />
-    <MESSAGE value="Working on movement collision. Can move entities but it isn't accurate for the entity it grabs" />
-    <MESSAGE value="Collision still not working" />
-    <MESSAGE value="Framework for collision is there but collision formula is wrong" />
-    <MESSAGE value="Closer to the correct collision but not quite there" />
-    <MESSAGE value="Saving changes" />
-    <MESSAGE value="Closet one so far" />
-    <MESSAGE value="One the right collision path hopefully" />
-    <MESSAGE value="Saving for the night" />
-    <option name="LAST_COMMIT_MESSAGE" value="Saving for the night" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix level rendering for different sizes of levels" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

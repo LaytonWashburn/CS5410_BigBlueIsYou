@@ -14,7 +14,9 @@ import ecs.Components.Position;
 import ecs.Entities.Entity;
 
 import edu.usu.graphics.*;
+import level.Level;
 import org.joml.Vector2f;
+import utils.EntityConstants;
 
 import java.util.ArrayList;
 
@@ -22,10 +24,13 @@ public class RenderAnimatedSprite extends System{
 
     private Graphics2D graphics;
 
-    public RenderAnimatedSprite(Graphics2D graphics) {
+    private Level level;
+
+    public RenderAnimatedSprite(Graphics2D graphics, Level level) {
         super(AnimatedSprite.class);
 
         this.graphics = graphics;
+        this.level = level;
     }
 
     @Override
@@ -35,7 +40,8 @@ public class RenderAnimatedSprite extends System{
             var animatedSprite = entity.get(AnimatedSprite.class);
             var position = entity.get(Position.class);
 
-            animatedSprite.animatedSprite.setCenter(new Vector2f(position.posX, position.posY));    // Sync up the entity position with sprite position
+            animatedSprite.animatedSprite.setCenter(new Vector2f((-EntityConstants.rectSize * ((float) level.getWidth() / 2) + position.j*EntityConstants.rectSize + EntityConstants.rectSize/2),
+                    (-EntityConstants.rectSize * ((float) level.getHeight() / 2)) + position.i*EntityConstants.rectSize + EntityConstants.rectSize/2));    // Sync up the entity position with sprite position
 
             animatedSprite.animatedSprite.update(elapsedTime);
             animatedSprite.animatedSprite.draw(graphics, edu.usu.graphics.Color.WHITE);

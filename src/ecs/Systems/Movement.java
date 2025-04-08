@@ -33,24 +33,25 @@ public class Movement extends System{
 
                 switch (moving.moving){
                     case Direction.UP:
-                        checkCollisionAt(entity, position.posX, position.posY - EntityConstants.rectSize, moving.moving);
-                        position.posY -= EntityConstants.rectSize;
+                        checkCollisionAt(entity, position.i-1, position.j, moving.moving);
+                        position.i -= 1;
                         break;
                     case Direction.DOWN:
-                        checkCollisionAt(entity, position.posX, position.posY + EntityConstants.rectSize, moving.moving);
-                        position.posY += EntityConstants.rectSize;
+                        checkCollisionAt(entity, position.i+1, position.j, moving.moving);
+                        position.i += 1;
                         break;
                     case Direction.LEFT:
-                        checkCollisionAt(entity, position.posX - EntityConstants.rectSize, position.posY,moving.moving);
-                        position.posX -= EntityConstants.rectSize;
+                        checkCollisionAt(entity, position.i, position.j-1, moving.moving);
+                        position.j -= 1;
                         break;
                     case Direction.RIGHT:
-                        checkCollisionAt(entity, position.posX + EntityConstants.rectSize, position.posY, moving.moving);
-                        position.posX += EntityConstants.rectSize;
+                        checkCollisionAt(entity, position.i, position.j+1, moving.moving);
+                        position.j += 1;
                         break;
                     default:
                 }
 
+                java.lang.System.out.println(position.i + " " + position.j);
             }
        }
         return new ArrayList<>(entities.values());
@@ -60,11 +61,11 @@ public class Movement extends System{
      * Method: Check Collision At
      * Description: Checks is the locations collide
      * @param movingEntity - Entity
-     * @param targetX - Target x coordinate
-     * @param targetY - Target y coordinate
+     * @param targetI - Target i coordinate
+     * @param targetJ - Target j coordinate
      * @return - True for collision and false for no collision
      */
-    public boolean checkCollisionAt(Entity movingEntity, float targetX, float targetY, Direction movingDirection) {
+    public boolean checkCollisionAt(Entity movingEntity, float targetI, float targetJ, Direction movingDirection) {
 
         var position = movingEntity.get(ecs.Components.Position.class);
 
@@ -73,59 +74,25 @@ public class Movement extends System{
             if(otherEntity != movingEntity) {
 
                 var otherPosition = otherEntity.get(ecs.Components.Position.class);
-                boolean x = false;
-                boolean y = false;
 
-                switch(movingDirection) {
-                    case Direction.UP:
-                        y = targetY <= otherPosition.posY &&
-                                targetY >= otherPosition.posY - EntityConstants.rectSize &&
-                                targetX >= otherPosition.posX - EntityConstants.rectSize &&
-                                targetX < otherPosition.posX;
-                        break;
-                    case Direction.DOWN:
-                        y = targetY >= otherPosition.posY - EntityConstants.rectSize &&
-                            targetY <= otherPosition.posY &&
-                            targetX >= otherPosition.posX - EntityConstants.rectSize &&
-                            targetX < otherPosition.posX;
-                        break;
-                    case Direction.LEFT:
-                        x = targetX <= otherPosition.posX &&
-                                targetX > otherPosition.posX - EntityConstants.rectSize &&
-                                targetY > otherPosition.posY - EntityConstants.rectSize &&
-                                targetY < otherPosition.posY;
-                        break;
-                    case Direction.RIGHT:
-                        // The moving entity is moving right, so check if its left side (targetX) has crossed into the right side of the target entity.
-                        x = targetX + EntityConstants.rectSize > otherPosition.posX && // Check if the moving entity's right side is beyond the target entity's left side
-                                targetX < otherPosition.posX + EntityConstants.rectSize && // Check if the moving entity's left side is inside the target entity's right side
-                                targetY >= otherPosition.posY && // Ensure the vertical range is within the target entity's bounds
-                                targetY < otherPosition.posY + EntityConstants.rectSize;
-//                        x = targetX + EntityConstants.rectSize >= otherPosition.posX &&
-//                                targetX < otherPosition.posX + EntityConstants.rectSize &&
-//                                targetY >= otherPosition.posY &&
-//                                targetY < otherPosition.posY + EntityConstants.rectSize;
-                        break;
-                }
-
-                 if (x || y) { // If there is a collision
+                 if (targetI == otherPosition.i && targetJ == otherPosition.j) { // If there is a collision
 
                     switch (movingDirection){
                         case Direction.UP:
-                            checkCollisionAt(otherEntity, targetX, otherPosition.posY - EntityConstants.rectSize, movingDirection); // Recursive call
-                            otherPosition.posY -= EntityConstants.rectSize;
+                            checkCollisionAt(otherEntity, otherPosition.i - 1, otherPosition.j, movingDirection); // Recursive call
+                            otherPosition.i -= 1;
                             break;
                         case Direction.DOWN:
-                            checkCollisionAt(otherEntity, targetX, otherPosition.posY + EntityConstants.rectSize, movingDirection); // Recursive call
-                            otherPosition.posY += EntityConstants.rectSize;
+                            checkCollisionAt(otherEntity, otherPosition.i + 1, otherPosition.j, movingDirection); // Recursive call
+                            otherPosition.i += 1;
                             break;
                         case Direction.LEFT:
-                            checkCollisionAt(otherEntity, otherPosition.posX - EntityConstants.rectSize, otherPosition.posY, movingDirection); // Recursive call
-                            otherPosition.posX -= EntityConstants.rectSize;
+                            checkCollisionAt(otherEntity, otherPosition.i, otherPosition.j - 1, movingDirection); // Recursive call
+                            otherPosition.j -= 1;
                             break;
                         case Direction.RIGHT:
-                            checkCollisionAt(otherEntity, otherPosition.posX + EntityConstants.rectSize, otherPosition.posY, movingDirection); // Recursive call
-                            otherPosition.posX += EntityConstants.rectSize;
+                            checkCollisionAt(otherEntity, otherPosition.i, otherPosition.j + 1, movingDirection); // Recursive call
+                            otherPosition.j += 1;
                             break;
                         default:
                     }
