@@ -90,21 +90,25 @@ public class Movement extends System{
                             targetX < otherPosition.posX;
                         break;
                     case Direction.LEFT:
-                        x = targetY <= otherPosition.posY &&
-                            targetY >= otherPosition.posY + EntityConstants.rectSize &&
-                            targetX <= otherPosition.posX - EntityConstants.rectSize  &&
-                            targetX > otherPosition.posX ;
+                        x = targetX <= otherPosition.posX &&
+                                targetX > otherPosition.posX - EntityConstants.rectSize &&
+                                targetY > otherPosition.posY - EntityConstants.rectSize &&
+                                targetY < otherPosition.posY;
                         break;
                     case Direction.RIGHT:
-                        x = targetY <= otherPosition.posY &&
-                            targetY >= otherPosition.posY &&
-                            targetX >= otherPosition.posX &&
-                            targetX <= otherPosition.posX + EntityConstants.rectSize;
-
+                        // The moving entity is moving right, so check if its left side (targetX) has crossed into the right side of the target entity.
+                        x = targetX + EntityConstants.rectSize > otherPosition.posX && // Check if the moving entity's right side is beyond the target entity's left side
+                                targetX < otherPosition.posX + EntityConstants.rectSize && // Check if the moving entity's left side is inside the target entity's right side
+                                targetY >= otherPosition.posY && // Ensure the vertical range is within the target entity's bounds
+                                targetY < otherPosition.posY + EntityConstants.rectSize;
+//                        x = targetX + EntityConstants.rectSize >= otherPosition.posX &&
+//                                targetX < otherPosition.posX + EntityConstants.rectSize &&
+//                                targetY >= otherPosition.posY &&
+//                                targetY < otherPosition.posY + EntityConstants.rectSize;
                         break;
-                    default:
                 }
-                 if (x || y) {
+
+                 if (x || y) { // If there is a collision
 
                     switch (movingDirection){
                         case Direction.UP:
@@ -112,15 +116,15 @@ public class Movement extends System{
                             otherPosition.posY -= EntityConstants.rectSize;
                             break;
                         case Direction.DOWN:
-                            checkCollisionAt(otherEntity, targetX, otherPosition.posY - EntityConstants.rectSize, movingDirection); // Recursive call
+                            checkCollisionAt(otherEntity, targetX, otherPosition.posY + EntityConstants.rectSize, movingDirection); // Recursive call
                             otherPosition.posY += EntityConstants.rectSize;
                             break;
                         case Direction.LEFT:
-                            // checkCollisionAt(otherEntity, otherPosition.posX, otherPosition.posY - EntityConstants.rectSize, movingDirection); // Recursive call
+                            checkCollisionAt(otherEntity, otherPosition.posX - EntityConstants.rectSize, otherPosition.posY, movingDirection); // Recursive call
                             otherPosition.posX -= EntityConstants.rectSize;
                             break;
                         case Direction.RIGHT:
-                            // checkCollisionAt(otherEntity, otherPosition.posX, otherPosition.posY + EntityConstants.rectSize, movingDirection); // Recursive call
+                            checkCollisionAt(otherEntity, otherPosition.posX + EntityConstants.rectSize, otherPosition.posY, movingDirection); // Recursive call
                             otherPosition.posX += EntityConstants.rectSize;
                             break;
                         default:
