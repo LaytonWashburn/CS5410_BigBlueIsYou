@@ -77,15 +77,15 @@ public class Movement extends System{
                 boolean y = false;
 
                 switch(movingDirection) {
+                    case Direction.UP:
+                        y = targetY <= otherPosition.posY &&
+                                targetY >= otherPosition.posY - EntityConstants.rectSize &&
+                                targetX >= otherPosition.posX - EntityConstants.rectSize &&
+                                targetX < otherPosition.posX;
+                        break;
                     case Direction.DOWN:
                         y = targetY >= otherPosition.posY - EntityConstants.rectSize &&
                             targetY <= otherPosition.posY &&
-                            targetX >= otherPosition.posX - EntityConstants.rectSize &&
-                            targetX < otherPosition.posX;
-                        break;
-                    case Direction.UP:
-                        y = targetY <= otherPosition.posY &&
-                            targetY >= otherPosition.posY - EntityConstants.rectSize &&
                             targetX >= otherPosition.posX - EntityConstants.rectSize &&
                             targetX < otherPosition.posX;
                         break;
