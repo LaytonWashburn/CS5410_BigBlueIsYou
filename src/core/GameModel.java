@@ -249,7 +249,7 @@ public class GameModel {
                 add(CreateSprites.createWordRock(texWordRock, row, col), row, col);
                 break;
             case 'F': // Word Flag
-                add(CreateSprites.createFloor(texWordFlag, row, col), row, col);
+                add(CreateSprites.createWordFlag(texWordFlag, row, col), row, col);
                 break;
             case 'B': // Word Big Blue
                 add(CreateSprites.createWordBaba(texWordBaba, row, col), row, col);

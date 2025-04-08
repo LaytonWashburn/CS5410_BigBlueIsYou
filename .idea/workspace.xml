@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="fixed pushing system?">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="can lo longer push moveable entities">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Adjective.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Adjective.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Noun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Noun.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Verb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Verb.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Properties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Properties.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +112,8 @@
       <option name="presentableId" value="Default" />
       <updated>1714403754133</updated>
       <workItem from="1743722182498" duration="2134000" />
-      <workItem from="1744140852560" duration="3807000" />
+      <workItem from="1744140852560" duration="4159000" />
+      <workItem from="1744146330394" duration="1488000" />
     </task>
     <task id="LOCAL-00001" summary="controls menu fixes">
       <option name="closed" value="true" />
@@ -157,7 +155,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744135155203</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="can lo longer push moveable entities">
+      <option name="closed" value="true" />
+      <created>1744144956093</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1744144956093</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,7 +175,8 @@
     <MESSAGE value="Cleanup and refactoring" />
     <MESSAGE value="fix level rendering for different sizes of levels" />
     <MESSAGE value="fixed pushing system?" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed pushing system?" />
+    <MESSAGE value="can lo longer push moveable entities" />
+    <option name="LAST_COMMIT_MESSAGE" value="can lo longer push moveable entities" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
