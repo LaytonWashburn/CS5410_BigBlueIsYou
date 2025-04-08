@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Framework for collision is there but collision formula is wrong">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Closer to the correct collision but not quite there">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" afterDir="false" />
     </list>
@@ -167,7 +167,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744076992183</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Closer to the correct collision but not quite there">
+      <option name="closed" value="true" />
+      <created>1744078538938</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1744078538938</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,7 +192,8 @@
     <MESSAGE value="Working on movement collision. Can move entities but it isn't accurate for the entity it grabs" />
     <MESSAGE value="Collision still not working" />
     <MESSAGE value="Framework for collision is there but collision formula is wrong" />
-    <option name="LAST_COMMIT_MESSAGE" value="Framework for collision is there but collision formula is wrong" />
+    <MESSAGE value="Closer to the correct collision but not quite there" />
+    <option name="LAST_COMMIT_MESSAGE" value="Closer to the correct collision but not quite there" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

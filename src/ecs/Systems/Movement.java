@@ -64,52 +64,91 @@ public class Movement extends System{
      * @param targetY - Target y coordinate
      * @return - True for collision and false for no collision
      */
-    public boolean checkCollisionAt(Entity entity, float targetX, float targetY, Direction moving) {
+    public boolean checkCollisionAt(Entity movingEntity, float targetX, float targetY, Direction movingDirection) {
+        float squareSideLength = EntityConstants.rectSize;
 
-        for(Entity other : entities.values()) {
+        for (Entity otherEntity : entities.values()) {
+            if (otherEntity == movingEntity) continue;
 
-            //if (other == entity) continue; // If the entity is itself, jump to next loop
-
-            Position otherPosition = other.get(ecs.Components.Position.class);
+            Position otherPosition = otherEntity.get(ecs.Components.Position.class);
             float otherX = otherPosition.posX;
             float otherY = otherPosition.posY;
 
-            // Check for X-axis overlap
-            boolean xOverlap = targetX < otherX + EntityConstants.rectSize && targetX + EntityConstants.rectSize > otherX;
+            boolean xOverlap = targetX < otherX + squareSideLength && targetX + squareSideLength > otherX;
+            boolean yOverlap = targetY < otherY + squareSideLength && targetY + squareSideLength > otherY;
 
-            // Check for Y-axis overlap
-            boolean yOverlap = targetY < otherY + EntityConstants.rectSize && targetY + EntityConstants.rectSize > otherY;
+            if (xOverlap && yOverlap) {
+                java.lang.System.out.println("Collision at (" + targetX + ", " + targetY + ") with (" + otherX + ", " + otherY + ")");
 
-            if (xOverlap && yOverlap) { // If there is a collision
-                java.lang.System.out.println("Potential collision for entity " + entity.getId() +
-                        " at (" + targetX + ", " + targetY + ") with entity " + other.getId());
+                float pushAmount = squareSideLength;
+                float nextOtherX = otherX;
+                float nextOtherY = otherY;
 
-                switch (moving){
-                    case Direction.UP:
-                        // checkCollisionAt(entity, otherPosition.posX, otherPosition.posY - EntityConstants.rectSize, moving); // Recursive call
-                        otherPosition.posY -= EntityConstants.rectSize;
-                        break;
-                    case Direction.DOWN:
-                        // checkCollisionAt(entity, otherPosition.posX, otherPosition.posY + EntityConstants.rectSize, moving); // Recursive call
-                        otherPosition.posY += EntityConstants.rectSize;
-                        break;
-                    case Direction.LEFT:
-                        // checkCollisionAt(entity, otherPosition.posX, otherPosition.posY - EntityConstants.rectSize, moving); // Recursive call
-                        otherPosition.posX -= EntityConstants.rectSize;
-                        break;
-                    case Direction.RIGHT:
-                        // checkCollisionAt(entity, otherPosition.posX, otherPosition.posY + EntityConstants.rectSize, moving); // Recursive call
-                        otherPosition.posX += EntityConstants.rectSize;
-                        break;
-                    default:
+                switch (movingDirection) {
+                    case UP: nextOtherY -= pushAmount; break;
+                    case DOWN: nextOtherY += pushAmount; break;
+                    case LEFT: nextOtherX -= pushAmount; break;
+                    case RIGHT: nextOtherX += pushAmount; break;
+                    default: return true; // Collision, no push
                 }
-                return true;
-            } else {
-                // java.lang.System.out.println("No collision");
+
+                if (!checkCollisionAt(otherEntity, nextOtherX, nextOtherY, Direction.STOP)) {
+                    otherPosition.posX = nextOtherX;
+                    otherPosition.posY = nextOtherY;
+                    return true; // Collision handled by push
+                } else {
+                    return true; // Collision, push failed
+                }
             }
         }
-        return false;
+        return false; // No collision
     }
+//    public boolean checkCollisionAt(Entity entity, float targetX, float targetY, Direction moving) {
+//
+//        for(Entity other : entities.values()) {
+//
+//            //if (other == entity) continue; // If the entity is itself, jump to next loop
+//
+//            Position otherPosition = other.get(ecs.Components.Position.class);
+//            float otherX = otherPosition.posX;
+//            float otherY = otherPosition.posY;
+//
+//            // Check for X-axis overlap
+//            boolean xOverlap = targetX < otherX && targetX  > otherX;
+//
+//            // Check for Y-axis overlap
+//            boolean yOverlap = targetY < otherY && targetY  > otherY;
+//
+//            if (xOverlap && yOverlap) { // If there is a collision
+//                java.lang.System.out.println("Potential collision for entity " + entity.getId() +
+//                        " at (" + targetX + ", " + targetY + ") with entity " + other.getId());
+//
+//                switch (moving){
+//                    case Direction.UP:
+//                        // checkCollisionAt(entity, otherPosition.posX, otherPosition.posY - EntityConstants.rectSize, moving); // Recursive call
+//                        otherPosition.posY -= EntityConstants.rectSize;
+//                        break;
+//                    case Direction.DOWN:
+//                        // checkCollisionAt(entity, otherPosition.posX, otherPosition.posY + EntityConstants.rectSize, moving); // Recursive call
+//                        otherPosition.posY += EntityConstants.rectSize;
+//                        break;
+//                    case Direction.LEFT:
+//                        // checkCollisionAt(entity, otherPosition.posX, otherPosition.posY - EntityConstants.rectSize, moving); // Recursive call
+//                        otherPosition.posX -= EntityConstants.rectSize;
+//                        break;
+//                    case Direction.RIGHT:
+//                        // checkCollisionAt(entity, otherPosition.posX, otherPosition.posY + EntityConstants.rectSize, moving); // Recursive call
+//                        otherPosition.posX += EntityConstants.rectSize;
+//                        break;
+//                    default:
+//                }
+//                return true;
+//            } else {
+//                // java.lang.System.out.println("No collision");
+//            }
+//        }
+//        return false;
+//    }
 
 
     /**
