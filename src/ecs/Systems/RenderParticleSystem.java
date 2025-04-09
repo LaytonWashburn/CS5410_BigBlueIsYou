@@ -21,6 +21,6 @@ import java.util.ArrayList;
 public class RenderParticleSystem extends System{
     @Override
     public ArrayList<Entity> update(double elapsedTime) {
-        return new ArrayList<>(entities.values());
+        return new ArrayList<>();
     }
 }

@@ -112,8 +112,12 @@ public class GameModel {
 
         var changed = new HashMap<Long, Entity>(); // Update the systems and put in changed map
         for(ecs.Systems.System system : systems) {
-            for(Entity entity : system.update(elapsedTime)){ // Loop through the changed
+            ArrayList<Entity> changedEntities = system.update(elapsedTime);
+            for(Entity entity : changedEntities){ // Loop through the changed
                 changed.put(entity.getId(), entity);
+            }
+            if (system instanceof Movement && !changed.isEmpty()) {
+                java.lang.System.out.println("Update rules here");
             }
         }
 

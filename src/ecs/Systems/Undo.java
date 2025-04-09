@@ -7,6 +7,6 @@ import java.util.ArrayList;
 public class Undo extends System{
     @Override
     public ArrayList<Entity> update(double elapsedTime) {
-        return new ArrayList<>(entities.values());
+        return new ArrayList<>();
     }
 }
