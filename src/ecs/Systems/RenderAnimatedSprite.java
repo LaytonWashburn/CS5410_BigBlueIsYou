@@ -47,6 +47,6 @@ public class RenderAnimatedSprite extends System{
             animatedSprite.animatedSprite.draw(graphics, edu.usu.graphics.Color.WHITE);
         }
 
-        return new ArrayList<>(entities.values());
+        return new ArrayList<>(); // entities.values()
     }
 }

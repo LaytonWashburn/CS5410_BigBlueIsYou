@@ -22,11 +22,11 @@ public class Movement extends System{
     }
     @Override
     public ArrayList<Entity> update(double elapsedTime) {
-
+        java.lang.System.out.println("In the Movement update");
         ArrayList<Entity> movables = findMovable(); // Get the movable entities
 
         for (Entity entity : movables) { // Loop through the entities
-
+            java.lang.System.out.println(entity);
             var position = entity.get(ecs.Components.Position.class);
             var moving = entity.get(ecs.Components.Movement.class);
 
@@ -114,60 +114,6 @@ public class Movement extends System{
 
         return immovableHit;
     }
-
-
-//    public boolean checkCollisionAt(Entity movingEntity, float targetX, float targetY, Direction movingDirection) {
-//        float squareSideLength = EntityConstants.rectSize;
-//
-//        for (Entity otherEntity : entities.values()) {
-//
-//            if (otherEntity == movingEntity) continue;
-//
-//            Position otherPosition = otherEntity.get(ecs.Components.Position.class);
-//            float otherX = otherPosition.posX;
-//            float otherY = otherPosition.posY;
-//
-//            boolean xOverlap = targetX < otherX + squareSideLength && targetX + squareSideLength > otherX;
-//            boolean yOverlap = targetY < otherY + squareSideLength && targetY + squareSideLength > otherY;
-//
-//            if (xOverlap && yOverlap) {
-//                java.lang.System.out.println("Collision at (" + targetX + ", " + targetY + ") with (" + otherX + ", " + otherY + ")");
-//
-//                float pushAmount = squareSideLength;
-//                float nextOtherX = otherX;
-//                float nextOtherY = otherY;
-//
-//                switch (movingDirection){
-//                    case Direction.UP:
-//                        // checkCollisionAt(otherEntity, otherPosition.posX, otherPosition.posY - EntityConstants.rectSize, movingDirection); // Recursive call
-//                        otherPosition.posY -= EntityConstants.rectSize;
-//                        break;
-//                    case Direction.DOWN:
-//                        // checkCollisionAt(otherEntity, otherPosition.posX, otherPosition.posY + EntityConstants.rectSize, movingDirection); // Recursive call
-//                        otherPosition.posY += EntityConstants.rectSize;
-//                        break;
-//                    case Direction.LEFT:
-//                        // checkCollisionAt(otherEntity, otherPosition.posX, otherPosition.posY - EntityConstants.rectSize, movingDirection); // Recursive call
-//                        otherPosition.posX -= EntityConstants.rectSize;
-//                        break;
-//                    case Direction.RIGHT:
-//                        // checkCollisionAt(otherEntity, otherPosition.posX, otherPosition.posY + EntityConstants.rectSize, movingDirection); // Recursive call
-//                        otherPosition.posX += EntityConstants.rectSize;
-//                        break;
-//                    default:
-//                }
-//
-//                if (!checkCollisionAt(otherEntity, nextOtherX, nextOtherY, Direction.STOP)) {
-//                    otherPosition.posX = nextOtherX;
-//                    otherPosition.posY = nextOtherY;
-//                    return true; // Collision handled by push
-//                } else {
-//                    return true; // Collision, push failed
-//                }
-//            }
-//        }
-//        return false; // No collision
-//    }
 
     /**
      * Returns a collection of all the movable entities.

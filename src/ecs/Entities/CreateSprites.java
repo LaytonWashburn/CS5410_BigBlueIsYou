@@ -88,15 +88,14 @@ public class CreateSprites {
      * @param j - Y position of object initially
      * @return Entity - Entity created
      */
-    public static Entity createBigBlue(Texture texture, int i, int j, KeyBinds keybinds) {
+    public static Entity createBigBlue(Texture texture, int i, int j) {
         Entity bigBlue = new Entity();
 
-//        bigBlue.add(new ecs.Components.BigBlue()); Don't know if this is needed
+        bigBlue.add(new ecs.Components.BigBlue()); // Don't know if this is needed
         bigBlue.add(new StaticSprite(texture));
         bigBlue.add(new ecs.Components.Position(i, j));
         bigBlue.add(new ecs.Components.Noun(NounType.BIGBLUE));
         bigBlue.add(new ecs.Components.Property(Properties.MOVE));
-
 
         return  bigBlue;
 

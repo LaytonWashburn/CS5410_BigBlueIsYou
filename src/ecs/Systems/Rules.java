@@ -38,10 +38,12 @@ public class Rules extends System{
 
     public ArrayList<Entity> scanGamePlayArea(double elapsedTime) {
 
+
         ArrayList<Entity> changed = new ArrayList<>(); // Array list to hold the changed entities
 
 
         for (Entity entity : entities.values()) {   // Ideally these don't have to be checked every update cycle, only after certain events are detected
+
             var position = entity.get(ecs.Components.Position.class);
 
 
@@ -51,6 +53,7 @@ public class Rules extends System{
 
 
                 if (property.getProperties().contains(Properties.MOVE) && !entity.contains(ecs.Components.KeyboardControlled.class)) {
+
                     entity.add(new ecs.Components.Movement(Direction.STOP));
                     entity.add(new ecs.Components.KeyboardControlled(
                             Map.of(keybinds.UP, Direction.UP,
@@ -72,22 +75,9 @@ public class Rules extends System{
 
         }
 
-
-
         return changed;
 
     }
-
-
-    public void updateRule(Entity entity, TextType textType, NounType nounType) {
-
-//        switch (textType) {
-//            case
-//        }
-
-    }
-
-
 
 
 }

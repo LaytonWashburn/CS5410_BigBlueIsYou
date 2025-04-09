@@ -92,12 +92,11 @@ public class GameModel {
         this.sysRenderStaticSprite = new RenderStaticSprite(graphics, level);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics, level);
         this.sysRules = new Rules(keybinds, level);
+        this.sysMovement = new Movement(graphics);
 
         System.out.println("Size of the systems is: " + systems.size());
 
         initializeObjectTypes(level);
-
-        this.sysMovement = new Movement(graphics);
 
         Entity a = CreateSprites.createLava(texLava, 0, 0);
         Entity b = a.clone();
@@ -111,46 +110,26 @@ public class GameModel {
     public void update(double elapsedTime) {
         // Because ECS framework, input processing is now part of the update
 
-    // Leaving this system updates in in-case something weird happens
-// //        sysKeyboardInput.update(elapsedTime);
-// //        sysRenderSprite.update(elapsedTime);
-// //        sysRenderAnimatedSprite.update(elapsedTime);
-// //        sysMovement.update(elapsedTime);
-
-        var changed = new HashMap<Long, Entity>();
+        var changed = new HashMap<Long, Entity>(); // Update the systems and put in changed map
         for(ecs.Systems.System system : systems) {
-            for(Entity entity : system.update(elapsedTime)){
+            for(Entity entity : system.update(elapsedTime)){ // Loop through the changed
                 changed.put(entity.getId(), entity);
             }
         }
 
-        for (var entity : changed.values()) {
+        for (var entity : changed.values()) { // Allow systems to decide if they are interested or not in the changed
             for (var system : systems) {
                 system.updatedEntity(entity);
             }
         }
 
-//        var changed = new HashMap<Long, Entity>();
-//        for (var system in systems) {
-//            for (var entity in system.update(…)) {
-//                changed.put(entity.getId(), entity);
-//            }
-//        }
-//
-//        for (var entity in changed) {
-//            for (var system in systems) {
-//                system.updatedEntity(entity);
-//            }
-//        }
-
-
-
-
+        // Remove entities
         for (var entity : removeThese) {
             removeEntity(entity);
         }
         removeThese.clear();
 
+        // Add Entities
         for (var entity : addThese) {
             addEntity(entity);
         }
@@ -225,7 +204,7 @@ public class GameModel {
                 add(CreateSprites.createFlag(texFlag, row, col), row, col);
                 break;
             case 'b': // big blue
-                add(CreateSprites.createBigBlue(texBigBlue, row, col, keybinds), row, col);
+                add(CreateSprites.createBigBlue(texBigBlue, row, col), row, col);
                 break;
             case 'h': // hedge
                 add(CreateSprites.createHedge(texHedge, row, col), row, col);
@@ -285,6 +264,12 @@ public class GameModel {
         }
     }
 
+    /**
+     * Method : add
+     * @param entity - Entity to add
+     * @param row - Row position to add the entity
+     * @param col - Col position to add the entity
+     */
     public void add(Entity entity, int row, int col) {
         addEntity(entity);
         this.gameArea[row][col] = entity;

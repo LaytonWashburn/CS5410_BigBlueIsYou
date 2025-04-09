@@ -39,7 +39,7 @@ public class RenderStaticSprite extends System{
         for(Entity entity : entities.values()){
             renderEntity(entity);
         }
-        return new ArrayList<>(entities.values());
+        return new ArrayList<>(); // entities.values()
     }
 
     public void renderEntity(Entity entity){

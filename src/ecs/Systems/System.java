@@ -15,13 +15,14 @@ import java.util.Map;
  */
 public abstract class System {
 
-    protected Map<Long, Entity> entities = new HashMap<>();
+    protected Map<Long, Entity> entities;
     private final Class<? extends Component>[] componentTypes;
     public static ArrayList<System> systems = new ArrayList<>();
 
     @SafeVarargs
     public System(Class<? extends Component>... types) {
 
+        this.entities = new HashMap<>();
         this.componentTypes = types;
         systems.add(this);
     }
@@ -62,14 +63,14 @@ public abstract class System {
     /**
      * Derived systems must override this method to perform update logic specific to that system.
      */
-    // public abstract void update(double elapsedTime);
     public abstract ArrayList<Entity> update(double elapsedTime);
 
     public void updatedEntity(Entity entity) {
         boolean interested = isInterested(entity);
-        if (!interested) {
+        if (!interested) { // If not interested remove from entities map
             entities.remove(entity.getId());
-        } else if (!entities.containsKey(entity.getId())) {
+        }
+        else if (!entities.containsKey(entity.getId())) { // If interested and not already in map
             entities.put(entity.getId(), entity);
         }
     }
