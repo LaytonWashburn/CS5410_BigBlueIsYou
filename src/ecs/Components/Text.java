@@ -14,7 +14,7 @@ public class Text extends Component{
         this.type = type;
     }
 
-    public TextType getTextType(TextType type){
+    public TextType getTextType(){
         return this.type;
     }
 }

@@ -56,6 +56,6 @@ public class KeyboardInput extends System {
             input.keysPressed.put(Direction.DOWN, glfwGetKey(window, keyBinds.DOWN) == GLFW_PRESS);
 
         }
-        return new ArrayList<>(entities.values());
+        return new ArrayList<>();
     }
 }
