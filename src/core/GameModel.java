@@ -96,11 +96,10 @@ public class GameModel {
 
         System.out.println("Size of the systems is: " + systems.size());
 
-        initializeObjectTypes(level);
+        initializeObjectTypes(level); // Take level and create entities for all objects
 
-        Entity a = CreateSprites.createLava(texLava, 0, 0);
-        Entity b = a.clone();
-        System.out.println(b);
+        this.sysRules.scanGamePlayArea(this.gameArea); // Do an initial scan of the game area
+
     }
 
     /**
@@ -109,7 +108,7 @@ public class GameModel {
      */
     public void update(double elapsedTime) {
         // Because ECS framework, input processing is now part of the update
-
+        boolean moved = false;
         var changed = new HashMap<Long, Entity>(); // Update the systems and put in changed map
         for(ecs.Systems.System system : systems) {
             ArrayList<Entity> changedEntities = system.update(elapsedTime);
@@ -117,7 +116,16 @@ public class GameModel {
                 changed.put(entity.getId(), entity);
             }
             if (system instanceof Movement && !changed.isEmpty()) {
-                java.lang.System.out.println("Update rules here");
+                moved = true;
+            }
+        }
+
+        if(moved){ // Scan game play area if movement has occurred
+
+            for(ecs.Systems.System system : systems) { // Look for the Rules system
+                if(system instanceof Rules) {
+                    // ((Rules) system).scanGamePlayArea(this.gameArea);
+                }
             }
         }
 

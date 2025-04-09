@@ -75,52 +75,54 @@ public class Movement extends System{
 
         for (Entity otherEntity : entities.values()) {
 
-            var otherProperties = otherEntity.get(ecs.Components.Property.class);
+            if(otherEntity.contains(ecs.Components.Property.class)) {
+                var otherProperties = otherEntity.get(ecs.Components.Property.class);
 
-            if(!otherProperties.getProperties().contains(Properties.MOVE)) {
+                if(!otherProperties.getProperties().contains(Properties.MOVE)) {
 
-                var otherPosition = otherEntity.get(ecs.Components.Position.class);
+                    var otherPosition = otherEntity.get(ecs.Components.Position.class);
 
-                if (targetI == otherPosition.i && targetJ == otherPosition.j && otherProperties.getProperties().contains(Properties.STOP)) {  // If there is a collision and the other entity is immovable
-                    immovableHit = true;
-                }
+                    if (targetI == otherPosition.i && targetJ == otherPosition.j && otherProperties.getProperties().contains(Properties.STOP)) {  // If there is a collision and the other entity is immovable
+                        immovableHit = true;
+                    }
 
-                if (targetI == otherPosition.i && targetJ == otherPosition.j && otherProperties.getProperties().contains(Properties.PUSHABLE) && !immovableHit) { // If there is a collision and the other entity is pushable
+                    if (targetI == otherPosition.i && targetJ == otherPosition.j && otherProperties.getProperties().contains(Properties.PUSHABLE) && !immovableHit) { // If there is a collision and the other entity is pushable
 
-                    switch (movingDirection) {
-                        case Direction.UP:
-                            immovableHit = checkCollisionAt(otherPosition.i - 1, otherPosition.j, movingDirection); // Recursive call
-                            if (!immovableHit) {
-                                otherPosition.i -= 1;
-                                moved.add(otherEntity);
-                            }
-                            break;
-                        case Direction.DOWN:
-                            immovableHit = checkCollisionAt(otherPosition.i + 1, otherPosition.j, movingDirection); // Recursive call
-                            if (!immovableHit) {
-                                otherPosition.i += 1;
-                                moved.add(otherEntity);
-                            }
-                            break;
-                        case Direction.LEFT:
-                            immovableHit = checkCollisionAt(otherPosition.i, otherPosition.j - 1, movingDirection); // Recursive call
-                            if (!immovableHit) {
-                                otherPosition.j -= 1;
-                                moved.add(otherEntity);
-                            }
-                            break;
-                        case Direction.RIGHT:
-                            immovableHit = checkCollisionAt(otherPosition.i, otherPosition.j + 1, movingDirection); // Recursive call
-                            if (!immovableHit) {
-                                otherPosition.j += 1;
-                                moved.add(otherEntity);
-                            }
-                            break;
-                        default:
+                        switch (movingDirection) {
+                            case Direction.UP:
+                                immovableHit = checkCollisionAt(otherPosition.i - 1, otherPosition.j, movingDirection); // Recursive call
+                                if (!immovableHit) {
+                                    otherPosition.i -= 1;
+                                    moved.add(otherEntity);
+                                }
+                                break;
+                            case Direction.DOWN:
+                                immovableHit = checkCollisionAt(otherPosition.i + 1, otherPosition.j, movingDirection); // Recursive call
+                                if (!immovableHit) {
+                                    otherPosition.i += 1;
+                                    moved.add(otherEntity);
+                                }
+                                break;
+                            case Direction.LEFT:
+                                immovableHit = checkCollisionAt(otherPosition.i, otherPosition.j - 1, movingDirection); // Recursive call
+                                if (!immovableHit) {
+                                    otherPosition.j -= 1;
+                                    moved.add(otherEntity);
+                                }
+                                break;
+                            case Direction.RIGHT:
+                                immovableHit = checkCollisionAt(otherPosition.i, otherPosition.j + 1, movingDirection); // Recursive call
+                                if (!immovableHit) {
+                                    otherPosition.j += 1;
+                                    moved.add(otherEntity);
+                                }
+                                break;
+                            default:
+                        }
+
                     }
 
                 }
-
             }
 
         }

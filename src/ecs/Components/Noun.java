@@ -14,7 +14,7 @@ public class Noun extends Component{
         this.type = type;
     }
 
-    public NounType getNounType(NounType type){
+    public NounType getNounType(){
         return this.type;
     }
 }
