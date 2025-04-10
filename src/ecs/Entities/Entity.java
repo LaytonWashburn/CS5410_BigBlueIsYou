@@ -53,10 +53,10 @@ public final class Entity implements Cloneable{
         components.clear();
     }
 
-//    @Override
-//    public String toString() {
-//        return String.format("%d: %s", id, components.values().stream().map(c -> c.getClass().getSimpleName()).collect(Collectors.joining(", ")));
-//    }
+    @Override
+    public String toString() {
+        return String.format("%d: %s", id, components.values().stream().map(c -> c.getClass().getSimpleName()).collect(Collectors.joining(", ")));
+    }
 
     /**
      * Method: Clone
@@ -65,6 +65,13 @@ public final class Entity implements Cloneable{
      */
     @Override
     public Entity clone() throws CloneNotSupportedException {
-        return (Entity) super.clone();
+        Entity clone = new Entity();
+        clone.id = id;
+
+        for (Component component : components.values()) {
+            clone.components.put(component.getClass(), component.clone());
+        }
+
+        return clone;
     }
 }

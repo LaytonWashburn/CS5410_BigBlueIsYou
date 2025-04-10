@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Property extends Component{
 
-    private final Set<Properties> properties;
+    private Set<Properties> properties;
 
     public Property(Properties... properties) {
         this.properties = EnumSet.noneOf(Properties.class);
@@ -17,5 +17,13 @@ public class Property extends Component{
 
     public Set<Properties> getProperties() {
         return properties;
+    }
+
+    @Override
+    public Property clone() throws CloneNotSupportedException {
+        Property clone = (Property) super.clone();
+        // Create a new EnumSet with the same properties
+        clone.properties = EnumSet.copyOf(this.properties);
+        return clone;
     }
 }

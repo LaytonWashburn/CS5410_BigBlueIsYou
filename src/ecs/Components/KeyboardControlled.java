@@ -23,4 +23,18 @@ public class KeyboardControlled extends Component {
 
         enabled = true;
     }
+
+//    @Override
+//    public KeyboardControlled clone() throws CloneNotSupportedException {
+//        KeyboardControlled clone = (KeyboardControlled) super.clone();
+//        // Create deep copies of all maps
+//        clone.keys = new HashMap<>(this.keys);
+//        clone.lookup = new HashMap<>(this.lookup);
+//        // Clear and rebuild keysPressed since it's final
+//        clone.keysPressed.clear();
+//        clone.keysPressed.putAll(this.keysPressed);
+//
+//        clone.enabled = this.enabled;
+//        return clone;
+//    }
 }

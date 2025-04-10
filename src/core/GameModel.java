@@ -108,10 +108,10 @@ public class GameModel {
                 System.out.println("undo stack size " +undoStack.size());
                 StackFrame poppedFrame = undoStack.pop();
                 StackFrame remainingFrame = undoStack.peek();
-                System.out.println("popped frame size: " + poppedFrame.getEntities().size());
-                System.out.println("remaining frame size: " + remainingFrame.getEntities().size());
-                System.out.println("popped frame big blue: " + poppedFrame.getBigBlue().get(Position.class).i);
-                System.out.println("remaining frame big blue: " + remainingFrame.getBigBlue().get(Position.class).i);
+                System.out.println("popped frame");
+                poppedFrame.printEntities();
+                System.out.println("remaining frame");
+                remainingFrame.printEntities();
                 ArrayList<Tuple2<Entity, Boolean>> poppedEntities = poppedFrame.getEntities();
                 for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) {
                     Tuple2<Entity, Boolean> correspondingRemainingTuple = remainingFrame.getCorrespondingTuple(entityTuple);
@@ -128,7 +128,7 @@ public class GameModel {
         this.initialStackFrame = new StackFrame();
         initializeObjectTypes(level); // Take level and create entities for all objects
         undoStack.push(initialStackFrame);
-        System.out.println("initial frame big blue: " + initialStackFrame.getBigBlue().get(Position.class).i);
+        initialStackFrame.printEntities();
 
         this.sysRules.scanGamePlayArea(this.gameArea); // Do an initial scan of the game area
 
