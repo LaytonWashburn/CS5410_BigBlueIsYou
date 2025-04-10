@@ -105,6 +105,7 @@ public class Rules extends System{
                     if(entity.get(ecs.Components.Text.class).getTextType() == TextType.VERB) { // VERB IS
                         java.lang.System.out.println("Original is: Row: " + row + " Col: " + col);
                         scanVertical(grid, row, col, level.getHeight(), level.getWidth());
+                        scanHorizontal(grid, row, col, level.getHeight(), level.getWidth());
                     }
 
                 }

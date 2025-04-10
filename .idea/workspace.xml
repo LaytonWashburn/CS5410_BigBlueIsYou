@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Rocks can move now, need to work on removing components">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" afterDir="false" />
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Added grid alignment system">
       <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -180,7 +176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744249138460</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added grid alignment system">
+      <option name="closed" value="true" />
+      <created>1744252046635</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1744252046635</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,7 +200,8 @@
     <MESSAGE value="Can add STOP to WALL but other rule system isn't working." />
     <MESSAGE value="Game area only needs to contain text entities" />
     <MESSAGE value="Rocks can move now, need to work on removing components" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rocks can move now, need to work on removing components" />
+    <MESSAGE value="Added grid alignment system" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added grid alignment system" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
