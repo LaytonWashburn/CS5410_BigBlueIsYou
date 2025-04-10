@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Added grid alignment system">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Rules should be working for adding, need to remove componenets">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -184,7 +186,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744252046635</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Rules should be working for adding, need to remove componenets">
+      <option name="closed" value="true" />
+      <created>1744252202635</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1744252202635</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +211,8 @@
     <MESSAGE value="Game area only needs to contain text entities" />
     <MESSAGE value="Rocks can move now, need to work on removing components" />
     <MESSAGE value="Added grid alignment system" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added grid alignment system" />
+    <MESSAGE value="Rules should be working for adding, need to remove componenets" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rules should be working for adding, need to remove componenets" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

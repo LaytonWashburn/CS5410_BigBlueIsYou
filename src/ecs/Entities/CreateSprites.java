@@ -31,7 +31,7 @@ public class CreateSprites {
         wall.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         wall.add(new ecs.Components.Position(i, j));
         wall.add(new ecs.Components.Noun(NounType.WALL));
-        wall.add(new ecs.Components.Property());
+        // wall.add(new ecs.Components.Property());
 
         return wall;
 
@@ -75,7 +75,7 @@ public class CreateSprites {
         flag.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         flag.add(new ecs.Components.Position(i, j));
         flag.add(new ecs.Components.Noun(NounType.FLAG));
-        flag.add(new ecs.Components.Property());
+        // flag.add(new ecs.Components.Property());
 
         return flag;
 
@@ -95,7 +95,7 @@ public class CreateSprites {
         bigBlue.add(new StaticSprite(texture));
         bigBlue.add(new ecs.Components.Position(i, j));
         bigBlue.add(new ecs.Components.Noun(NounType.BIGBLUE));
-        bigBlue.add(new ecs.Components.Property(Properties.MOVE));
+        // bigBlue.add(new ecs.Components.Property(Properties.MOVE));
 
         return  bigBlue;
 
@@ -115,7 +115,7 @@ public class CreateSprites {
         floor.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         floor.add(new ecs.Components.Position(i, j));
         floor.add(new ecs.Components.Noun(NounType.FLOOR));
-        floor.add(new ecs.Components.Property());
+        // floor.add(new ecs.Components.Property());
 
         return floor;
 
@@ -137,7 +137,7 @@ public class CreateSprites {
         grass.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         grass.add(new ecs.Components.Position(i, j));
         grass.add(new ecs.Components.Noun(NounType.GRASS));
-        grass.add(new ecs.Components.Property());
+        // grass.add(new ecs.Components.Property());
 
         return grass;
 
@@ -159,7 +159,7 @@ public class CreateSprites {
         water.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         water.add(new ecs.Components.Position(i, j));
         water.add(new ecs.Components.Noun(NounType.WATER));
-        water.add(new ecs.Components.Property());
+        // water.add(new ecs.Components.Property());
 
         return water;
 
@@ -181,7 +181,7 @@ public class CreateSprites {
         lava.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         lava.add(new ecs.Components.Position(i, j));
         lava.add(new ecs.Components.Noun(NounType.LAVA));
-        lava.add(new ecs.Components.Property());
+        // lava.add(new ecs.Components.Property());
 
         return lava;
 
@@ -203,7 +203,7 @@ public class CreateSprites {
         hedge.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         hedge.add(new ecs.Components.Position(i, j));
         hedge.add(new ecs.Components.Noun(NounType.HEDGE));
-        hedge.add(new ecs.Components.Property(Properties.STOP));
+        // hedge.add(new ecs.Components.Property(Properties.STOP));
 
         return hedge;
     }

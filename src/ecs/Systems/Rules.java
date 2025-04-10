@@ -90,6 +90,29 @@ public class Rules extends System{
      */
     public void scanGamePlayArea(Entity[][] grid) {
 
+
+        // Iterate through the grid game area
+        for(int row = 0; row < level.getHeight(); row++) {
+
+            for(int col = 0; col < level.getWidth(); col++) {
+
+                Entity entity = grid[row][col]; // Grab the entity from the grid
+
+//                java.lang.System.out.println("Row: " + row + " Col: " + col);
+                // If the entity is TEXT and a VERB (IS)
+                if(entity != null)
+                {
+                    // entity.contains(ecs.Components.Text.class) && // Only TEXT entities can get in
+                    if(entity.get(ecs.Components.Text.class).getTextType() != TextType.VERB) { // VERB IS
+                        removeComponents(grid[row][col]);
+                    }
+
+                }
+
+            }
+
+        }
+
         // Iterate through the grid game area
         for(int row = 0; row < level.getHeight(); row++) {
 
@@ -103,7 +126,7 @@ public class Rules extends System{
                 {
                     // entity.contains(ecs.Components.Text.class) && // Only TEXT entities can get in
                     if(entity.get(ecs.Components.Text.class).getTextType() == TextType.VERB) { // VERB IS
-                        java.lang.System.out.println("Original is: Row: " + row + " Col: " + col);
+                        // java.lang.System.out.println("Original is: Row: " + row + " Col: " + col);
                         scanVertical(grid, row, col, level.getHeight(), level.getWidth());
                         scanHorizontal(grid, row, col, level.getHeight(), level.getWidth());
                     }
@@ -120,7 +143,7 @@ public class Rules extends System{
      * Method: Scan Horizontal
      * Description:
      */
-    public void scanHorizontal(Entity[][] grid, int row, int col,  int maxRow, int maxCol) {
+    public boolean scanHorizontal(Entity[][] grid, int row, int col,  int maxRow, int maxCol) {
 
         // Check if there is a valid rule
         boolean leftR = checkNext(grid, row, col - 1, maxRow, maxCol);
@@ -133,17 +156,17 @@ public class Rules extends System{
         // If there's a rule horizontal
         if(leftR && rightR) {
             //java.lang.System.out.println("A rule was detected Horizontally");
-            addComponents(left, right, right.get(ecs.Components.Property.class)); // Apply the correct components
-
+            addComponents(left, right); // Apply the correct components
+            return true;
         }
-
+        return false;
     }
 
     /**
      * Method: Scan Vertical
      * Description:
      */
-    public void scanVertical(Entity[][] grid, int row, int col,  int maxRow, int maxCol) {
+    public boolean scanVertical(Entity[][] grid, int row, int col,  int maxRow, int maxCol) {
         // java.lang.System.out.println("Scanning Vertically");
         // Check if there is a valid rule
 
@@ -156,10 +179,11 @@ public class Rules extends System{
 
         // If there's a rule horizontal, no need to grab the center VERB
         if(leftR && rightR) {
-            java.lang.System.out.println("A rule was detected Vertically");
-            addComponents(up, down,  down.get(ecs.Components.Property.class)); // Apply the correct components
-
+            // java.lang.System.out.println("A rule was detected Vertically");
+            addComponents(up, down); // Apply the correct components
+            return true;
         }
+        return false;
     }
 
 
@@ -173,7 +197,7 @@ public class Rules extends System{
 
         if(row >= 0 && row <= maxRow && col >= 0 && col <= maxCol ) { // If the matrix position falls withing bounds
             // Check if there's an entity and that entity is a TEXT
-            java.lang.System.out.println("Checking: Row: " + row + " Col: + " + col + " is: " + grid[row][col]);
+            // java.lang.System.out.println("Checking: Row: " + row + " Col: + " + col + " is: " + grid[row][col]);
             return grid[row][col] != null; // Only TEXT entities in the grid // && grid[row][col].contains(ecs.Components.Text.class);
         }
 
@@ -186,7 +210,7 @@ public class Rules extends System{
      * Description: Adds component to entity
      * @param textEntity - Entity to add the component to
      */
-    public void addComponents(Entity textEntity, Entity second, Property properties) {
+    public void addComponents(Entity textEntity, Entity second) {
 
         var textNoun = textEntity.get(ecs.Components.Represent.class); // Get the Noun type for what the text represents
 
@@ -213,6 +237,7 @@ public class Rules extends System{
                         break;
                     case Action.YOU :
                         p.getProperties().add(Properties.YOU);
+                        p.getProperties().add(Properties.MOVE);
                         break;
                     case Action.PUSH :
                         p.getProperties().add(Properties.PUSHABLE);
@@ -226,38 +251,59 @@ public class Rules extends System{
                     entity.add(p);
                 }
 
-
-
             }
         }
     }
 
-//    /**
-//     * Method: Remove Components
-//     * @param entity - Entity that to remove component from
-//     * @param component - Component to remove
-//     */
-//    public void removeComponents(Entity entity, Component component) {
-//
-//        if(entity != null && entity.get(ecs.Components.Text.class).getTextType() != TextType.VERB) { // If noun or adjective
-//
-//            if(entity.get(ecs.Components.Text.class).getTextType() == TextType.NOUN) {
-//                for(Entity e : entities.values()) {
-//                    if (e.contains(ecs.Components.Noun.class) &&
-//                        e.get(ecs.Components.Noun.class).getNounType() == entity.get(ecs.Components.Represent.class).getNounType()) {
-//                        e.remove();
-//                    }
-//                }
-//            }
-//
-//            if(entity.get(ecs.Components.Text.class).getTextType() == TextType.ADJECTIVE) {
-//
-//            }
-//
-//        }
-//
-//        //entity.remove(component.getClass());
-//    }
+    public void removeComponents(Entity entity) {
+        if(entity == null) {
+            return;
+        }
+        if(entity.get(ecs.Components.Text.class).getTextType() == TextType.NOUN) {
+            java.lang.System.out.println("Here is the entity we are looking at: " + entity);
+            for(Entity removeEntity : entities.values()) {
+                java.lang.System.out.println("Looping through entity: " + removeEntity);
+                if(removeEntity.contains(ecs.Components.Noun.class) &&
+                   removeEntity.get(ecs.Components.Noun.class).getNounType() == entity.get(ecs.Components.Noun.class).getNounType()) {
+                    // removeEntity.remove(ecs.Components.Property.class);
+                }
+            }
+
+        }
+
+        if(entity.get(ecs.Components.Text.class).getTextType() == TextType.ADJECTIVE) {
+
+            var action = entity.get(ecs.Components.Action.class).getAction();
+
+            for(Entity e : entities.values()){
+                if(e.contains(ecs.Components.Property.class) && !e.contains(ecs.Components.Text.class)) {
+                    switch (action){
+                        case Action.STOP :
+                            e.get(ecs.Components.Property.class).getProperties().remove(Properties.STOP);
+                            break;
+                        case Action.WIN :
+                            e.get(ecs.Components.Property.class).getProperties().remove(Properties.WIN);
+                            break;
+                        case Action.KILL :
+                            e.get(ecs.Components.Property.class).getProperties().remove(Properties.KILL);
+                            break;
+                        case Action.YOU :
+                            e.get(ecs.Components.Property.class).getProperties().remove(Properties.YOU);
+                            break;
+                        case Action.PUSH :
+                            e.get(ecs.Components.Property.class).getProperties().remove(Properties.PUSHABLE);
+                            break;
+                        case Action.SINK :
+                            e.get(ecs.Components.Property.class).getProperties().remove(Properties.SINK);
+                            break;
+                    }
+                }
+            }
+
+
+        }
+    }
+
 
 
 }
