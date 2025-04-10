@@ -5,6 +5,7 @@ import ecs.Entities.Entity;
 import edu.usu.graphics.Graphics2D;
 import utils.Direction;
 import utils.EntityConstants;
+import utils.NounType;
 import utils.Properties;
 
 import java.util.ArrayList;
@@ -73,20 +74,24 @@ public class Movement extends System{
 
         boolean immovableHit = false;
 
-        for (Entity otherEntity : entities.values()) {
+        for (Entity otherEntity : entities.values()) { // Loop through the entities
 
-            if(otherEntity.contains(ecs.Components.Property.class)) {
-                var otherProperties = otherEntity.get(ecs.Components.Property.class);
+            if(otherEntity.contains(ecs.Components.Noun.class) && otherEntity.get(ecs.Components.Noun.class).getNounType() == NounType.ROCK){
+                java.lang.System.out.println("Noun for the PUSHABLE : " +otherEntity.get(ecs.Components.Noun.class).getNounType());
+            }
+            if(otherEntity.contains(ecs.Components.Property.class)) { // If the entity has properties
+                var otherProperties = otherEntity.get(ecs.Components.Property.class); // grab the properties
 
-                if(!otherProperties.getProperties().contains(Properties.MOVE)) {
+                if(!otherProperties.getProperties().contains(Properties.MOVE)) { // If it doesn't contain MOVE
 
-                    var otherPosition = otherEntity.get(ecs.Components.Position.class);
+                    var otherPosition = otherEntity.get(ecs.Components.Position.class); // Grab the position
 
                     if (targetI == otherPosition.i && targetJ == otherPosition.j && otherProperties.getProperties().contains(Properties.STOP)) {  // If there is a collision and the other entity is immovable
                         immovableHit = true;
                     }
 
                     if (targetI == otherPosition.i && targetJ == otherPosition.j && otherProperties.getProperties().contains(Properties.PUSHABLE) && !immovableHit) { // If there is a collision and the other entity is pushable
+
 
                         switch (movingDirection) {
                             case Direction.UP:

@@ -18,4 +18,8 @@ public class Property extends Component{
     public Set<Properties> getProperties() {
         return properties;
     }
+
+    public void removeProperty(Properties property) {
+        properties.remove(property);
+    }
 }

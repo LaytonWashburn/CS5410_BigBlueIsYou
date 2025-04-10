@@ -99,14 +99,16 @@ public class Rules extends System{
 
 //                java.lang.System.out.println("Row: " + row + " Col: " + col);
                 // If the entity is TEXT and a VERB (IS)
-                if(entity != null &&
-                   entity.contains(ecs.Components.Text.class) &&
-                   entity.get(ecs.Components.Text.class).getTextType() == TextType.VERB) {
-                    java.lang.System.out.println("Row: " + row + " Col: " + col);
-                    //java.lang.System.out.println("Caught Verb: " + entity.get(ecs.Components.Text.class).getTextType());
-                    //java.lang.System.out.println(entity);
-                    scanHorizontal(grid, row, col, level.getHeight(), level.getWidth());
-                    scanVertical(grid, row, col, level.getHeight(), level.getWidth());
+                if(entity != null)
+                {
+                    // entity.contains(ecs.Components.Text.class) && // Only TEXT entities can get in
+                    if(entity.get(ecs.Components.Text.class).getTextType() == TextType.VERB) { // VERB IS
+
+                        // java.lang.System.out.println("IS");
+                        scanHorizontal(grid, row, col, level.getHeight(), level.getWidth());
+                        scanVertical(grid, row, col, level.getHeight(), level.getWidth());
+
+                    }
 
                 }
 
@@ -125,17 +127,15 @@ public class Rules extends System{
         // Check if there is a valid rule
         boolean rule = checkNext(grid, row, col - 1, maxRow, maxCol) && checkNext(grid, row, col + 1, maxRow, maxCol);
 
+        Entity left = grid[row][col-1]; // Grab the left text entity
+        Entity right = grid[row][col+1]; // Grab the right text entity
+
         // If there's a rule horizontal
         if(rule) {
-            java.lang.System.out.println("A rule was detected");
-            Entity center = grid[row][col]; // Grab the middle text entity, this might be unneeded
-            Entity left = grid[row][col-1]; // Grab the left text entity
-            Entity right = grid[row][col+1]; // Grab the right text entity
-
+            // java.lang.System.out.println("A rule was detected Horizontally");
             addComponents(left, right, right.get(ecs.Components.Property.class)); // Apply the correct components
 
         }
-
 
     }
 
@@ -147,13 +147,12 @@ public class Rules extends System{
         // Check if there is a valid rule
         boolean rule = checkNext(grid, row - 1, col, maxRow, maxCol) && checkNext(grid, row + 1, col, maxRow, maxCol);
 
+        Entity up = grid[row-1][col]; // Grab the left text entity
+        Entity down = grid[row+1][col]; // Grab the right text entity
+
         // If there's a rule horizontal, no need to grab the center VERB
         if(rule) {
-            java.lang.System.out.println("A rule was detected: " + " Row: " + row + " Col: " + col);
-            java.lang.System.out.println("Above: " + (row - 1) + " Col: " + col + " Below: " + (row + 1) + " Col: " + col);
-            Entity up = grid[row-1][col]; // Grab the left text entity
-            Entity down = grid[row+1][col]; // Grab the right text entity
-
+            // java.lang.System.out.println("A rule was detected Vertically");
             addComponents(up, down,  down.get(ecs.Components.Property.class)); // Apply the correct components
 
         }
@@ -170,7 +169,7 @@ public class Rules extends System{
 
         if(row >= 0 && row <= maxRow && col >= 0 && col <= maxCol ) { // If the matrix position falls withing bounds
             // Check if there's an entity and that entity is a TEXT
-            return grid[row][col] != null && grid[row][col].contains(ecs.Components.Text.class);
+            return grid[row][col] != null; // Only TEXT entities in the grid // && grid[row][col].contains(ecs.Components.Text.class);
         }
 
         return false;
@@ -183,65 +182,77 @@ public class Rules extends System{
      * @param textEntity - Entity to add the component to
      */
     public void addComponents(Entity textEntity, Entity second, Property properties) {
-        // java.lang.System.out.println("In the add Components");
-        // java.lang.System.out.println(textEntity);
-        var nounText = textEntity.get(ecs.Components.Represent.class);
 
-        for (Entity entity : entities.values()) {
+        var textNoun = textEntity.get(ecs.Components.Represent.class); // Get the Noun type for what the text represents
+
+        for (Entity entity : entities.values()) { // Loop through the entities
             if (entity.contains(Noun.class) &&
-                    entity.get(Noun.class).getNounType() == nounText.getNounType()) {
-                java.lang.System.out.println("The Right Noun Type: " + nounText.getNounType() + " Match is: " + entity.get(Noun.class).getNounType());
-                java.lang.System.out.println(second);
+                    entity.get(Noun.class).getNounType() == textNoun.getNounType()) {
+
+                // java.lang.System.out.println(entity.get(ecs.Components.Noun.class).getNounType());
+
                 var action = second.get(ecs.Components.Action.class).getAction();
-                java.lang.System.out.println("Adding: " + action);
-                var p = entity.contains(ecs.Components.Property.class) ? entity.get(ecs.Components.Property.class) : new Property() ;
+
+                // java.lang.System.out.println("Here is the associated action: " + action);
+
+                var p = entity.contains(ecs.Components.Property.class) ? entity.get(ecs.Components.Property.class) : new Property();
                 switch (action) {
-                    case Action.STOP -> p.getProperties().add(Properties.STOP);
-                    case Action.WIN -> p.getProperties().add(Properties.WIN);
-                    case Action.KILL -> p.getProperties().add(Properties.KILL);
-                    case Action.YOU -> p.getProperties().add(Properties.YOU);
-                    case Action.PUSH -> p.getProperties().add(Properties.PUSHABLE);
-                    case Action.SINK -> p.getProperties().add(Properties.SINK);
+                    case Action.STOP :
+                        p.getProperties().add(Properties.STOP);
+                        break;
+                    case Action.WIN :
+                        p.getProperties().add(Properties.WIN);
+                        break;
+                    case Action.KILL :
+                        p.getProperties().add(Properties.KILL);
+                        break;
+                    case Action.YOU :
+                        p.getProperties().add(Properties.YOU);
+                        break;
+                    case Action.PUSH :
+                        p.getProperties().add(Properties.PUSHABLE);
+                        break;
+                    case Action.SINK :
+                        p.getProperties().add(Properties.SINK);
+                        break;
                 }
 
+                if(!entity.contains(ecs.Components.Property.class)) {
+                    entity.add(p);
+                }
 
 
 
             }
         }
     }
-//    public void addComponents(Entity textEntity, ecs.Components.Property properties) {
-//        java.lang.System.out.println("In the add Components");
-//        java.lang.System.out.println(textEntity);
-//        var nounText = textEntity.get(ecs.Components.Represent.class);
+
+//    /**
+//     * Method: Remove Components
+//     * @param entity - Entity that to remove component from
+//     * @param component - Component to remove
+//     */
+//    public void removeComponents(Entity entity, Component component) {
 //
-//        for(Entity entity : entities.values()) {
+//        if(entity != null && entity.get(ecs.Components.Text.class).getTextType() != TextType.VERB) { // If noun or adjective
 //
-//            // If the noun type's match
-//            if(entity.contains(ecs.Components.Noun.class) &&
-//               entity.get(ecs.Components.Noun.class).getNounType() == nounText.getNounType()) {
-//
-//                Set<Properties> set = new HashSet<>(properties.getProperties());
-//                if(entity.contains(ecs.Components.Property.class) &&
-//                   !entity.get(ecs.Components.Property.class).getProperties().contains(properties)) {
-//
+//            if(entity.get(ecs.Components.Text.class).getTextType() == TextType.NOUN) {
+//                for(Entity e : entities.values()) {
+//                    if (e.contains(ecs.Components.Noun.class) &&
+//                        e.get(ecs.Components.Noun.class).getNounType() == entity.get(ecs.Components.Represent.class).getNounType()) {
+//                        e.remove();
+//                    }
 //                }
-//                entity.add(new ecs.Components.Property(Properties.MOVE, Properties.KILL));
-//                entity.add(new Property(set.toArray(new Properties[0])));
+//            }
+//
+//            if(entity.get(ecs.Components.Text.class).getTextType() == TextType.ADJECTIVE) {
 //
 //            }
 //
 //        }
+//
+//        //entity.remove(component.getClass());
 //    }
-
-    /**
-     * Method: Remove Components
-     * @param entity - Entity that to remove component from
-     * @param component - Component to remove
-     */
-    public void removeComponents(Entity entity, Component component) {
-        entity.remove(component.getClass());
-    }
 
 
 }

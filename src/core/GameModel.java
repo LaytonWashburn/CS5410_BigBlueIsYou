@@ -124,7 +124,7 @@ public class GameModel {
 
             for(ecs.Systems.System system : systems) { // Look for the Rules system
                 if(system instanceof Rules) {
-                    // ((Rules) system).scanGamePlayArea(this.gameArea);
+                    ((Rules) system).scanGamePlayArea(this.gameArea);
                 }
             }
         }
