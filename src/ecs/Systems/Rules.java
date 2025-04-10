@@ -103,11 +103,8 @@ public class Rules extends System{
                 {
                     // entity.contains(ecs.Components.Text.class) && // Only TEXT entities can get in
                     if(entity.get(ecs.Components.Text.class).getTextType() == TextType.VERB) { // VERB IS
-
-                        // java.lang.System.out.println("IS");
-                        scanHorizontal(grid, row, col, level.getHeight(), level.getWidth());
+                        java.lang.System.out.println("Original is: Row: " + row + " Col: " + col);
                         scanVertical(grid, row, col, level.getHeight(), level.getWidth());
-
                     }
 
                 }
@@ -125,14 +122,16 @@ public class Rules extends System{
     public void scanHorizontal(Entity[][] grid, int row, int col,  int maxRow, int maxCol) {
 
         // Check if there is a valid rule
-        boolean rule = checkNext(grid, row, col - 1, maxRow, maxCol) && checkNext(grid, row, col + 1, maxRow, maxCol);
+        boolean leftR = checkNext(grid, row, col - 1, maxRow, maxCol);
+        boolean rightR = checkNext(grid, row, col + 1, maxRow, maxCol);
+        boolean rule = true;
 
         Entity left = grid[row][col-1]; // Grab the left text entity
         Entity right = grid[row][col+1]; // Grab the right text entity
 
         // If there's a rule horizontal
-        if(rule) {
-            // java.lang.System.out.println("A rule was detected Horizontally");
+        if(leftR && rightR) {
+            //java.lang.System.out.println("A rule was detected Horizontally");
             addComponents(left, right, right.get(ecs.Components.Property.class)); // Apply the correct components
 
         }
@@ -144,15 +143,19 @@ public class Rules extends System{
      * Description:
      */
     public void scanVertical(Entity[][] grid, int row, int col,  int maxRow, int maxCol) {
+        // java.lang.System.out.println("Scanning Vertically");
         // Check if there is a valid rule
-        boolean rule = checkNext(grid, row - 1, col, maxRow, maxCol) && checkNext(grid, row + 1, col, maxRow, maxCol);
 
+        boolean leftR = checkNext(grid, row - 1, col, maxRow, maxCol);
+        boolean rightR =checkNext(grid, row + 1, col, maxRow, maxCol);
+        boolean rule = true;
+        java.lang.System.out.println("\n\n");
         Entity up = grid[row-1][col]; // Grab the left text entity
         Entity down = grid[row+1][col]; // Grab the right text entity
 
         // If there's a rule horizontal, no need to grab the center VERB
-        if(rule) {
-            // java.lang.System.out.println("A rule was detected Vertically");
+        if(leftR && rightR) {
+            java.lang.System.out.println("A rule was detected Vertically");
             addComponents(up, down,  down.get(ecs.Components.Property.class)); // Apply the correct components
 
         }
@@ -169,6 +172,7 @@ public class Rules extends System{
 
         if(row >= 0 && row <= maxRow && col >= 0 && col <= maxCol ) { // If the matrix position falls withing bounds
             // Check if there's an entity and that entity is a TEXT
+            java.lang.System.out.println("Checking: Row: " + row + " Col: + " + col + " is: " + grid[row][col]);
             return grid[row][col] != null; // Only TEXT entities in the grid // && grid[row][col].contains(ecs.Components.Text.class);
         }
 

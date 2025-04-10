@@ -35,6 +35,7 @@ public class GameModel {
     private RenderStaticSprite sysRenderStaticSprite;
     private Movement sysMovement;
     private Rules sysRules;
+    private GridAlignment sysGridAlignment;
 
 
     private Graphics2D graphics;
@@ -91,12 +92,14 @@ public class GameModel {
         this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
         this.sysRenderStaticSprite = new RenderStaticSprite(graphics, level);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics, level);
-        this.sysRules = new Rules(keybinds, level);
         this.sysMovement = new Movement(graphics);
+        this.sysGridAlignment = new GridAlignment(this.gameArea);
+        this.sysRules = new Rules(keybinds, level);
 
         System.out.println("Size of the systems is: " + systems.size());
 
         initializeObjectTypes(level); // Take level and create entities for all objects
+
 
         this.sysRules.scanGamePlayArea(this.gameArea); // Do an initial scan of the game area
 
@@ -117,16 +120,17 @@ public class GameModel {
             }
             if (system instanceof Movement && !changed.isEmpty()) {
                 moved = true;
+
             }
         }
 
         if(moved){ // Scan game play area if movement has occurred
-
-            for(ecs.Systems.System system : systems) { // Look for the Rules system
-                if(system instanceof Rules) {
-                    ((Rules) system).scanGamePlayArea(this.gameArea);
+            for(ecs.Systems.System system1 : systems) { // Look for the Rules system
+                if(system1 instanceof Rules) {
+                    ((Rules) system1).scanGamePlayArea(this.gameArea);
                 }
             }
+
         }
 
         for (var entity : changed.values()) { // Allow systems to decide if they are interested or not in the changed
@@ -182,17 +186,13 @@ public class GameModel {
 
         for (int i = 0; i < level.getHeight(); i++) {
             for (int j = 0; j < level.getWidth(); j++) {
-//                System.out.print(level.getGroup1()[i][j]);
                 createLayout(level.getGroup1()[i][j], i, j); // Create the object
             }
-//            System.out.println();
         }
         for (int i = 0; i < level.getHeight(); i++) {
             for (int j = 0; j < level.getWidth(); j++) {
-//                System.out.print(level.getGroup2()[i][j]);
                 createLayout(level.getGroup2()[i][j], i, j);
             }
-//            System.out.println();
         }
     }
 

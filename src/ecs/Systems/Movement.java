@@ -17,6 +17,9 @@ public class Movement extends System{
 
     private ArrayList<Entity> moved;
 
+
+    public Entity[][] grid;
+
     public Movement(Graphics2D graphics){
         super(ecs.Components.Position.class);
 
@@ -76,9 +79,6 @@ public class Movement extends System{
 
         for (Entity otherEntity : entities.values()) { // Loop through the entities
 
-            if(otherEntity.contains(ecs.Components.Noun.class) && otherEntity.get(ecs.Components.Noun.class).getNounType() == NounType.ROCK){
-                java.lang.System.out.println("Noun for the PUSHABLE : " +otherEntity.get(ecs.Components.Noun.class).getNounType());
-            }
             if(otherEntity.contains(ecs.Components.Property.class)) { // If the entity has properties
                 var otherProperties = otherEntity.get(ecs.Components.Property.class); // grab the properties
 
