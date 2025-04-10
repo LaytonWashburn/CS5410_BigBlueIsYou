@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Added documentation and cleaned up code for Rule system.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" afterDir="false" />
-    </list>
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Fixed IS YOU, can now switch moveable entities." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -209,7 +206,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744258815299</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Fixed IS YOU, can now switch moveable entities.">
+      <option name="closed" value="true" />
+      <created>1744264097368</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1744264097368</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,7 +234,8 @@
     <MESSAGE value="Rules should be working for adding, need to remove componenets" />
     <MESSAGE value="Removing in a working state, rough state though" />
     <MESSAGE value="Added documentation and cleaned up code for Rule system." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added documentation and cleaned up code for Rule system." />
+    <MESSAGE value="Fixed IS YOU, can now switch moveable entities." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed IS YOU, can now switch moveable entities." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
