@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Rules should be working for adding, need to remove componenets">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Removing in a working state, rough state though">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -194,7 +193,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744252202635</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Removing in a working state, rough state though">
+      <option name="closed" value="true" />
+      <created>1744257868686</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1744257868686</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,7 +219,8 @@
     <MESSAGE value="Rocks can move now, need to work on removing components" />
     <MESSAGE value="Added grid alignment system" />
     <MESSAGE value="Rules should be working for adding, need to remove componenets" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rules should be working for adding, need to remove componenets" />
+    <MESSAGE value="Removing in a working state, rough state though" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removing in a working state, rough state though" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

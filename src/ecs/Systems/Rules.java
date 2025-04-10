@@ -90,52 +90,8 @@ public class Rules extends System{
      */
     public void scanGamePlayArea(Entity[][] grid) {
 
-
-        // Iterate through the grid game area
-        for(int row = 0; row < level.getHeight(); row++) {
-
-            for(int col = 0; col < level.getWidth(); col++) {
-
-                Entity entity = grid[row][col]; // Grab the entity from the grid
-
-//                java.lang.System.out.println("Row: " + row + " Col: " + col);
-                // If the entity is TEXT and a VERB (IS)
-                if(entity != null)
-                {
-                    // entity.contains(ecs.Components.Text.class) && // Only TEXT entities can get in
-                    if(entity.get(ecs.Components.Text.class).getTextType() != TextType.VERB) { // VERB IS
-                        removeComponents(grid[row][col]);
-                    }
-
-                }
-
-            }
-
-        }
-
-        // Iterate through the grid game area
-        for(int row = 0; row < level.getHeight(); row++) {
-
-            for(int col = 0; col < level.getWidth(); col++) {
-
-                Entity entity = grid[row][col]; // Grab the entity from the grid
-
-//                java.lang.System.out.println("Row: " + row + " Col: " + col);
-                // If the entity is TEXT and a VERB (IS)
-                if(entity != null)
-                {
-                    // entity.contains(ecs.Components.Text.class) && // Only TEXT entities can get in
-                    if(entity.get(ecs.Components.Text.class).getTextType() == TextType.VERB) { // VERB IS
-                        // java.lang.System.out.println("Original is: Row: " + row + " Col: " + col);
-                        scanVertical(grid, row, col, level.getHeight(), level.getWidth());
-                        scanHorizontal(grid, row, col, level.getHeight(), level.getWidth());
-                    }
-
-                }
-
-            }
-
-        }
+        cleanComponents(grid); // Remove all components from non TEXT entities
+        makeNewRuleSet(grid); // Apply new rules
 
     }
 
@@ -143,62 +99,49 @@ public class Rules extends System{
      * Method: Scan Horizontal
      * Description:
      */
-    public boolean scanHorizontal(Entity[][] grid, int row, int col,  int maxRow, int maxCol) {
+    public void scanHorizontal(Entity[][] grid, int row, int col,  int maxRow, int maxCol) {
 
         // Check if there is a valid rule
-        boolean leftR = checkNext(grid, row, col - 1, maxRow, maxCol);
-        boolean rightR = checkNext(grid, row, col + 1, maxRow, maxCol);
-        boolean rule = true;
+        boolean rule = checkNext(grid, row, col - 1, maxRow, maxCol) && checkNext(grid, row, col + 1, maxRow, maxCol);
 
         Entity left = grid[row][col-1]; // Grab the left text entity
         Entity right = grid[row][col+1]; // Grab the right text entity
 
         // If there's a rule horizontal
-        if(leftR && rightR) {
-            //java.lang.System.out.println("A rule was detected Horizontally");
+        if(rule) {
             addComponents(left, right); // Apply the correct components
-            return true;
         }
-        return false;
     }
 
     /**
      * Method: Scan Vertical
      * Description:
      */
-    public boolean scanVertical(Entity[][] grid, int row, int col,  int maxRow, int maxCol) {
-        // java.lang.System.out.println("Scanning Vertically");
-        // Check if there is a valid rule
+    public void scanVertical(Entity[][] grid, int row, int col,  int maxRow, int maxCol) {
 
-        boolean leftR = checkNext(grid, row - 1, col, maxRow, maxCol);
-        boolean rightR =checkNext(grid, row + 1, col, maxRow, maxCol);
-        boolean rule = true;
-        java.lang.System.out.println("\n\n");
+        // Check if there is a valid rule
+        boolean rule = checkNext(grid, row + 1, col, maxRow, maxCol) && checkNext(grid, row - 1, col, maxRow, maxCol);
+
         Entity up = grid[row-1][col]; // Grab the left text entity
         Entity down = grid[row+1][col]; // Grab the right text entity
 
         // If there's a rule horizontal, no need to grab the center VERB
-        if(leftR && rightR) {
-            // java.lang.System.out.println("A rule was detected Vertically");
+        if(rule) {
             addComponents(up, down); // Apply the correct components
-            return true;
         }
-        return false;
     }
 
 
     /**
      * Method: Check next
      * @param grid - 2D Array representing the game area
-     * @param maxRow -
-     * @param maxCol -
+     * @param maxRow - Total number of rows
+     * @param maxCol - Total number of cols
      */
     public boolean checkNext(Entity[][] grid, int row, int col, int maxCol, int maxRow) {
 
         if(row >= 0 && row <= maxRow && col >= 0 && col <= maxCol ) { // If the matrix position falls withing bounds
-            // Check if there's an entity and that entity is a TEXT
-            // java.lang.System.out.println("Checking: Row: " + row + " Col: + " + col + " is: " + grid[row][col]);
-            return grid[row][col] != null; // Only TEXT entities in the grid // && grid[row][col].contains(ecs.Components.Text.class);
+            return grid[row][col] != null;   // True is Entity False if null
         }
 
         return false;
@@ -218,13 +161,9 @@ public class Rules extends System{
             if (entity.contains(Noun.class) &&
                     entity.get(Noun.class).getNounType() == textNoun.getNounType()) {
 
-                // java.lang.System.out.println(entity.get(ecs.Components.Noun.class).getNounType());
-
                 var action = second.get(ecs.Components.Action.class).getAction();
-
-                // java.lang.System.out.println("Here is the associated action: " + action);
-
                 var p = entity.contains(ecs.Components.Property.class) ? entity.get(ecs.Components.Property.class) : new Property();
+
                 switch (action) {
                     case Action.STOP :
                         p.getProperties().add(Properties.STOP);
@@ -250,34 +189,30 @@ public class Rules extends System{
                 if(!entity.contains(ecs.Components.Property.class)) {
                     entity.add(p);
                 }
-
             }
         }
     }
 
+    /**
+     * Method: Remove Component
+     * Description: Removes properties from entities
+     * @param entity - Entity to provide action to remove from other entities
+     */
     public void removeComponents(Entity entity) {
+
         if(entity == null) {
             return;
         }
-        if(entity.get(ecs.Components.Text.class).getTextType() == TextType.NOUN) {
-            java.lang.System.out.println("Here is the entity we are looking at: " + entity);
-            for(Entity removeEntity : entities.values()) {
-                java.lang.System.out.println("Looping through entity: " + removeEntity);
-                if(removeEntity.contains(ecs.Components.Noun.class) &&
-                   removeEntity.get(ecs.Components.Noun.class).getNounType() == entity.get(ecs.Components.Noun.class).getNounType()) {
-                    // removeEntity.remove(ecs.Components.Property.class);
-                }
-            }
 
-        }
-
+        // If TEXT and ADJECTIVE
         if(entity.get(ecs.Components.Text.class).getTextType() == TextType.ADJECTIVE) {
 
-            var action = entity.get(ecs.Components.Action.class).getAction();
+            var action = entity.get(ecs.Components.Action.class).getAction(); // Grab the action
 
-            for(Entity e : entities.values()){
+            for(Entity e : entities.values()){ // Loop through the entities
+                // If the entity has properties and is not a TEXT entity
                 if(e.contains(ecs.Components.Property.class) && !e.contains(ecs.Components.Text.class)) {
-                    switch (action){
+                    switch (action){ // Based on the action, remove specific properties
                         case Action.STOP :
                             e.get(ecs.Components.Property.class).getProperties().remove(Properties.STOP);
                             break;
@@ -299,7 +234,59 @@ public class Rules extends System{
                     }
                 }
             }
+        }
+    }
 
+    /**
+     * Method: Clean Components
+     * Description: Removes all properties off non VERB TEXT entities to make new rule set
+     * @param grid - 2D array of TEXT Entities
+     */
+    public void cleanComponents(Entity[][] grid){
+        // Iterate through the grid game area
+        for(int row = 0; row < level.getHeight(); row++) {
+
+            for(int col = 0; col < level.getWidth(); col++) {
+
+                Entity entity = grid[row][col]; // Grab the entity from the grid
+
+                // If the entity is TEXT and not a VERB (IS)
+                if(entity != null && entity.get(ecs.Components.Text.class).getTextType() != TextType.VERB)
+                {
+                    removeComponents(grid[row][col]);
+                }
+
+            }
+
+        }
+    }
+
+
+    /**
+     * Method: Make New Rule Set
+     * Description: Scans the grid for complete rules
+     * @param grid - 2D array of TEXT Entities
+     */
+    public void makeNewRuleSet(Entity[][] grid) {
+        // Iterate through the grid game area
+        for(int row = 0; row < level.getHeight(); row++) {
+
+            for(int col = 0; col < level.getWidth(); col++) {
+
+                Entity entity = grid[row][col]; // Grab the entity from the grid
+
+                // If the entity is TEXT and a VERB (IS)
+                if(entity != null)
+                {
+                    // Only TEXT entities that are VERBS
+                    if(entity.get(ecs.Components.Text.class).getTextType() == TextType.VERB) { // VERB IS
+                        scanVertical(grid, row, col, level.getHeight(), level.getWidth()); // Scan for vertical rules
+                        scanHorizontal(grid, row, col, level.getHeight(), level.getWidth()); // Scan for horizontal rules
+                    }
+
+                }
+
+            }
 
         }
     }
