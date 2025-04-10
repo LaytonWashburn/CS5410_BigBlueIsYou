@@ -65,6 +65,19 @@ public final class Entity implements Cloneable{
      */
     @Override
     public Entity clone() throws CloneNotSupportedException {
-        return (Entity) super.clone();
+        Entity clonedEntity = (Entity) super.clone();
+
+        // Deep clone components
+        for (Map.Entry<Class<? extends Component>, Component> entry : this.components.entrySet()) {
+            Component originalComponent = entry.getValue();
+            Component clonedComponent = (Component) originalComponent.clone(); // Assumes each Component is Cloneable
+            clonedEntity.components.put(entry.getKey(), clonedComponent);
+        }
+
+        // Generate a new unique ID for the cloned entity
+        clonedEntity.id = nextId++;
+
+        return clonedEntity;
     }
+
 }
