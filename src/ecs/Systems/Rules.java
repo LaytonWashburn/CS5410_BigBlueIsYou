@@ -224,6 +224,7 @@ public class Rules extends System{
                             break;
                         case Action.YOU :
                             e.get(ecs.Components.Property.class).getProperties().remove(Properties.YOU);
+                            e.get(ecs.Components.Property.class).getProperties().remove(Properties.MOVE);
                             break;
                         case Action.PUSH :
                             e.get(ecs.Components.Property.class).getProperties().remove(Properties.PUSHABLE);
