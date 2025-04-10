@@ -284,7 +284,10 @@ public class GameModel {
      */
     public void add(Entity entity, int row, int col) {
         addEntity(entity);
-        this.gameArea[row][col] = entity;
+        if(entity.contains(ecs.Components.Text.class)) {
+            this.gameArea[row][col] = entity;
+        }
+
     }
 
 
