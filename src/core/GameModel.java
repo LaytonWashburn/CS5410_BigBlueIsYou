@@ -1,22 +1,28 @@
 package core;
 
+import ecs.Components.Position;
+import ecs.Components.Text;
 import ecs.Entities.*;
 import ecs.Systems.*;
 import ecs.Systems.KeyboardInput;
 import edu.usu.graphics.*;
 import edu.usu.graphics.Graphics2D;
+import edu.usu.utils.Tuple2;
 import level.Level;
 
 import java.lang.System;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 
 import org.joml.Vector2f;
+import undo.StackFrame;
 import utils.KeyBinds;
 import static ecs.Systems.System.*;
 
 import utils.EntityConstants;
+import views.MainMenuView;
 
 public class GameModel {
 
@@ -24,6 +30,9 @@ public class GameModel {
 
     private final Level level;;
     private KeyBinds keybinds;
+
+    private Stack<StackFrame> undoStack;
+    private StackFrame initialStackFrame;
 
     private final List<Entity> removeThese = new ArrayList<>();
     private final List<Entity> addThese = new ArrayList<>();
@@ -35,6 +44,7 @@ public class GameModel {
     private RenderStaticSprite sysRenderStaticSprite;
     private Movement sysMovement;
     private Rules sysRules;
+    private Undo sysUndo;
 
 
     private Graphics2D graphics;
@@ -93,10 +103,32 @@ public class GameModel {
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics, level);
         this.sysRules = new Rules(keybinds, level);
         this.sysMovement = new Movement(graphics);
+        this.sysUndo = new Undo(() -> {
+            if (undoStack.size() > 1) {
+                System.out.println("undo stack size " +undoStack.size());
+                StackFrame poppedFrame = undoStack.pop();
+                StackFrame remainingFrame = undoStack.peek();
+                System.out.println("popped frame size: " + poppedFrame.getEntities().size());
+                System.out.println("remaining frame size: " + remainingFrame.getEntities().size());
+                System.out.println("popped frame big blue: " + poppedFrame.getBigBlue().get(Position.class).i);
+                System.out.println("remaining frame big blue: " + remainingFrame.getBigBlue().get(Position.class).i);
+                ArrayList<Tuple2<Entity, Boolean>> poppedEntities = poppedFrame.getEntities();
+                for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) {
+                    Tuple2<Entity, Boolean> correspondingRemainingTuple = remainingFrame.getCorrespondingTuple(entityTuple);
+                    for (var system : systems) {
+                        system.replaceEntity(correspondingRemainingTuple.item1());
+                    }
+                }
+            }
+        });
 
         System.out.println("Size of the systems is: " + systems.size());
 
+        this.undoStack = new Stack<>();
+        this.initialStackFrame = new StackFrame();
         initializeObjectTypes(level); // Take level and create entities for all objects
+        undoStack.push(initialStackFrame);
+        System.out.println("initial frame big blue: " + initialStackFrame.getBigBlue().get(Position.class).i);
 
         this.sysRules.scanGamePlayArea(this.gameArea); // Do an initial scan of the game area
 
@@ -106,34 +138,42 @@ public class GameModel {
      * Method: Update
      * @param elapsedTime - Elapsed time since the last update
      */
-    public void update(double elapsedTime) {
+    public void update(double elapsedTime) throws CloneNotSupportedException {
         // Because ECS framework, input processing is now part of the update
         boolean moved = false;
-        var changed = new HashMap<Long, Entity>(); // Update the systems and put in changed map
+        var changed = new ArrayList<Tuple2<Entity, Boolean>>(); // Update the systems and put in changed map
         for(ecs.Systems.System system : systems) {
-            ArrayList<Entity> changedEntities = system.update(elapsedTime);
-            for(Entity entity : changedEntities){ // Loop through the changed
-                changed.put(entity.getId(), entity);
-            }
-            if (system instanceof Movement && !changed.isEmpty()) {
+            ArrayList<Tuple2<Entity, Boolean>> changedEntities = system.update(elapsedTime);
+            // Loop through the changed
+            changed.addAll(changedEntities);
+            if (system instanceof Movement && !changedEntities.isEmpty()) {
+                System.out.println(changed.size());
                 moved = true;
             }
         }
 
-        if(moved){ // Scan game play area if movement has occurred
+        if(moved && !changed.isEmpty()){ // Scan game play area if movement has occurred
 
             for(ecs.Systems.System system : systems) { // Look for the Rules system
                 if(system instanceof Rules) {
-                    // ((Rules) system).scanGamePlayArea(this.gameArea);
+                    ((Rules) system).scanGamePlayArea(this.gameArea);
                 }
+            }
+
+            //Add changed entities to a stack frame
+            StackFrame stackFrame = new StackFrame();
+            for (Tuple2<Entity, Boolean> entityTuple : changed) {
+                stackFrame.addEntityTuple(entityTuple);
+            }
+            undoStack.push(stackFrame);
+        }
+
+        for (Tuple2<Entity, Boolean> entityTuple : changed) { // Allow systems to decide if they are interested or not in the changed
+            for (var system : systems) {
+                system.updatedEntity(entityTuple.item1());
             }
         }
 
-        for (var entity : changed.values()) { // Allow systems to decide if they are interested or not in the changed
-            for (var system : systems) {
-                system.updatedEntity(entity);
-            }
-        }
 
         // Remove entities
         for (var entity : removeThese) {
@@ -178,7 +218,7 @@ public class GameModel {
      * Description: Method to iterate through the level input and call create layout method
      * @param level - Input Level
      */
-    private void initializeObjectTypes(Level level){
+    private void initializeObjectTypes(Level level) throws CloneNotSupportedException {
 
         for (int i = 0; i < level.getHeight(); i++) {
             for (int j = 0; j < level.getWidth(); j++) {
@@ -203,76 +243,38 @@ public class GameModel {
      * @param col - Column placement in game board
      * @param row - Row placement in game board
      */
-    private void createLayout(Character symbol, int row, int col){
-        switch (symbol) {
+    private void createLayout(Character symbol, int row, int col) throws CloneNotSupportedException {
+        Entity e;
 
-            case 'w': // wall
-                add(CreateSprites.createWall(texWall, row, col), row, col);
-                break;
-            case 'r': // rock
-                add(CreateSprites.createRock(texRock, row, col), row, col);
-                break;
-            case 'f': // flag
-                add(CreateSprites.createFlag(texFlag, row, col), row, col);
-                break;
-            case 'b': // big blue
-                add(CreateSprites.createBigBlue(texBigBlue, row, col), row, col);
-                break;
-            case 'h': // hedge
-                add(CreateSprites.createHedge(texHedge, row, col), row, col);
-                break;
-            case 'a': // Water / goop
-                add(CreateSprites.createWater(texWater, row, col), row, col);
-                break;
-            case 'v': // Lava
-                add(CreateSprites.createLava(texLava, row, col), row, col);
-                break;
-            case 'g': // Grass
-                add(CreateSprites.createGrass(texGrass, row, col), row, col);
-                break;
-            case 'l':  // floor
-                add(CreateSprites.createFloor(texFloor, row, col), row, col);
-                break;
-            case 'W': // Word Wall
-                add(CreateSprites.createWordWall(texWordWall, row, col), row, col);
-                break;
-            case 'R': // Word Rock
-                add(CreateSprites.createWordRock(texWordRock, row, col), row, col);
-                break;
-            case 'F': // Word Flag
-                add(CreateSprites.createWordFlag(texWordFlag, row, col), row, col);
-                break;
-            case 'B': // Word Big Blue
-                add(CreateSprites.createWordBaba(texWordBaba, row, col), row, col);
-                break;
-            case 'I': // Word Is
-                add(CreateSprites.createWordIs(texWordIs, row, col), row, col);
-                break;
-            case 'S': // Word Stop
-                add(CreateSprites.createWordStop(texWordStop, row, col), row, col);
-                break;
-            case 'P': // Word Push
-                add(CreateSprites.createWordPush(texWordPush, row, col), row, col);
-                break;
-            case  'V': // Word Lava
-                add(CreateSprites.createWordLava(texWordLava, row, col), row, col);
-                break;
-            case 'A': // Word Water
-                add(CreateSprites.createWordWater(texWordWater, row, col), row, col);
-                break;
-            case 'Y': // Word, You
-                add(CreateSprites.createWordYou(texWordYou, row, col), row, col);
-                break;
-            case 'X': // Word Win
-                add(CreateSprites.createWordWin(texWordWin, row, col), row, col);
-                break;
-            case 'N': // Word Sink
-                add(CreateSprites.createWordSink(texWordSink, row, col), row, col);
-                break;
-            case 'K': // Word Kill
-                add(CreateSprites.createWordKill(texWordKill, row, col), row, col);
-                break;
-            default:
+        e = switch (symbol) {
+            case 'w' -> CreateSprites.createWall(texWall, row, col);
+            case 'r' -> CreateSprites.createRock(texRock, row, col);
+            case 'f' -> CreateSprites.createFlag(texFlag, row, col);
+            case 'b' -> CreateSprites.createBigBlue(texBigBlue, row, col);
+            case 'h' -> CreateSprites.createHedge(texHedge, row, col);
+            case 'a' -> CreateSprites.createWater(texWater, row, col);
+            case 'v' -> CreateSprites.createLava(texLava, row, col);
+            case 'g' -> CreateSprites.createGrass(texGrass, row, col);
+            case 'l' -> CreateSprites.createFloor(texFloor, row, col);
+            case 'W' -> CreateSprites.createWordWall(texWordWall, row, col);
+            case 'R' -> CreateSprites.createWordRock(texWordRock, row, col);
+            case 'F' -> CreateSprites.createWordFlag(texWordFlag, row, col);
+            case 'B' -> CreateSprites.createWordBaba(texWordBaba, row, col);
+            case 'I' -> CreateSprites.createWordIs(texWordIs, row, col);
+            case 'S' -> CreateSprites.createWordStop(texWordStop, row, col);
+            case 'P' -> CreateSprites.createWordPush(texWordPush, row, col);
+            case 'V' -> CreateSprites.createWordLava(texWordLava, row, col);
+            case 'A' -> CreateSprites.createWordWater(texWordWater, row, col);
+            case 'Y' -> CreateSprites.createWordYou(texWordYou, row, col);
+            case 'X' -> CreateSprites.createWordWin(texWordWin, row, col);
+            case 'N' -> CreateSprites.createWordSink(texWordSink, row, col);
+            case 'K' -> CreateSprites.createWordKill(texWordKill, row, col);
+            default -> null;
+        };
+
+        if (e != null) {
+            add(e, row, col);
+            initialStackFrame.addEntityTuple(new Tuple2<>(e, false));
         }
     }
 
@@ -284,7 +286,7 @@ public class GameModel {
      */
     public void add(Entity entity, int row, int col) {
         addEntity(entity);
-        if(entity.contains(ecs.Components.Text.class)) {
+        if(entity.contains(Text.class)) {
             this.gameArea[row][col] = entity;
         }
 

@@ -25,7 +25,7 @@ public abstract class GameStateView implements IGameState {
     public abstract GameStateEnum processInput(double elapsedTime);
 
     @Override
-    public abstract void update(double elapsedTime);
+    public abstract void update(double elapsedTime) throws CloneNotSupportedException;
 
     @Override
     public abstract void render(double elapsedTime);

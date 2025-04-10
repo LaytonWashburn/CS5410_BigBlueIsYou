@@ -14,6 +14,7 @@ import ecs.Components.Position;
 import ecs.Entities.Entity;
 
 import edu.usu.graphics.*;
+import edu.usu.utils.Tuple2;
 import level.Level;
 import org.joml.Vector2f;
 import utils.EntityConstants;
@@ -34,7 +35,7 @@ public class RenderAnimatedSprite extends System{
     }
 
     @Override
-    public ArrayList<Entity> update(double elapsedTime) {   // Both updates and renders the animated sprites. These could be separated into different Systems
+    public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) {   // Both updates and renders the animated sprites. These could be separated into different Systems
 
         for (Entity entity : entities.values()) {
             var animatedSprite = entity.get(AnimatedSprite.class);

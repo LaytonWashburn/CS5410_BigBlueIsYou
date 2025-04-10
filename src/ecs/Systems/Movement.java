@@ -3,6 +3,7 @@ package ecs.Systems;
 import ecs.Components.Position;
 import ecs.Entities.Entity;
 import edu.usu.graphics.Graphics2D;
+import edu.usu.utils.Tuple2;
 import utils.Direction;
 import utils.EntityConstants;
 import utils.Properties;
@@ -14,7 +15,7 @@ public class Movement extends System{
 
     Graphics2D graphics;
 
-    private ArrayList<Entity> moved;
+    private ArrayList<Tuple2<Entity, Boolean>> moved;
 
     public Movement(Graphics2D graphics){
         super(ecs.Components.Position.class);
@@ -23,7 +24,7 @@ public class Movement extends System{
 
     }
     @Override
-    public ArrayList<Entity> update(double elapsedTime) {
+    public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) {
         moved = new ArrayList<>();
         ArrayList<Entity> movables = findMovable(); // Get the movable entities
 
@@ -35,25 +36,25 @@ public class Movement extends System{
                 case Direction.UP:
                     if (!checkCollisionAt(position.i-1, position.j, moving.moving)) {
                         position.i -= 1;
-                        moved.add(entity);
+                        moved.add(new Tuple2<>(entity, false));
                     }
                     break;
                 case Direction.DOWN:
                     if (!checkCollisionAt(position.i+1, position.j, moving.moving)) {
                         position.i += 1;
-                        moved.add(entity);
+                        moved.add(new Tuple2<>(entity, false));
                     }
                     break;
                 case Direction.LEFT:
                     if (!checkCollisionAt(position.i, position.j-1, moving.moving)) {
                         position.j -= 1;
-                        moved.add(entity);
+                        moved.add(new Tuple2<>(entity, false));
                     }
                     break;
                 case Direction.RIGHT:
                     if (!checkCollisionAt(position.i, position.j+1, moving.moving)) {
                         position.j += 1;
-                        moved.add(entity);
+                        moved.add(new Tuple2<>(entity, false));
                     }
                     break;
                 default:
@@ -93,28 +94,28 @@ public class Movement extends System{
                                 immovableHit = checkCollisionAt(otherPosition.i - 1, otherPosition.j, movingDirection); // Recursive call
                                 if (!immovableHit) {
                                     otherPosition.i -= 1;
-                                    moved.add(otherEntity);
+                                    moved.add(new Tuple2<>(otherEntity, false));
                                 }
                                 break;
                             case Direction.DOWN:
                                 immovableHit = checkCollisionAt(otherPosition.i + 1, otherPosition.j, movingDirection); // Recursive call
                                 if (!immovableHit) {
                                     otherPosition.i += 1;
-                                    moved.add(otherEntity);
+                                    moved.add(new Tuple2<>(otherEntity, false));
                                 }
                                 break;
                             case Direction.LEFT:
                                 immovableHit = checkCollisionAt(otherPosition.i, otherPosition.j - 1, movingDirection); // Recursive call
                                 if (!immovableHit) {
                                     otherPosition.j -= 1;
-                                    moved.add(otherEntity);
+                                    moved.add(new Tuple2<>(otherEntity, false));
                                 }
                                 break;
                             case Direction.RIGHT:
                                 immovableHit = checkCollisionAt(otherPosition.i, otherPosition.j + 1, movingDirection); // Recursive call
                                 if (!immovableHit) {
                                     otherPosition.j += 1;
-                                    moved.add(otherEntity);
+                                    moved.add(new Tuple2<>(otherEntity, false));
                                 }
                                 break;
                             default:

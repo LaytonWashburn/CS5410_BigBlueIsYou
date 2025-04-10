@@ -1,7 +1,10 @@
 package ecs.Systems;
 
+import ecs.Components.BigBlue;
 import ecs.Components.Component;
+import ecs.Components.Position;
 import ecs.Entities.Entity;
+import edu.usu.utils.Tuple2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +66,7 @@ public abstract class System {
     /**
      * Derived systems must override this method to perform update logic specific to that system.
      */
-    public abstract ArrayList<Entity> update(double elapsedTime);
+    public abstract ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime);  // Boolean true means the entity was deleted
 
     public void updatedEntity(Entity entity) {
         boolean interested = isInterested(entity);
@@ -73,5 +76,21 @@ public abstract class System {
         else if (!entities.containsKey(entity.getId())) { // If interested and not already in map
             entities.put(entity.getId(), entity);
         }
+    }
+
+    public void replaceEntity(Entity newEntity) {
+        if (isInterested(newEntity)) {
+            var oldEntity = entities.get(newEntity.getId());
+            var oldPos = oldEntity.get(Position.class);
+            java.lang.System.out.println("old entity position: " + oldPos.i + " " + oldPos.j);
+
+            entities.remove(newEntity.getId());
+
+            entities.put(newEntity.getId(), newEntity);
+
+            var newPos = newEntity.get(Position.class);
+            java.lang.System.out.println("new entity position: " + newPos.i + " " + newPos.j);
+        }
+
     }
 }

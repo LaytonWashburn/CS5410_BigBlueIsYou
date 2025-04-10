@@ -53,10 +53,10 @@ public final class Entity implements Cloneable{
         components.clear();
     }
 
-    @Override
-    public String toString() {
-        return String.format("%d: %s", id, components.values().stream().map(c -> c.getClass().getSimpleName()).collect(Collectors.joining(", ")));
-    }
+//    @Override
+//    public String toString() {
+//        return String.format("%d: %s", id, components.values().stream().map(c -> c.getClass().getSimpleName()).collect(Collectors.joining(", ")));
+//    }
 
     /**
      * Method: Clone

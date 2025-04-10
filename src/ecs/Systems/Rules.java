@@ -4,6 +4,7 @@ import ecs.Components.Component;
 import ecs.Components.Noun;
 import ecs.Components.Property;
 import ecs.Entities.Entity;
+import edu.usu.utils.Tuple2;
 import level.Level;
 import utils.*;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class Rules extends System{
     }
 
     @Override
-    public ArrayList<Entity> update(double elapsedTime) {
+    public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) {
         return renderEntity(elapsedTime);
     }
 
@@ -41,10 +42,10 @@ public class Rules extends System{
      *  - Does this need to happen every update ?
      * */
 
-    public ArrayList<Entity> renderEntity(double elapsedTime) {
+    public ArrayList<Tuple2<Entity, Boolean>> renderEntity(double elapsedTime) {
 
 
-        ArrayList<Entity> changed = new ArrayList<>(); // Array list to hold the changed entities
+        ArrayList<Tuple2<Entity, Boolean>> changed = new ArrayList<>(); // Array list to hold the changed entities
 
 
         for (Entity entity : entities.values()) {   // Ideally these don't have to be checked every update cycle, only after certain events are detected
@@ -64,17 +65,18 @@ public class Rules extends System{
                             Map.of(keybinds.UP, Direction.UP,
                                     keybinds.DOWN, Direction.DOWN,
                                     keybinds.RIGHT, Direction.RIGHT,
-                                    keybinds.LEFT, Direction.LEFT
+                                    keybinds.LEFT, Direction.LEFT,
+                                    keybinds.UNDO, Direction.UNDO
                             )
                     ));
 
-                    changed.add(entity);
+                    changed.add(new Tuple2<>(entity, false));
                 }
                 if (!property.getProperties().contains(Properties.MOVE) && entity.contains(ecs.Components.KeyboardControlled.class)) {
                     entity.remove(ecs.Components.KeyboardControlled.class);
                     entity.remove(ecs.Components.Movement.class);
 
-                    changed.add(entity);
+                    changed.add(new Tuple2<>(entity, false));
                 }
             }
 

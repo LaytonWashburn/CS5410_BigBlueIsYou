@@ -69,7 +69,7 @@ public class GameViewManager {
         this.levelSerializer.shutdown();
     }
 
-    public void run() {
+    public void run() throws CloneNotSupportedException {
         // Grab the first time
         double previousTime = glfwGetTime();
 
@@ -93,7 +93,7 @@ public class GameViewManager {
         nextStateEnum = currentState.processInput(elapsedTime);
     }
 
-    private void update(double elapsedTime) {
+    private void update(double elapsedTime) throws CloneNotSupportedException {
         // Special case for exiting the game
         if (nextStateEnum == GameStateEnum.Exit) {
             glfwSetWindowShouldClose(graphics.getWindow(), true);

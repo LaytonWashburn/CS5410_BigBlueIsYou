@@ -9,7 +9,7 @@ public interface IGameState {
 
     GameStateEnum processInput(double elapsedTime);
 
-    void update(double elapsedTime);
+    void update(double elapsedTime) throws CloneNotSupportedException;
 
     void render(double elapsedTime);
 }

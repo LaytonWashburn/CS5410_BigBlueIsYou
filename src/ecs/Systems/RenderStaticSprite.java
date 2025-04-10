@@ -15,6 +15,7 @@ import ecs.Entities.Entity;
 import edu.usu.graphics.Color;
 import edu.usu.graphics.Graphics2D;
 import edu.usu.graphics.Rectangle;
+import edu.usu.utils.Tuple2;
 import level.Level;
 import org.joml.Vector2f;
 import utils.EntityConstants;
@@ -34,7 +35,7 @@ public class RenderStaticSprite extends System{
     }
 
     @Override
-    public ArrayList<Entity> update(double elapsedTime) {
+    public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) {
 
         for(Entity entity : entities.values()){
             renderEntity(entity);

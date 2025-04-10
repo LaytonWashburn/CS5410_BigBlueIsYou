@@ -4,9 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Can add STOP to WALL but other rule system isn't working.">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="can lo longer push moveable entities">
+      <change afterPath="$PROJECT_DIR$/src/undo/StackFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ECSStarter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ECSStarter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameViewManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameViewManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/IGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/IGameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/KeyboardInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/KeyboardInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderAnimatedSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/RenderAnimatedSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderParticleSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/RenderParticleSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderStaticSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/RenderStaticSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/System.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/System.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Undo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Undo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/GamePlayView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GamePlayView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/GameStateView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GameStateView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,12 +48,12 @@
     &quot;assignee&quot;: &quot;LaytonWashburn&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:LaytonWashburn/CS5410_BigBlueIsYou.git",
-    "accountId": "bb1a2716-acc5-4b6d-aca9-35ee4e29f2c7"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/LaytonWashburn/CS5410_BigBlueIsYou.git&quot;,
+    &quot;accountId&quot;: &quot;bb396ab9-696d-4548-90f7-1790c215295f&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -92,6 +109,14 @@
       <item itemvalue="Application.Driver - Windows/Linux" />
       <item itemvalue="Application.Driver - macOS" />
     </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -153,15 +178,7 @@
       <option name="project" value="LOCAL" />
       <updated>1744144956093</updated>
     </task>
-    <task id="LOCAL-00007" summary="Can add STOP to WALL but other rule system isn't working.">
-      <option name="closed" value="true" />
-      <created>1744178443701</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1744178443701</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,8 +191,7 @@
     <MESSAGE value="fix level rendering for different sizes of levels" />
     <MESSAGE value="fixed pushing system?" />
     <MESSAGE value="can lo longer push moveable entities" />
-    <MESSAGE value="Can add STOP to WALL but other rule system isn't working." />
-    <option name="LAST_COMMIT_MESSAGE" value="Can add STOP to WALL but other rule system isn't working." />
+    <option name="LAST_COMMIT_MESSAGE" value="can lo longer push moveable entities" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
