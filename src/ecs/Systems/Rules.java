@@ -4,6 +4,7 @@ import ecs.Components.Component;
 import ecs.Components.Noun;
 import ecs.Components.Property;
 import ecs.Entities.Entity;
+import edu.usu.utils.Tuple2;
 import level.Level;
 import utils.*;
 import java.util.ArrayList;
@@ -30,8 +31,8 @@ public class Rules extends System{
     }
 
     @Override
-    public ArrayList<Entity> update(double elapsedTime) {
-        return renderEntity(elapsedTime);
+    public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) {
+        return new ArrayList<Tuple2<Entity, Boolean>>(){{}};
     }
 
     /**

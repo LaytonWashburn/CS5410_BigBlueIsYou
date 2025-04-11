@@ -56,7 +56,7 @@ public class GamePlayView extends GameStateView {
     }
 
     @Override
-    public void update(double elapsedTime) {
+    public void update(double elapsedTime) throws CloneNotSupportedException {
         gameModel.update(elapsedTime);
     }
 

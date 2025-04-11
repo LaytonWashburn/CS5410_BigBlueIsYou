@@ -95,7 +95,7 @@ public class NewGameView extends GameStateView {
     }
 
     @Override
-    public GameStateEnum processInput(double elapsedTime) {
+    public GameStateEnum processInput(double elapsedTime) throws CloneNotSupportedException {
         // Updating the keyboard can change the nextGameState
         inputKeyboard.update(elapsedTime);
         return nextGameState;
@@ -116,11 +116,11 @@ public class NewGameView extends GameStateView {
                 Level level = this.levelState.levels.get(i);
                 String displayName = level.getName();
                 top = renderMenuItem(
-                    currentSelection == i ? fontSelected : fontMenu,
-                    displayName,
-                    top,
-                    HEIGHT_MENU_ITEM,
-                    currentSelection == i ? Color.GREEN : Color.WHITE
+                        currentSelection == i ? fontSelected : fontMenu,
+                        displayName,
+                        top,
+                        HEIGHT_MENU_ITEM,
+                        currentSelection == i ? Color.GREEN : Color.WHITE
                 );
             }
         } else {

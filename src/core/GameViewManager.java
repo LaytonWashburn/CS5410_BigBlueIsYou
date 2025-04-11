@@ -69,7 +69,7 @@ public class GameViewManager {
         this.levelSerializer.shutdown();
     }
 
-    public void run() {
+    public void run() throws CloneNotSupportedException {
         // Grab the first time
         double previousTime = glfwGetTime();
 
@@ -86,14 +86,14 @@ public class GameViewManager {
         }
     }
 
-    private void processInput(double elapsedTime) {
+    private void processInput(double elapsedTime) throws CloneNotSupportedException {
         // Poll for window events: required in order for window, keyboard, etc events are captured.
         glfwPollEvents();
 
         nextStateEnum = currentState.processInput(elapsedTime);
     }
 
-    private void update(double elapsedTime) {
+    private void update(double elapsedTime) throws CloneNotSupportedException {
         // Special case for exiting the game
         if (nextStateEnum == GameStateEnum.Exit) {
             glfwSetWindowShouldClose(graphics.getWindow(), true);

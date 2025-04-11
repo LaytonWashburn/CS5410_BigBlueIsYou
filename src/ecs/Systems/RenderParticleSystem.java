@@ -15,12 +15,13 @@
 package ecs.Systems;
 
 import ecs.Entities.Entity;
+import edu.usu.utils.Tuple2;
 
 import java.util.ArrayList;
 
 public class RenderParticleSystem extends System{
     @Override
-    public ArrayList<Entity> update(double elapsedTime) {
+    public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) {
         return new ArrayList<>();
     }
 }

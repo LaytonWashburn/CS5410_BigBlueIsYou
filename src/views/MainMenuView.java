@@ -1,3 +1,4 @@
+
 package views;
 
 import core.GameStateEnum;
@@ -68,7 +69,7 @@ public class MainMenuView extends GameStateView {
     }
 
     @Override
-    public GameStateEnum processInput(double elapsedTime) {
+    public GameStateEnum processInput(double elapsedTime) throws CloneNotSupportedException {
         // Updating the keyboard can change the nextGameState
         inputKeyboard.update(elapsedTime);
         return nextGameState;

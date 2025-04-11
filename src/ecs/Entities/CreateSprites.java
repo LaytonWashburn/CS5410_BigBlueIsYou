@@ -6,6 +6,8 @@ import edu.usu.graphics.Texture;
 import org.joml.Vector2f;
 import utils.*;
 
+import java.util.Map;
+
 /**
  * Class: Create Sprites
  * Description: Class to hold create method on all game objects
@@ -22,7 +24,7 @@ public class CreateSprites {
      * @param j - Y position of object initially
      * @return Entity - Entity created
      */
-    public static Entity createWall(Texture texture, int i, int j){
+    public static Entity createWall(Texture texture, int i, int j, KeyBinds keybinds) {
         float frameTime = EntityConstants.frameTime;
         float rectSize = EntityConstants.rectSize;
 
@@ -31,7 +33,15 @@ public class CreateSprites {
         wall.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         wall.add(new ecs.Components.Position(i, j));
         wall.add(new ecs.Components.Noun(NounType.WALL));
-        // wall.add(new ecs.Components.Property());
+        wall.add(new ecs.Components.Property());
+        wall.add(new ecs.Components.Movement(Direction.STOP));
+        wall.add(new ecs.Components.KeyboardControlled(
+                Map.of(keybinds.UP, Direction.UP,
+                        keybinds.DOWN, Direction.DOWN,
+                        keybinds.RIGHT, Direction.RIGHT,
+                        keybinds.LEFT, Direction.LEFT
+                )
+        ));
 
         return wall;
 
@@ -44,7 +54,7 @@ public class CreateSprites {
      * @param j - Y position of object initially
      * @return Entity - Entity created
      */
-    public static Entity createRock(Texture texture, int i, int j){
+    public static Entity createRock(Texture texture, int i, int j, KeyBinds keybinds) {
         float frameTime = EntityConstants.frameTime;
         float rectSize = EntityConstants.rectSize;
 
@@ -53,7 +63,15 @@ public class CreateSprites {
         rock.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         rock.add(new ecs.Components.Position(i, j));
         rock.add(new ecs.Components.Noun(NounType.ROCK));
-        // rock.add(new ecs.Components.Property(Properties.PUSHABLE));
+        rock.add(new ecs.Components.Property());
+        rock.add(new ecs.Components.Movement(Direction.STOP));
+        rock.add(new ecs.Components.KeyboardControlled(
+                Map.of(keybinds.UP, Direction.UP,
+                        keybinds.DOWN, Direction.DOWN,
+                        keybinds.RIGHT, Direction.RIGHT,
+                        keybinds.LEFT, Direction.LEFT
+                )
+        ));
 
         return rock;
 
@@ -66,7 +84,7 @@ public class CreateSprites {
      * @param j - Y position of object initially
      * @return Entity - Entity created
      */
-    public static Entity createFlag(Texture texture, int i, int j){
+    public static Entity createFlag(Texture texture, int i, int j, KeyBinds keybinds) {
         float frameTime = EntityConstants.frameTime;
         float rectSize = EntityConstants.rectSize;
 
@@ -75,7 +93,15 @@ public class CreateSprites {
         flag.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         flag.add(new ecs.Components.Position(i, j));
         flag.add(new ecs.Components.Noun(NounType.FLAG));
-        // flag.add(new ecs.Components.Property());
+        flag.add(new ecs.Components.Property());
+        flag.add(new ecs.Components.Movement(Direction.STOP));
+        flag.add(new ecs.Components.KeyboardControlled(
+                Map.of(keybinds.UP, Direction.UP,
+                        keybinds.DOWN, Direction.DOWN,
+                        keybinds.RIGHT, Direction.RIGHT,
+                        keybinds.LEFT, Direction.LEFT
+                )
+        ));
 
         return flag;
 
@@ -88,14 +114,22 @@ public class CreateSprites {
      * @param j - Y position of object initially
      * @return Entity - Entity created
      */
-    public static Entity createBigBlue(Texture texture, int i, int j) {
+    public static Entity createBigBlue(Texture texture, int i, int j, KeyBinds keybinds) {
         Entity bigBlue = new Entity();
 
         bigBlue.add(new ecs.Components.BigBlue()); // Don't know if this is needed
         bigBlue.add(new StaticSprite(texture));
         bigBlue.add(new ecs.Components.Position(i, j));
         bigBlue.add(new ecs.Components.Noun(NounType.BIGBLUE));
-        // bigBlue.add(new ecs.Components.Property(Properties.MOVE));
+        bigBlue.add(new ecs.Components.Property(Properties.MOVE));
+        bigBlue.add(new ecs.Components.Movement(Direction.STOP));
+        bigBlue.add(new ecs.Components.KeyboardControlled(
+                Map.of(keybinds.UP, Direction.UP,
+                        keybinds.DOWN, Direction.DOWN,
+                        keybinds.RIGHT, Direction.RIGHT,
+                        keybinds.LEFT, Direction.LEFT
+                )
+        ));
 
         return  bigBlue;
 
@@ -109,13 +143,21 @@ public class CreateSprites {
      * @param j - Y position of object initially
      * @return Entity - Entity created
      */
-    public static Entity createFloor(Texture texture, int i, int j){
+    public static Entity createFloor(Texture texture, int i, int j, KeyBinds keybinds) {
         Entity floor = new Entity();
 
         floor.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         floor.add(new ecs.Components.Position(i, j));
         floor.add(new ecs.Components.Noun(NounType.FLOOR));
-        // floor.add(new ecs.Components.Property());
+        floor.add(new ecs.Components.Property());
+        floor.add(new ecs.Components.Movement(Direction.STOP));
+        floor.add(new ecs.Components.KeyboardControlled(
+                Map.of(keybinds.UP, Direction.UP,
+                        keybinds.DOWN, Direction.DOWN,
+                        keybinds.RIGHT, Direction.RIGHT,
+                        keybinds.LEFT, Direction.LEFT
+                )
+        ));
 
         return floor;
 
@@ -128,7 +170,7 @@ public class CreateSprites {
      * @param j - Y position of object initially
      * @return Entity - Entity created
      */
-    public static Entity createGrass(Texture texture, int i, int j){
+    public static Entity createGrass(Texture texture, int i, int j, KeyBinds keybinds) {
         float frameTime = EntityConstants.frameTime;
         float rectSize = EntityConstants.rectSize;
 
@@ -137,7 +179,15 @@ public class CreateSprites {
         grass.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         grass.add(new ecs.Components.Position(i, j));
         grass.add(new ecs.Components.Noun(NounType.GRASS));
-        // grass.add(new ecs.Components.Property());
+        grass.add(new ecs.Components.Property());
+        grass.add(new ecs.Components.Movement(Direction.STOP));
+        grass.add(new ecs.Components.KeyboardControlled(
+                Map.of(keybinds.UP, Direction.UP,
+                        keybinds.DOWN, Direction.DOWN,
+                        keybinds.RIGHT, Direction.RIGHT,
+                        keybinds.LEFT, Direction.LEFT
+                )
+        ));
 
         return grass;
 
@@ -150,7 +200,7 @@ public class CreateSprites {
      * @param j - Y position of object initially
      * @return Entity - Entity created
      */
-    public static Entity createWater(Texture texture, int i, int j){
+    public static Entity createWater(Texture texture, int i, int j, KeyBinds keybinds) {
         float frameTime = EntityConstants.frameTime;
         float rectSize = EntityConstants.rectSize;
 
@@ -159,7 +209,15 @@ public class CreateSprites {
         water.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         water.add(new ecs.Components.Position(i, j));
         water.add(new ecs.Components.Noun(NounType.WATER));
-        // water.add(new ecs.Components.Property());
+        water.add(new ecs.Components.Property());
+        water.add(new ecs.Components.Movement(Direction.STOP));
+        water.add(new ecs.Components.KeyboardControlled(
+                Map.of(keybinds.UP, Direction.UP,
+                        keybinds.DOWN, Direction.DOWN,
+                        keybinds.RIGHT, Direction.RIGHT,
+                        keybinds.LEFT, Direction.LEFT
+                )
+        ));
 
         return water;
 
@@ -172,7 +230,7 @@ public class CreateSprites {
      * @param j - Y position of object initially
      * @return Entity - Entity created
      */
-    public static Entity createLava(Texture texture, int i, int j){
+    public static Entity createLava(Texture texture, int i, int j, KeyBinds keybinds) {
         float frameTime = EntityConstants.frameTime;
         float rectSize = EntityConstants.rectSize;
 
@@ -181,7 +239,15 @@ public class CreateSprites {
         lava.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         lava.add(new ecs.Components.Position(i, j));
         lava.add(new ecs.Components.Noun(NounType.LAVA));
-        // lava.add(new ecs.Components.Property());
+        lava.add(new ecs.Components.Property());
+        lava.add(new ecs.Components.Movement(Direction.STOP));
+        lava.add(new ecs.Components.KeyboardControlled(
+                Map.of(keybinds.UP, Direction.UP,
+                        keybinds.DOWN, Direction.DOWN,
+                        keybinds.RIGHT, Direction.RIGHT,
+                        keybinds.LEFT, Direction.LEFT
+                )
+        ));
 
         return lava;
 
@@ -203,7 +269,7 @@ public class CreateSprites {
         hedge.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         hedge.add(new ecs.Components.Position(i, j));
         hedge.add(new ecs.Components.Noun(NounType.HEDGE));
-        // hedge.add(new ecs.Components.Property(Properties.STOP));
+        hedge.add(new ecs.Components.Property(Properties.STOP));
 
         return hedge;
     }

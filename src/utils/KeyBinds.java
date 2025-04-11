@@ -1,9 +1,5 @@
 package utils;
 
-import utils.Direction;
-
-import java.security.Key;
-
 import static org.lwjgl.glfw.GLFW.*;
 
 /**

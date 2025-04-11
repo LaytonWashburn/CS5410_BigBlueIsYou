@@ -1,7 +1,10 @@
 package ecs.Systems;
 
+import ecs.Components.BigBlue;
 import ecs.Components.Component;
+import ecs.Components.Position;
 import ecs.Entities.Entity;
+import edu.usu.utils.Tuple2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +66,7 @@ public abstract class System {
     /**
      * Derived systems must override this method to perform update logic specific to that system.
      */
-    public abstract ArrayList<Entity> update(double elapsedTime);
+    public abstract ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) throws CloneNotSupportedException;  // Boolean true means the entity was deleted
 
     public void updatedEntity(Entity entity) {
         boolean interested = isInterested(entity);
@@ -73,5 +76,14 @@ public abstract class System {
         else if (!entities.containsKey(entity.getId())) { // If interested and not already in map
             entities.put(entity.getId(), entity);
         }
+    }
+
+    public void replaceEntity(Entity newEntity) {
+        if (isInterested(newEntity)) {
+            entities.remove(newEntity.getId());
+
+            entities.put(newEntity.getId(), newEntity);
+        }
+
     }
 }

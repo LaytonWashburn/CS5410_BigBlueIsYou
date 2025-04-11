@@ -7,9 +7,9 @@ public interface IGameState {
 
     void initializeSession();
 
-    GameStateEnum processInput(double elapsedTime);
+    GameStateEnum processInput(double elapsedTime) throws CloneNotSupportedException;
 
-    void update(double elapsedTime);
+    void update(double elapsedTime) throws CloneNotSupportedException;
 
     void render(double elapsedTime);
 }

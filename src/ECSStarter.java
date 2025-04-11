@@ -10,6 +10,8 @@ public class ECSStarter {
             game.initialize();
             game.run();
             game.shutdown();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
         }
     }
 }

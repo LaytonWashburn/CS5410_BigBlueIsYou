@@ -63,21 +63,37 @@ public final class Entity implements Cloneable{
      * Description: Clone method to make a deep clone of the entity
      * @return Entity - Deep cloned entity
      */
+    /**
+     * Method: Clone
+     * Description: Clone method to make a deep clone of the entity
+     * @return Entity - Deep cloned entity
+     */
     @Override
     public Entity clone() throws CloneNotSupportedException {
-        Entity clonedEntity = new Entity(); // (Entity) super.clone();
+        Entity clone = new Entity();
+        clone.id = id;
 
-        // Deep clone components
-        for (Map.Entry<Class<? extends Component>, Component> entry : this.components.entrySet()) {
-            Component originalComponent = entry.getValue();
-            Component clonedComponent = originalComponent.clone();  // Ensures proper cloning
-            clonedEntity.components.put(entry.getKey(), clonedComponent);
+        for (Component component : components.values()) {
+            clone.components.put(component.getClass(), component.clone());
         }
 
-        // Generate a new unique ID for the cloned entity
-        clonedEntity.id = nextId++;
-
-        return clonedEntity;
+        return clone;
     }
+//    @Override
+//    public Entity clone() throws CloneNotSupportedException {
+//        Entity clonedEntity = new Entity(); // (Entity) super.clone();
+//
+//        // Deep clone components
+//        for (Map.Entry<Class<? extends Component>, Component> entry : this.components.entrySet()) {
+//            Component originalComponent = entry.getValue();
+//            Component clonedComponent = originalComponent.clone();  // Ensures proper cloning
+//            clonedEntity.components.put(entry.getKey(), clonedComponent);
+//        }
+//
+//        // Generate a new unique ID for the cloned entity
+//        clonedEntity.id = nextId++;
+//
+//        return clonedEntity;
+//    }
 
 }

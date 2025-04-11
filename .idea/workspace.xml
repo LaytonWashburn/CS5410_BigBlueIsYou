@@ -4,7 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Deep clone should work" />
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Deep clone should work">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ECSStarter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ECSStarter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameViewManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/IGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/IGameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/GridAlignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/GridAlignment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/KeyboardInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/KeyboardInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderAnimatedSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/RenderAnimatedSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderParticleSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/RenderParticleSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderStaticSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/RenderStaticSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/System.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/System.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Undo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/KeyBinds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/KeyBinds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/ControlsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ControlsView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/CreditsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/CreditsView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/GamePlayView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GamePlayView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/GameStateView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GameStateView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/MainMenuView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/NewGameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/NewGameView.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,7 +69,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Driver - Windows/Linux.executor": "Debug",
+    "Application.Driver - Windows/Linux.executor": "Run",
     "Application.Driver.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -238,7 +262,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744330563644</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Deep clone should work">
+      <option name="closed" value="true" />
+      <created>1744336591236</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1744336591236</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

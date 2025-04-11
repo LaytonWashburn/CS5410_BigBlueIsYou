@@ -1,6 +1,7 @@
 package ecs.Systems;
 
 import ecs.Entities.Entity;
+import edu.usu.utils.Tuple2;
 import utils.Direction;
 import utils.KeyBinds;
 import utils.EntityConstants;
@@ -25,7 +26,7 @@ public class KeyboardInput extends System {
     }
 
     @Override
-    public ArrayList<Entity> update(double gameTime) {
+    public ArrayList<Tuple2<Entity, Boolean>> update(double gameTime) {
 
         for(Entity entity : entities.values()){
             var input = entity.get(ecs.Components.KeyboardControlled.class);

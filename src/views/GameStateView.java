@@ -22,10 +22,10 @@ public abstract class GameStateView implements IGameState {
     public void initializeSession() {};
 
     @Override
-    public abstract GameStateEnum processInput(double elapsedTime);
+    public abstract GameStateEnum processInput(double elapsedTime) throws CloneNotSupportedException;
 
     @Override
-    public abstract void update(double elapsedTime);
+    public abstract void update(double elapsedTime) throws CloneNotSupportedException;
 
     @Override
     public abstract void render(double elapsedTime);
