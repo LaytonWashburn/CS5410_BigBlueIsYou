@@ -83,9 +83,6 @@ public class GameModel {
      */
     public GameModel(Level level, KeyBinds keybinds) {
         this.level = level;
-        System.out.println("Level: " + level.getName());
-        System.out.println("Level Width: " + level.getWidth());
-        System.out.println("Level Height: " + level.getHeight());
         this.keybinds = keybinds;
         this.gameArea = new Entity[level.getHeight()][level.getWidth()];
         systems.clear(); // clear the system list if you're starting a fresh game
@@ -105,13 +102,12 @@ public class GameModel {
         this.sysMovement = new Movement(graphics);
         this.sysUndo = new Undo(() -> {
             if (undoStack.size() > 1) {
-                System.out.println("undo stack size " +undoStack.size());
                 StackFrame poppedFrame = undoStack.pop();
                 StackFrame remainingFrame = undoStack.peek();
-                System.out.println("popped frame");
-                poppedFrame.printEntities();
-                System.out.println("remaining frame");
-                remainingFrame.printEntities();
+//                System.out.println("popped frame");
+//                poppedFrame.printEntities();
+//                System.out.println("remaining frame");
+//                remainingFrame.printEntities();
                 ArrayList<Tuple2<Entity, Boolean>> poppedEntities = poppedFrame.getEntities();
                 for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) {
                     Tuple2<Entity, Boolean> correspondingRemainingTuple = remainingFrame.getCorrespondingTuple(entityTuple);
@@ -119,16 +115,15 @@ public class GameModel {
                         system.replaceEntity(correspondingRemainingTuple.item1());
                     }
                 }
+                System.out.println("UNDO STACK: " +undoStack);
             }
         });
-
-        System.out.println("Size of the systems is: " + systems.size());
 
         this.undoStack = new Stack<>();
         this.initialStackFrame = new StackFrame();
         initializeObjectTypes(level); // Take level and create entities for all objects
         undoStack.push(initialStackFrame);
-        initialStackFrame.printEntities();
+        System.out.println("UNDO STACK: " +undoStack);
 
         this.sysRules.scanGamePlayArea(this.gameArea); // Do an initial scan of the game area
 
@@ -147,7 +142,7 @@ public class GameModel {
             // Loop through the changed
             changed.addAll(changedEntities);
             if (system instanceof Movement && !changedEntities.isEmpty()) {
-                System.out.println(changed.size());
+//                System.out.println(changed.size());
                 moved = true;
             }
         }
@@ -166,6 +161,7 @@ public class GameModel {
                 stackFrame.addEntityTuple(entityTuple);
             }
             undoStack.push(stackFrame);
+            System.out.println("UNDO STACK: " +undoStack);
         }
 
         for (Tuple2<Entity, Boolean> entityTuple : changed) { // Allow systems to decide if they are interested or not in the changed
@@ -247,15 +243,15 @@ public class GameModel {
         Entity e;
 
         e = switch (symbol) {
-            case 'w' -> CreateSprites.createWall(texWall, row, col);
-            case 'r' -> CreateSprites.createRock(texRock, row, col);
-            case 'f' -> CreateSprites.createFlag(texFlag, row, col);
-            case 'b' -> CreateSprites.createBigBlue(texBigBlue, row, col);
+            case 'w' -> CreateSprites.createWall(texWall, row, col, keybinds);
+            case 'r' -> CreateSprites.createRock(texRock, row, col, keybinds);
+            case 'f' -> CreateSprites.createFlag(texFlag, row, col, keybinds);
+            case 'b' -> CreateSprites.createBigBlue(texBigBlue, row, col, keybinds);
             case 'h' -> CreateSprites.createHedge(texHedge, row, col);
-            case 'a' -> CreateSprites.createWater(texWater, row, col);
-            case 'v' -> CreateSprites.createLava(texLava, row, col);
-            case 'g' -> CreateSprites.createGrass(texGrass, row, col);
-            case 'l' -> CreateSprites.createFloor(texFloor, row, col);
+            case 'a' -> CreateSprites.createWater(texWater, row, col, keybinds);
+            case 'v' -> CreateSprites.createLava(texLava, row, col, keybinds);
+            case 'g' -> CreateSprites.createGrass(texGrass, row, col, keybinds);
+            case 'l' -> CreateSprites.createFloor(texFloor, row, col, keybinds);
             case 'W' -> CreateSprites.createWordWall(texWordWall, row, col);
             case 'R' -> CreateSprites.createWordRock(texWordRock, row, col);
             case 'F' -> CreateSprites.createWordFlag(texWordFlag, row, col);

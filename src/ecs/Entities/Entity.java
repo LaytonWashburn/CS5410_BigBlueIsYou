@@ -1,6 +1,8 @@
 package ecs.Entities;
 
 import ecs.Components.Component;
+import ecs.Components.KeyboardControlled;
+import ecs.Components.Movement;
 
 import java.util.*;
 import java.util.stream.*;

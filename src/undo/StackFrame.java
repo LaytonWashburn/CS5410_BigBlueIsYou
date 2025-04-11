@@ -2,7 +2,9 @@ package undo;
 
 import com.sun.tools.jconsole.JConsoleContext;
 import ecs.Components.BigBlue;
+import ecs.Components.KeyboardControlled;
 import ecs.Components.Position;
+import ecs.Components.Property;
 import ecs.Entities.Entity;
 import edu.usu.utils.Tuple2;
 
@@ -16,7 +18,6 @@ public class StackFrame {
     private ArrayList<Tuple2<Entity, Boolean>> entities;
 
     public StackFrame() throws CloneNotSupportedException {
-        System.out.println("STACK FRAME CREATED");
         this.entities = new ArrayList<>();
     }
 
@@ -26,7 +27,7 @@ public class StackFrame {
 
     public void printEntities() {
         for (Tuple2<Entity, Boolean> entity : this.entities) {
-            System.out.println(entity.item1().get(Position.class));
+            System.out.println(entity.item1());
         }
     }
 
@@ -41,8 +42,8 @@ public class StackFrame {
             if (entityTuple.item1().getId() == givenTuple.item1().getId()) {
                 correspondingTuple = entityTuple;
 
-                System.out.println("Popped entity: " + entityTuple.item1().get(Position.class).i);
-                System.out.println("Corresponding entity: " + correspondingTuple.item1().get(Position.class).i);
+//                System.out.println("Popped entity: " + entityTuple.item1().get(Position.class).i);
+//                System.out.println("Corresponding entity: " + correspondingTuple.item1().get(Position.class).i);
             }
         }
 

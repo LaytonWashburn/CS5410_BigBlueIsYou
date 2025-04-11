@@ -32,7 +32,7 @@ public class Rules extends System{
 
     @Override
     public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) {
-        return renderEntity(elapsedTime);
+        return new ArrayList<Tuple2<Entity, Boolean>>(){{}};
     }
 
     /**
@@ -42,49 +42,6 @@ public class Rules extends System{
      *  - Does this need to happen every update ?
      * */
 
-    public ArrayList<Tuple2<Entity, Boolean>> renderEntity(double elapsedTime) {
-
-
-        ArrayList<Tuple2<Entity, Boolean>> changed = new ArrayList<>(); // Array list to hold the changed entities
-
-
-        for (Entity entity : entities.values()) {   // Ideally these don't have to be checked every update cycle, only after certain events are detected
-
-            var position = entity.get(ecs.Components.Position.class);
-
-
-            if(entity.contains(ecs.Components.Property.class)) {
-
-                var property = entity.get(ecs.Components.Property.class);
-
-
-                if (property.getProperties().contains(Properties.MOVE) && !entity.contains(ecs.Components.KeyboardControlled.class)) {
-
-                    entity.add(new ecs.Components.Movement(Direction.STOP));
-                    entity.add(new ecs.Components.KeyboardControlled(
-                            Map.of(keybinds.UP, Direction.UP,
-                                    keybinds.DOWN, Direction.DOWN,
-                                    keybinds.RIGHT, Direction.RIGHT,
-                                    keybinds.LEFT, Direction.LEFT,
-                                    keybinds.UNDO, Direction.UNDO
-                            )
-                    ));
-
-                    changed.add(new Tuple2<>(entity, false));
-                }
-                if (!property.getProperties().contains(Properties.MOVE) && entity.contains(ecs.Components.KeyboardControlled.class)) {
-                    entity.remove(ecs.Components.KeyboardControlled.class);
-                    entity.remove(ecs.Components.Movement.class);
-
-                    changed.add(new Tuple2<>(entity, false));
-                }
-            }
-
-        }
-
-        return changed;
-
-    }
 
     /**
      * Method: Rules.java

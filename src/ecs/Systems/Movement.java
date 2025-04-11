@@ -29,36 +29,42 @@ public class Movement extends System{
         ArrayList<Entity> movables = findMovable(); // Get the movable entities
 
         for (Entity entity : movables) { // Loop through the entities
+            var properties = entity.get(ecs.Components.Property.class);
             var position = entity.get(ecs.Components.Position.class);
             var moving = entity.get(ecs.Components.Movement.class);
 
-            switch (moving.moving){
-                case Direction.UP:
-                    if (!checkCollisionAt(position.i-1, position.j, moving.moving)) {
-                        position.i -= 1;
-                        moved.add(new Tuple2<>(entity, false));
-                    }
-                    break;
-                case Direction.DOWN:
-                    if (!checkCollisionAt(position.i+1, position.j, moving.moving)) {
-                        position.i += 1;
-                        moved.add(new Tuple2<>(entity, false));
-                    }
-                    break;
-                case Direction.LEFT:
-                    if (!checkCollisionAt(position.i, position.j-1, moving.moving)) {
-                        position.j -= 1;
-                        moved.add(new Tuple2<>(entity, false));
-                    }
-                    break;
-                case Direction.RIGHT:
-                    if (!checkCollisionAt(position.i, position.j+1, moving.moving)) {
-                        position.j += 1;
-                        moved.add(new Tuple2<>(entity, false));
-                    }
-                    break;
-                default:
+            boolean hasMoveProperty = properties.getProperties().contains(Properties.MOVE);
+
+            if (hasMoveProperty) {
+                switch (moving.moving){
+                    case Direction.UP:
+                        if (!checkCollisionAt(position.i-1, position.j, moving.moving)) {
+                            position.i -= 1;
+                            moved.add(new Tuple2<>(entity, false));
+                        }
+                        break;
+                    case Direction.DOWN:
+                        if (!checkCollisionAt(position.i+1, position.j, moving.moving)) {
+                            position.i += 1;
+                            moved.add(new Tuple2<>(entity, false));
+                        }
+                        break;
+                    case Direction.LEFT:
+                        if (!checkCollisionAt(position.i, position.j-1, moving.moving)) {
+                            position.j -= 1;
+                            moved.add(new Tuple2<>(entity, false));
+                        }
+                        break;
+                    case Direction.RIGHT:
+                        if (!checkCollisionAt(position.i, position.j+1, moving.moving)) {
+                            position.j += 1;
+                            moved.add(new Tuple2<>(entity, false));
+                        }
+                        break;
+                    default:
+                }
             }
+
        }
         return moved;
     }

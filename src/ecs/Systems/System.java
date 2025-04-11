@@ -80,16 +80,9 @@ public abstract class System {
 
     public void replaceEntity(Entity newEntity) {
         if (isInterested(newEntity)) {
-            var oldEntity = entities.get(newEntity.getId());
-            var oldPos = oldEntity.get(Position.class);
-            java.lang.System.out.println("old entity position: " + oldPos.i + " " + oldPos.j);
-
             entities.remove(newEntity.getId());
 
             entities.put(newEntity.getId(), newEntity);
-
-            var newPos = newEntity.get(Position.class);
-            java.lang.System.out.println("new entity position: " + newPos.i + " " + newPos.j);
         }
 
     }

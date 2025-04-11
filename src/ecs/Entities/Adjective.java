@@ -3,12 +3,12 @@ package ecs.Entities;
 import edu.usu.graphics.AnimatedSprite;
 import edu.usu.graphics.Texture;
 import org.joml.Vector2f;
-import utils.NounType;
-import utils.TextType;
-import utils.EntityConstants;
+import utils.*;
+
+import java.util.Map;
 
 public class Adjective {
-    public static Entity create(Texture texture, int i, int j){
+    public static Entity create(Texture texture, int i, int j, KeyBinds keybinds){
         float frameTime = EntityConstants.frameTime;
         float rectSize = EntityConstants.rectSize;
 
@@ -19,6 +19,15 @@ public class Adjective {
         adjective.add(new ecs.Components.Noun(NounType.TEXT));
         adjective.add(new ecs.Components.Text(TextType.ADJECTIVE));
         adjective.add(new ecs.Components.Property());
+        adjective.add(new ecs.Components.Movement(Direction.STOP));
+        adjective.add(new ecs.Components.KeyboardControlled(
+                Map.of(keybinds.UP, Direction.UP,
+                        keybinds.DOWN, Direction.DOWN,
+                        keybinds.RIGHT, Direction.RIGHT,
+                        keybinds.LEFT, Direction.LEFT,
+                        keybinds.UNDO, Direction.UNDO
+                )
+        ));
 
         return adjective;
 
