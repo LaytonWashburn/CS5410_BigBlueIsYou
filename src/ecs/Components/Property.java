@@ -19,11 +19,19 @@ public class Property extends Component{
         return properties;
     }
 
+    public void removeProperty(Properties property) {
+        properties.remove(property);
+    }
+
     @Override
-    public Property clone() throws CloneNotSupportedException {
-        Property clone = (Property) super.clone();
-        // Create a new EnumSet with the same properties
-        clone.properties = EnumSet.copyOf(this.properties);
-        return clone;
+    public Component clone() {
+        // Shallow clone the Property object
+        Property cloned = (Property) super.clone();
+
+        // Create a new EnumSet for the cloned object and copy the properties over
+        cloned.properties = EnumSet.copyOf(this.properties);
+
+        // Return the cloned instance
+        return cloned;
     }
 }

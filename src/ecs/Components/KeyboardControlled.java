@@ -7,7 +7,7 @@ import java.util.Map;
 public class KeyboardControlled extends Component {
     public Map<Integer, Direction> keys;
     public Map<Direction, Integer> lookup;
-    public final HashMap<Direction, Boolean> keysPressed = new HashMap<>();
+    public HashMap<Direction, Boolean> keysPressed = new HashMap<>();
 
     public boolean enabled;
 
@@ -24,17 +24,17 @@ public class KeyboardControlled extends Component {
         enabled = true;
     }
 
-//    @Override
-//    public KeyboardControlled clone() throws CloneNotSupportedException {
-//        KeyboardControlled clone = (KeyboardControlled) super.clone();
-//        // Create deep copies of all maps
-//        clone.keys = new HashMap<>(this.keys);
-//        clone.lookup = new HashMap<>(this.lookup);
-//        // Clear and rebuild keysPressed since it's final
-//        clone.keysPressed.clear();
-//        clone.keysPressed.putAll(this.keysPressed);
-//
-//        clone.enabled = this.enabled;
-//        return clone;
-//    }
+    @Override
+    public Component clone() {
+        // Shallow clone the KeyboardControlled object
+        KeyboardControlled cloned = (KeyboardControlled) super.clone();
+
+        // Deep clone the keys, lookup, and keysPressed maps
+        cloned.keys = new HashMap<>(this.keys); // Create a new HashMap with the same entries
+        cloned.lookup = new HashMap<>(this.lookup); // Create a new HashMap for lookup
+        cloned.keysPressed = new HashMap<>(this.keysPressed); // Deep clone the keysPressed map
+
+        // Return the cloned instance
+        return cloned;
+    }
 }

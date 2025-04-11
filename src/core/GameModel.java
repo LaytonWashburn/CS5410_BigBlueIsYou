@@ -110,9 +110,9 @@ public class GameModel {
 //                remainingFrame.printEntities();
                 ArrayList<Tuple2<Entity, Boolean>> poppedEntities = poppedFrame.getEntities();
                 for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) {
-                    Tuple2<Entity, Boolean> correspondingRemainingTuple = remainingFrame.getCorrespondingTuple(entityTuple);
+                    Entity entityToReplace = entityTuple.item1().clone();
                     for (var system : systems) {
-                        system.replaceEntity(correspondingRemainingTuple.item1());
+                        system.replaceEntity(entityToReplace);
                     }
                 }
                 System.out.println("UNDO STACK: " +undoStack);

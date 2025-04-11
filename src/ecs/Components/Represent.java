@@ -17,4 +17,12 @@ public class Represent extends Component{
     public void setNounType(NounType noun) {
         this.noun = noun;
     }
+
+    @Override
+    public Component clone() {
+        // Shallow clone the Represent object
+
+        // Return the cloned instance
+        return (Represent) super.clone();
+    }
 }

@@ -66,7 +66,7 @@ public abstract class System {
     /**
      * Derived systems must override this method to perform update logic specific to that system.
      */
-    public abstract ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime);  // Boolean true means the entity was deleted
+    public abstract ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) throws CloneNotSupportedException;  // Boolean true means the entity was deleted
 
     public void updatedEntity(Entity entity) {
         boolean interested = isInterested(entity);

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Undo extends System{
 
     public interface IPressedUndo {
-        void invoke();
+        void invoke() throws CloneNotSupportedException;
     }
 
     private final IPressedUndo pressedUndo;
@@ -23,7 +23,7 @@ public class Undo extends System{
     }
 
     @Override
-    public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) {
+    public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) throws CloneNotSupportedException {
         ArrayList<Entity> movables = findMovable(); // Get the movable entities
 
         for (Entity entity : movables) { // Loop through the entities

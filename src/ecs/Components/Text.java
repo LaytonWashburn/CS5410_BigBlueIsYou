@@ -17,4 +17,12 @@ public class Text extends Component{
     public TextType getTextType(){
         return this.type;
     }
+
+    @Override
+    public Component clone() {
+        // Perform a shallow clone of the Text object
+
+        // No need to deep clone 'type' since it is an enum (immutable)
+        return super.clone();
+    }
 }
