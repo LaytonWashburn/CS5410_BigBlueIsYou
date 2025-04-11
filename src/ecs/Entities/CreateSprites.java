@@ -39,8 +39,7 @@ public class CreateSprites {
                 Map.of(keybinds.UP, Direction.UP,
                         keybinds.DOWN, Direction.DOWN,
                         keybinds.RIGHT, Direction.RIGHT,
-                        keybinds.LEFT, Direction.LEFT,
-                        keybinds.UNDO, Direction.UNDO
+                        keybinds.LEFT, Direction.LEFT
                 )
         ));
 
@@ -70,8 +69,7 @@ public class CreateSprites {
                 Map.of(keybinds.UP, Direction.UP,
                         keybinds.DOWN, Direction.DOWN,
                         keybinds.RIGHT, Direction.RIGHT,
-                        keybinds.LEFT, Direction.LEFT,
-                        keybinds.UNDO, Direction.UNDO
+                        keybinds.LEFT, Direction.LEFT
                 )
         ));
 
@@ -101,8 +99,7 @@ public class CreateSprites {
                 Map.of(keybinds.UP, Direction.UP,
                         keybinds.DOWN, Direction.DOWN,
                         keybinds.RIGHT, Direction.RIGHT,
-                        keybinds.LEFT, Direction.LEFT,
-                        keybinds.UNDO, Direction.UNDO
+                        keybinds.LEFT, Direction.LEFT
                 )
         ));
 
@@ -130,8 +127,7 @@ public class CreateSprites {
                 Map.of(keybinds.UP, Direction.UP,
                         keybinds.DOWN, Direction.DOWN,
                         keybinds.RIGHT, Direction.RIGHT,
-                        keybinds.LEFT, Direction.LEFT,
-                        keybinds.UNDO, Direction.UNDO
+                        keybinds.LEFT, Direction.LEFT
                 )
         ));
 
@@ -159,8 +155,7 @@ public class CreateSprites {
                 Map.of(keybinds.UP, Direction.UP,
                         keybinds.DOWN, Direction.DOWN,
                         keybinds.RIGHT, Direction.RIGHT,
-                        keybinds.LEFT, Direction.LEFT,
-                        keybinds.UNDO, Direction.UNDO
+                        keybinds.LEFT, Direction.LEFT
                 )
         ));
 
@@ -190,8 +185,7 @@ public class CreateSprites {
                 Map.of(keybinds.UP, Direction.UP,
                         keybinds.DOWN, Direction.DOWN,
                         keybinds.RIGHT, Direction.RIGHT,
-                        keybinds.LEFT, Direction.LEFT,
-                        keybinds.UNDO, Direction.UNDO
+                        keybinds.LEFT, Direction.LEFT
                 )
         ));
 
@@ -221,8 +215,7 @@ public class CreateSprites {
                 Map.of(keybinds.UP, Direction.UP,
                         keybinds.DOWN, Direction.DOWN,
                         keybinds.RIGHT, Direction.RIGHT,
-                        keybinds.LEFT, Direction.LEFT,
-                        keybinds.UNDO, Direction.UNDO
+                        keybinds.LEFT, Direction.LEFT
                 )
         ));
 
@@ -252,8 +245,7 @@ public class CreateSprites {
                 Map.of(keybinds.UP, Direction.UP,
                         keybinds.DOWN, Direction.DOWN,
                         keybinds.RIGHT, Direction.RIGHT,
-                        keybinds.LEFT, Direction.LEFT,
-                        keybinds.UNDO, Direction.UNDO
+                        keybinds.LEFT, Direction.LEFT
                 )
         ));
 

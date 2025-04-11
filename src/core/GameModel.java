@@ -141,7 +141,6 @@ public class GameModel {
                 stackFrame.addEntityTuple(entityTuple);
             }
             undoStack.push(stackFrame);
-            System.out.println("UNDO STACK: " +undoStack);
         }
 
         for (Tuple2<Entity, Boolean> entityTuple : changed) { // Allow systems to decide if they are interested or not in the changed
@@ -278,7 +277,6 @@ public class GameModel {
                     system.replaceEntity(entityToReplace);
                 }
             }
-            System.out.println("UNDO STACK: " +undoStack);
         }
     }
 

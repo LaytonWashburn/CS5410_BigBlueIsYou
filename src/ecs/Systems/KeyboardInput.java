@@ -50,16 +50,11 @@ public class KeyboardInput extends System {
                 moving.moving = Direction.DOWN;
                 input.keysPressed.put(Direction.DOWN, true);
             }
-            if (glfwGetKey(window, input.lookup.get(Direction.UNDO)) == GLFW_PRESS && !input.keysPressed.get(Direction.UNDO)) {
-                moving.moving = Direction.UNDO;
-                input.keysPressed.put(Direction.UNDO, true);
-            }
 
             input.keysPressed.put(Direction.LEFT, glfwGetKey(window, keyBinds.LEFT) == GLFW_PRESS);
             input.keysPressed.put(Direction.RIGHT, glfwGetKey(window, keyBinds.RIGHT) == GLFW_PRESS);
             input.keysPressed.put(Direction.UP, glfwGetKey(window, keyBinds.UP) == GLFW_PRESS);
             input.keysPressed.put(Direction.DOWN, glfwGetKey(window, keyBinds.DOWN) == GLFW_PRESS);
-            input.keysPressed.put(Direction.UNDO, glfwGetKey(window, keyBinds.UNDO) == GLFW_PRESS);
 
         }
         return new ArrayList<>();
