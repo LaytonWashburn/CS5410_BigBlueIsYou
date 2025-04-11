@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Added deep clone to entity and a clone method to the base Component.java">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/AnimatedSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/AnimatedSprite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/BigBlue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/BigBlue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/Component.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/IgnoreRule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/IgnoreRule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Input.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/Input.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/KeyboardControlled.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/KeyboardControlled.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/Movement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Noun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/Noun.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/Property.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Represent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/Represent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/StaticSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/StaticSprite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Text.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/Text.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Entity.java" afterDir="false" />
-    </list>
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Deep clone should work" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -248,7 +230,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744325741117</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Deep clone should work">
+      <option name="closed" value="true" />
+      <created>1744330563644</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1744330563644</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,7 +260,8 @@
     <MESSAGE value="Added documentation and cleaned up code for Rule system." />
     <MESSAGE value="Fixed IS YOU, can now switch moveable entities." />
     <MESSAGE value="Added deep clone to entity and a clone method to the base Component.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added deep clone to entity and a clone method to the base Component.java" />
+    <MESSAGE value="Deep clone should work" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deep clone should work" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
