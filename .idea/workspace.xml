@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Added deep clone to entity and a clone method to the base Component.java">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="merge complete?">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/KeyboardInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/KeyboardInput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/keybinds.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/keybinds.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/GamePlayView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GamePlayView.java" afterDir="false" />
     </list>
@@ -236,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744325741117</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="merge complete?">
+      <option name="closed" value="true" />
+      <created>1744340695158</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1744340695158</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -258,7 +264,8 @@
     <MESSAGE value="Added documentation and cleaned up code for Rule system." />
     <MESSAGE value="Fixed IS YOU, can now switch moveable entities." />
     <MESSAGE value="Added deep clone to entity and a clone method to the base Component.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added deep clone to entity and a clone method to the base Component.java" />
+    <MESSAGE value="merge complete?" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge complete?" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
