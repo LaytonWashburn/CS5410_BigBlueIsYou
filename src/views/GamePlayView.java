@@ -9,6 +9,7 @@ import utils.KeyBindSerializer;
 import utils.KeyBinds;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_Z;
 
 public class GamePlayView extends GameStateView {
 
@@ -33,6 +34,9 @@ public class GamePlayView extends GameStateView {
         inputKeyboard.registerCommand(GLFW_KEY_ESCAPE, true, (double elapsedTime) -> {
             nextGameState = GameStateEnum.NewGame;
         });
+        inputKeyboard.registerCommand(GLFW_KEY_Z, true, (double elapsedTime) -> {
+            gameModel.triggerUndo();
+        });
     }
 
     @Override
@@ -49,7 +53,7 @@ public class GamePlayView extends GameStateView {
     }
 
     @Override
-    public GameStateEnum processInput(double elapsedTime) {
+    public GameStateEnum processInput(double elapsedTime) throws CloneNotSupportedException {
         // Updating the keyboard can change the nextGameState
         inputKeyboard.update(elapsedTime);
         return nextGameState;

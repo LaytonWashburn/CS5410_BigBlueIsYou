@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Merge complete" />
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Added deep clone to entity and a clone method to the base Component.java">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/KeyboardInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/KeyboardInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/keybinds.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/keybinds.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/GamePlayView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GamePlayView.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -230,31 +236,7 @@
       <option name="project" value="LOCAL" />
       <updated>1744325741117</updated>
     </task>
-    <task id="LOCAL-00017" summary="Deep clone should work">
-      <option name="closed" value="true" />
-      <created>1744330563644</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1744330563644</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Deep clone should work">
-      <option name="closed" value="true" />
-      <created>1744336591236</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1744336591236</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Merge complete">
-      <option name="closed" value="true" />
-      <created>1744339780124</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1744339780124</updated>
-    </task>
-    <option name="localTasksCounter" value="20" />
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -276,9 +258,7 @@
     <MESSAGE value="Added documentation and cleaned up code for Rule system." />
     <MESSAGE value="Fixed IS YOU, can now switch moveable entities." />
     <MESSAGE value="Added deep clone to entity and a clone method to the base Component.java" />
-    <MESSAGE value="Deep clone should work" />
-    <MESSAGE value="Merge complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added deep clone to entity and a clone method to the base Component.java" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
