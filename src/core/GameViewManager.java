@@ -86,7 +86,7 @@ public class GameViewManager {
         }
     }
 
-    private void processInput(double elapsedTime) {
+    private void processInput(double elapsedTime) throws CloneNotSupportedException {
         // Poll for window events: required in order for window, keyboard, etc events are captured.
         glfwPollEvents();
 

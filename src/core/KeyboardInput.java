@@ -10,7 +10,7 @@ public class KeyboardInput {
      * The type of method to invoke when a keyboard event is invoked
      */
     public interface ICommand {
-        void invoke(double elapsedTime);
+        void invoke(double elapsedTime) throws CloneNotSupportedException;
     }
 
     public KeyboardInput(long window) {
@@ -26,7 +26,7 @@ public class KeyboardInput {
     /**
      * Go through all the registered command and invoke the callbacks as appropriate
      */
-    public void update(double elapsedTime) {
+    public void update(double elapsedTime) throws CloneNotSupportedException {
         for (var entry : commandEntries.entrySet()) {
             if (entry.getValue().keyPressOnly && isKeyNewlyPressed(entry.getValue().key)) {
                 entry.getValue().callback.invoke(elapsedTime);

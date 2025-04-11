@@ -44,8 +44,6 @@ public class GameModel {
     private RenderStaticSprite sysRenderStaticSprite;
     private Movement sysMovement;
     private Rules sysRules;
-    private Undo sysUndo;
-
 
     private Graphics2D graphics;
 
@@ -100,24 +98,6 @@ public class GameModel {
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics, level);
         this.sysRules = new Rules(keybinds, level);
         this.sysMovement = new Movement(graphics);
-        this.sysUndo = new Undo(() -> {
-            if (undoStack.size() > 1) {
-                StackFrame poppedFrame = undoStack.pop();
-                StackFrame remainingFrame = undoStack.peek();
-//                System.out.println("popped frame");
-//                poppedFrame.printEntities();
-//                System.out.println("remaining frame");
-//                remainingFrame.printEntities();
-                ArrayList<Tuple2<Entity, Boolean>> poppedEntities = poppedFrame.getEntities();
-                for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) {
-                    Entity entityToReplace = entityTuple.item1().clone();
-                    for (var system : systems) {
-                        system.replaceEntity(entityToReplace);
-                    }
-                }
-                System.out.println("UNDO STACK: " +undoStack);
-            }
-        });
 
         this.undoStack = new Stack<>();
         this.initialStackFrame = new StackFrame();
@@ -140,7 +120,7 @@ public class GameModel {
         for(ecs.Systems.System system : systems) {
             ArrayList<Tuple2<Entity, Boolean>> changedEntities = system.update(elapsedTime);
             // Loop through the changed
-            changed.addAll(changedEntities);
+            changed.addAll(changedEntities); // TODO: does this need to check to see if the entity is already added?
             if (system instanceof Movement && !changedEntities.isEmpty()) {
 //                System.out.println(changed.size());
                 moved = true;
@@ -288,6 +268,18 @@ public class GameModel {
 
     }
 
-
+    public void triggerUndo() throws CloneNotSupportedException {
+        if (undoStack.size() > 1) {
+            StackFrame poppedFrame = undoStack.pop();
+            ArrayList<Tuple2<Entity, Boolean>> poppedEntities = poppedFrame.getEntities();
+            for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) {
+                Entity entityToReplace = entityTuple.item1().clone();
+                for (var system : systems) {
+                    system.replaceEntity(entityToReplace);
+                }
+            }
+            System.out.println("UNDO STACK: " +undoStack);
+        }
+    }
 
 }

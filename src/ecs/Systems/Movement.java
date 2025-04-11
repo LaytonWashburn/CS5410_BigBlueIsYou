@@ -24,7 +24,7 @@ public class Movement extends System{
 
     }
     @Override
-    public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) {
+    public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) throws CloneNotSupportedException {
         moved = new ArrayList<>();
         ArrayList<Entity> movables = findMovable(); // Get the movable entities
 
@@ -39,26 +39,26 @@ public class Movement extends System{
                 switch (moving.moving){
                     case Direction.UP:
                         if (!checkCollisionAt(position.i-1, position.j, moving.moving)) {
+                            moved.add(new Tuple2<>(entity.clone(), false));
                             position.i -= 1;
-                            moved.add(new Tuple2<>(entity, false));
                         }
                         break;
                     case Direction.DOWN:
                         if (!checkCollisionAt(position.i+1, position.j, moving.moving)) {
+                            moved.add(new Tuple2<>(entity.clone(), false));
                             position.i += 1;
-                            moved.add(new Tuple2<>(entity, false));
                         }
                         break;
                     case Direction.LEFT:
                         if (!checkCollisionAt(position.i, position.j-1, moving.moving)) {
+                            moved.add(new Tuple2<>(entity.clone(), false));
                             position.j -= 1;
-                            moved.add(new Tuple2<>(entity, false));
                         }
                         break;
                     case Direction.RIGHT:
                         if (!checkCollisionAt(position.i, position.j+1, moving.moving)) {
+                            moved.add(new Tuple2<>(entity.clone(), false));
                             position.j += 1;
-                            moved.add(new Tuple2<>(entity, false));
                         }
                         break;
                     default:
@@ -76,7 +76,7 @@ public class Movement extends System{
      * @param targetJ - Target j coordinate
      * @return - True for collision and false for no collision
      */
-    public boolean checkCollisionAt(float targetI, float targetJ, Direction movingDirection) {
+    public boolean checkCollisionAt(float targetI, float targetJ, Direction movingDirection) throws CloneNotSupportedException {
 
         boolean immovableHit = false;
 
@@ -99,29 +99,29 @@ public class Movement extends System{
                             case Direction.UP:
                                 immovableHit = checkCollisionAt(otherPosition.i - 1, otherPosition.j, movingDirection); // Recursive call
                                 if (!immovableHit) {
+                                    moved.add(new Tuple2<>(otherEntity.clone(), false));
                                     otherPosition.i -= 1;
-                                    moved.add(new Tuple2<>(otherEntity, false));
                                 }
                                 break;
                             case Direction.DOWN:
                                 immovableHit = checkCollisionAt(otherPosition.i + 1, otherPosition.j, movingDirection); // Recursive call
                                 if (!immovableHit) {
+                                    moved.add(new Tuple2<>(otherEntity.clone(), false));
                                     otherPosition.i += 1;
-                                    moved.add(new Tuple2<>(otherEntity, false));
                                 }
                                 break;
                             case Direction.LEFT:
                                 immovableHit = checkCollisionAt(otherPosition.i, otherPosition.j - 1, movingDirection); // Recursive call
                                 if (!immovableHit) {
+                                    moved.add(new Tuple2<>(otherEntity.clone(), false));
                                     otherPosition.j -= 1;
-                                    moved.add(new Tuple2<>(otherEntity, false));
                                 }
                                 break;
                             case Direction.RIGHT:
                                 immovableHit = checkCollisionAt(otherPosition.i, otherPosition.j + 1, movingDirection); // Recursive call
                                 if (!immovableHit) {
+                                    moved.add(new Tuple2<>(otherEntity.clone(), false));
                                     otherPosition.j += 1;
-                                    moved.add(new Tuple2<>(otherEntity, false));
                                 }
                                 break;
                             default:
