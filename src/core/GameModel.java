@@ -17,6 +17,7 @@ import utils.KeyBinds;
 import static ecs.Systems.System.*;
 
 import utils.EntityConstants;
+import utils.NounType;
 
 public class GameModel {
 
@@ -100,6 +101,13 @@ public class GameModel {
 
         initializeObjectTypes(level); // Take level and create entities for all objects
 
+//        var test = CreateSprites.createBigBlue(this.texBigBlue, 0, 0);
+//        var test2 = test.clone();
+//        var test2Position = test2.get(ecs.Components.Position.class);
+//        var test2NounType = test2.get(ecs.Components.Noun.class);
+//        test2Position.i = 55;
+//        test2NounType.setNounType(NounType.TEXT);
+//        System.out.println();
 
         this.sysRules.scanGamePlayArea(this.gameArea); // Do an initial scan of the game area
 

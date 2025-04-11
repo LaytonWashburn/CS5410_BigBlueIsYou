@@ -1,6 +1,6 @@
 package ecs.Components;
 
-public class Action extends Component{
+public class Action extends Component implements Cloneable{
 
     utils.Action action;
 
@@ -10,5 +10,11 @@ public class Action extends Component{
 
     public utils.Action getAction() {
         return action;
+    }
+
+    @Override
+    public Component clone() {
+        // TODO: copy mutable state here, so the clone can't change the internals of the original
+        return super.clone();
     }
 }

@@ -9,4 +9,11 @@ public class Position extends Component{
         this.i = i;
         this.j = j;
     }
+
+    @Override
+    public Component clone() {
+        //Component component = super.clone();
+        // Perform a deep clone by creating a new Position object
+        return new Position(this.i, this.j);
+    }
 }

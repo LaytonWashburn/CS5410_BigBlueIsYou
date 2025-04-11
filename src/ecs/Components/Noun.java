@@ -17,4 +17,16 @@ public class Noun extends Component{
     public NounType getNounType(){
         return this.type;
     }
+
+    @Override
+    public Noun clone() {
+        // Shallow clone the Noun object
+        Noun cloned = (Noun) super.clone();
+
+        // No deep clone needed for the enum, just copy the reference of the 'type' enum
+        cloned.type = this.type;
+
+        // Return the cloned instance
+        return cloned;
+    }
 }

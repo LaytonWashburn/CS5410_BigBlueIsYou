@@ -12,7 +12,7 @@ public final class Entity implements Cloneable{
     private static long nextId = 0;
 
     private long id;
-    private final Map<Class<? extends Component>, Component> components = new HashMap<>();
+    private Map<Class<? extends Component>, Component> components = new HashMap<>();
 
     public Entity() {
         id = nextId++;
@@ -65,12 +65,12 @@ public final class Entity implements Cloneable{
      */
     @Override
     public Entity clone() throws CloneNotSupportedException {
-        Entity clonedEntity = (Entity) super.clone();
+        Entity clonedEntity = new Entity(); // (Entity) super.clone();
 
         // Deep clone components
         for (Map.Entry<Class<? extends Component>, Component> entry : this.components.entrySet()) {
             Component originalComponent = entry.getValue();
-            Component clonedComponent = (Component) originalComponent.clone(); // Assumes each Component is Cloneable
+            Component clonedComponent = originalComponent.clone();  // Ensures proper cloning
             clonedEntity.components.put(entry.getKey(), clonedComponent);
         }
 
