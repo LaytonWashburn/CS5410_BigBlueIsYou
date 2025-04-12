@@ -19,6 +19,10 @@ public class Property extends Component{
         return properties;
     }
 
+    public void addProperty(Properties properties) {
+        this.properties.add(properties);
+    }
+
     public void removeProperty(Properties property) {
         properties.remove(property);
     }
