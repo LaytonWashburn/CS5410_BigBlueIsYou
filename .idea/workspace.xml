@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="fix hedges not being STOP">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="floor renders beneath other sprites">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/usu/graphics/AnimatedSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/usu/graphics/AnimatedSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/GridAlignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/GridAlignment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +114,7 @@
       <workItem from="1744140852560" duration="4159000" />
       <workItem from="1744146330394" duration="1488000" />
       <workItem from="1744492763051" duration="4050000" />
-      <workItem from="1744503441916" duration="448000" />
+      <workItem from="1744503441916" duration="2594000" />
     </task>
     <task id="LOCAL-00001" summary="controls menu fixes">
       <option name="closed" value="true" />
@@ -268,7 +268,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744496763519</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="floor renders beneath other sprites">
+      <option name="closed" value="true" />
+      <created>1744503935844</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1744503935844</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,7 +301,8 @@
     <MESSAGE value="merge complete?" />
     <MESSAGE value="add ability to bind undo button" />
     <MESSAGE value="fix hedges not being STOP" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix hedges not being STOP" />
+    <MESSAGE value="floor renders beneath other sprites" />
+    <option name="LAST_COMMIT_MESSAGE" value="floor renders beneath other sprites" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
