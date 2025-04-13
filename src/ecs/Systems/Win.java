@@ -16,26 +16,27 @@ public class Win extends System{
     @Override
     public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) throws CloneNotSupportedException {
 
+        for (Entity controllable : findControllable()) {
+            var moveableProperties = controllable.get(ecs.Components.Property.class);
+            var moveablePosition = controllable.get(ecs.Components.Position.class);
 
-        Entity moveable = findMovable().getFirst();
-        Position moveablePosition = moveable.get(ecs.Components.Position.class);
+            for(Entity entity : entities.values()) {
 
-        for(Entity entity : entities.values()) {
+                if(entity != controllable) {
 
-            if(entity != moveable) {
+                    if(entity.contains(ecs.Components.Position.class) &&
+                            entity.contains(ecs.Components.Property.class) &&
+                            entity.get(ecs.Components.Property.class).getProperties().contains(Properties.WIN)) {
 
-                if(entity.contains(ecs.Components.Position.class) &&
-                   entity.contains(ecs.Components.Property.class) &&
-                   entity.get(ecs.Components.Property.class).getProperties().contains(Properties.WIN)) {
+                        var entityPosition = entity.get(ecs.Components.Position.class);
 
-                    var entityPosition = entity.get(ecs.Components.Position.class);
+                        java.lang.System.out.println("In the Win System Update : I:" + entityPosition.i + " J: " + entityPosition.j + " Character: I: " + moveablePosition.j + " J: " + moveablePosition.j);
 
-                    java.lang.System.out.println("In the Win System Update : I:" + entityPosition.i + " J: " + entityPosition.j + " Character: I: " + moveablePosition.j + " J: " + moveablePosition.j);
-
-                    if(moveablePosition.i == entityPosition.i && moveablePosition.j == entityPosition.j) {
-                        // Call the Particle System for Win
-                        moveable.remove(ecs.Components.Movement.class);
-                        java.lang.System.out.println("GAME WON!!!!!!!");
+                        if(moveablePosition.i == entityPosition.i && moveablePosition.j == entityPosition.j) {
+                            // Call the Particle System for Win
+                            moveableProperties.removeProperty(Properties.MOVE);
+                            java.lang.System.out.println("GAME WON!!!!!!!");
+                        }
                     }
                 }
             }
@@ -45,19 +46,22 @@ public class Win extends System{
     }
 
     /**
-     * Returns a collection of all the movable entities.
+     * Returns a collection of all the currently controllable entities.
      */
-    private ArrayList<Entity> findMovable() {
+    private ArrayList<Entity> findControllable() {
 
-        ArrayList<Entity> movables = new ArrayList<>();
+        ArrayList<Entity> controllables = new ArrayList<>();
 
         for (var entity : entities.values()) {
-            if (entity.contains(ecs.Components.KeyboardControlled.class)) {
-                movables.add(entity);
+            if (entity.contains(ecs.Components.Property.class)) {
+                var property = entity.get(ecs.Components.Property.class);
+                if (property.getProperties().contains(Properties.MOVE)) {
+                    controllables.add(entity);
+                }
             }
         }
 
-        return movables;
+        return controllables;
     }
 
 
