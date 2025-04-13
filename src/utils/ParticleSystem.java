@@ -46,7 +46,7 @@ public class ParticleSystem {
 
     public void update(double gameTime) {
 
-        System.out.println("In the particle system update");
+        //System.out.println("In the particle system update");
 
         // Update existing particles
         List<Long> removeMe = new ArrayList<>();

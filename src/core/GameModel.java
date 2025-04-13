@@ -46,7 +46,9 @@ public class GameModel {
     private Movement sysMovement;
     private Rules sysRules;
     private GridAlignment sysGridAlignment;
+    private Win sysWin;
     private ParticleSystem sysParticle;
+
 
 
     private Graphics2D graphics;
@@ -114,6 +116,7 @@ public class GameModel {
         this.sysMovement = new Movement(graphics);
         this.sysGridAlignment = new GridAlignment(this.gameArea);
         this.sysRules = new Rules(keybinds, level, sysParticle);
+        this.sysWin = new Win();
 
 
         this.undoStack = new Stack<>();
