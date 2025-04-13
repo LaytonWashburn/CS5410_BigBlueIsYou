@@ -1,6 +1,5 @@
 package ecs.Systems;
 
-import ecs.Components.Component;
 import ecs.Components.Noun;
 import ecs.Components.Property;
 import ecs.Entities.Entity;
@@ -8,9 +7,8 @@ import edu.usu.utils.Tuple2;
 import level.Level;
 import utils.*;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 
 /**
@@ -23,6 +21,8 @@ public class Rules extends System{
     private final KeyBinds keybinds;
     private final Level level;
     private ParticleSystem sysParticle;
+
+    private final Map<Long, Entity> entitiesCopy = new HashMap<>();
 
     public Rules(KeyBinds keyBinds, Level level, ParticleSystem sysParticle) {
         super( // ecs.Components.Property.class,
@@ -41,11 +41,15 @@ public class Rules extends System{
      * Method: Rules.java
      * Description: Scans the game play area when movement is triggered
      */
-    public void scanGamePlayArea(Entity[][] grid) {
+    public void scanGamePlayArea(Entity[][] grid) throws CloneNotSupportedException {
+
+        entitiesCopy.clear();
+        for (Entity entity : entities.values()) {
+            entitiesCopy.put(entity.getId(), entity.clone());
+        }
 
         cleanComponents(grid); // Remove all components from non TEXT entities
         makeNewRuleSet(grid); // Apply new rules
-
     }
 
     /**
@@ -114,6 +118,8 @@ public class Rules extends System{
             if (entity.contains(Noun.class) &&
                     entity.get(Noun.class).getNounType() == textNoun.getNounType()) {
 
+                Entity entityCopy = entitiesCopy.get(entity.getId());
+
                 var action = second.get(ecs.Components.Action.class).getAction();
                 var p = entity.contains(ecs.Components.Property.class) ? entity.get(ecs.Components.Property.class) : new Property();
 
@@ -128,9 +134,11 @@ public class Rules extends System{
                         p.getProperties().add(Properties.KILL);
                         break;
                     case Action.YOU :
+                        if (!entityCopy.get(ecs.Components.Property.class).getProperties().contains(Properties.YOU)) {
+                            sysParticle.playerIsYou(entity.get(ecs.Components.Position.class), level);
+                        }
                         p.getProperties().add(Properties.YOU);
                         p.getProperties().add(Properties.MOVE);
-                        sysParticle.playerIsYou(entity.get(ecs.Components.Position.class), level);
                         break;
                     case Action.PUSH :
                         p.getProperties().add(Properties.PUSHABLE);

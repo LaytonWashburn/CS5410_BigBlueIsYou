@@ -1,7 +1,5 @@
 package core;
 
-import ecs.Components.Position;
-import ecs.Components.Text;
 import ecs.Entities.*;
 import ecs.Systems.*;
 import ecs.Systems.KeyboardInput;
@@ -12,17 +10,13 @@ import level.Level;
 
 import java.lang.System;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
-import org.joml.Vector2f;
 import undo.StackFrame;
 import utils.KeyBinds;
 import static ecs.Systems.System.*;
 
-import utils.EntityConstants;
-import utils.NounType;
 import utils.ParticleSystem;
 
 public class GameModel {
@@ -150,7 +144,11 @@ public class GameModel {
         var changed = new ArrayList<Tuple2<Entity, Boolean>>(); // Update the systems and put in changed map
         for(ecs.Systems.System system : systems) {
             ArrayList<Tuple2<Entity, Boolean>> changedEntities = system.update(elapsedTime);
-            changed.addAll(changedEntities); // TODO: does this need to check to see if the entity is already added?
+            for (Tuple2<Entity, Boolean> changedEntity : changedEntities) {
+                if (!changed.contains(changedEntity)) {
+                    changed.add(changedEntity);
+                }
+            }
             if (system instanceof Movement && !changedEntities.isEmpty()) {
 //                System.out.println(changed.size());
                 moved = true;

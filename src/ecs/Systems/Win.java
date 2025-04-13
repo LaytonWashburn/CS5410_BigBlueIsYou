@@ -30,12 +30,13 @@ public class Win extends System{
 
                         var entityPosition = entity.get(ecs.Components.Position.class);
 
-                        java.lang.System.out.println("In the Win System Update : I:" + entityPosition.i + " J: " + entityPosition.j + " Character: I: " + moveablePosition.i + " J: " + moveablePosition.j);
-
                         if(moveablePosition.i == entityPosition.i && moveablePosition.j == entityPosition.j) {
                             // Call the Particle System for Win
-                            moveableProperties.removeProperty(Properties.MOVE);
-                            java.lang.System.out.println("GAME WON!!!!!!!");
+                            for (Entity otherControllable : findControllable()) {
+                                var otherProperties = otherControllable.get(ecs.Components.Property.class);
+                                otherProperties.removeProperty(Properties.MOVE);
+                                java.lang.System.out.println("GAME WON!!!!!!!");
+                            }
                         }
                     }
                 }
