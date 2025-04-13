@@ -116,6 +116,7 @@ public class GameModel {
 //        test2NounType.setNounType(NounType.TEXT);
 //        System.out.println();
 
+        this.sysGridAlignment.updateGrid();
         this.sysRules.scanGamePlayArea(this.gameArea); // Do an initial scan of the game area
 
     }
@@ -138,11 +139,8 @@ public class GameModel {
         }
 
         if(moved){ // Scan game play area if movement has occurred
-            for(ecs.Systems.System system1 : systems) { // Look for the Rules system
-                if(system1 instanceof Rules) {
-                    ((Rules) system1).scanGamePlayArea(this.gameArea);
-                }
-            }
+            this.sysGridAlignment.updateGrid();
+            this.sysRules.scanGamePlayArea(this.gameArea);
             //Add changed entities to a stack frame
             StackFrame stackFrame = new StackFrame();
             for (Tuple2<Entity, Boolean> entityTuple : changed) {
@@ -278,6 +276,13 @@ public class GameModel {
                 Entity entityToReplace = entityTuple.item1();
                 for (var system : systems) {
                     system.replaceEntity(entityToReplace);
+                }
+            }
+            this.sysGridAlignment.updateGrid();
+            this.sysRules.scanGamePlayArea(this.gameArea);
+            for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) { // Allow systems to decide if they are interested or not in the changed
+                for (var system : systems) {
+                    system.updatedEntity(entityTuple.item1());
                 }
             }
         }

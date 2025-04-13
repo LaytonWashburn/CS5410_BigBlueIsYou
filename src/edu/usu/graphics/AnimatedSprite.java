@@ -32,6 +32,8 @@ public class AnimatedSprite {
     private int subImageIndex = 0;
     private final int subImageWidth;
 
+    private final float z;
+
     private final Vector2f size;
     protected Vector2f center;
     protected float rotation = 0;
@@ -44,6 +46,18 @@ public class AnimatedSprite {
 
         this.size = size;
         this.center = center;
+        this.z = 0;
+    }
+
+    public AnimatedSprite(Texture spriteSheet, float[] spriteTime, Vector2f size, Vector2f center, float z) {
+        this.spriteSheet = spriteSheet;
+        this.spriteTime = spriteTime;
+
+        this.subImageWidth = spriteSheet.getWidth() / spriteTime.length;
+
+        this.size = size;
+        this.center = center;
+        this.z = z;
     }
 
     public void setCenter(Vector2f center) {
@@ -61,13 +75,14 @@ public class AnimatedSprite {
 
     public void draw(Graphics2D graphics, Color color) {
         // Where to draw
-        Rectangle destination = new Rectangle(center.x - size.x / 2, center.y - size.y / 2, size.x, size.y);
+        Rectangle destination = new Rectangle(center.x - size.x / 2, center.y - size.y / 2, size.x, size.y, z);
         // Which sub-rectangle of the spritesheet to draw
         Rectangle subImage = new Rectangle(
                 subImageWidth * subImageIndex,
                 0,
                 subImageWidth,
-                spriteSheet.getHeight());
+                spriteSheet.getHeight(),
+                z);
         graphics.draw(spriteSheet, destination, subImage, rotation, center, color);
     }
 }

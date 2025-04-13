@@ -15,9 +15,8 @@ public class GridAlignment extends System{
         this.grid = grid;
     }
 
-    @Override
-    public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) {
-
+    // Only called after a player's move or an undo
+    public void updateGrid() {
         // Reset to avoid duplicates
         for(int row = 0; row < grid.length; row++) {
             for(int col = 0; col < grid[0].length; col++) {
@@ -30,6 +29,11 @@ public class GridAlignment extends System{
             position = entity.get(ecs.Components.Position.class);
             this.grid[position.i][position.j] = entity;
         }
+    }
+
+    @Override
+    public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) {
+
         return new ArrayList<>();
     }
 }
