@@ -23,6 +23,7 @@ import static ecs.Systems.System.*;
 
 import utils.EntityConstants;
 import utils.NounType;
+import utils.ParticleSystem;
 
 public class GameModel {
 
@@ -45,9 +46,12 @@ public class GameModel {
     private Movement sysMovement;
     private Rules sysRules;
     private GridAlignment sysGridAlignment;
+    private ParticleSystem sysParticle;
 
 
     private Graphics2D graphics;
+
+    private Texture texParticle = new Texture("resources/images/particle.png");
 
     // Texture Objects
     private Texture texFlag = new Texture("resources/sprites/sprites/objects/flag/flag.png");
@@ -95,12 +99,22 @@ public class GameModel {
     public void initialize(Graphics2D graphics) throws CloneNotSupportedException{
         this.graphics = graphics;
 
+        this.sysParticle = new ParticleSystem(0.025f,
+                0.0f,
+                0.0f,
+                0.0f,
+                2.0f,
+                0.2f,
+                texParticle,
+                graphics);
+
         this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
         this.sysRenderStaticSprite = new RenderStaticSprite(graphics, level);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics, level);
         this.sysMovement = new Movement(graphics);
         this.sysGridAlignment = new GridAlignment(this.gameArea);
-        this.sysRules = new Rules(keybinds, level);
+        this.sysRules = new Rules(keybinds, level, sysParticle);
+
 
         this.undoStack = new Stack<>();
         this.initialStackFrame = new StackFrame();
@@ -127,6 +141,8 @@ public class GameModel {
      */
     public void update(double elapsedTime) throws CloneNotSupportedException {
         // Because ECS framework, input processing is now part of the update
+        sysParticle.update(elapsedTime);
+
         boolean moved = false;
         var changed = new ArrayList<Tuple2<Entity, Boolean>>(); // Update the systems and put in changed map
         for(ecs.Systems.System system : systems) {

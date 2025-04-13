@@ -26,8 +26,7 @@ public class ParticleSystem {
     Graphics2D graphics;
     Texture texParticles;
 
-    public ParticleSystem(Vector2f center,
-                          float sizeMean,
+    public ParticleSystem(float sizeMean,
                           float sizeStdDev,
                           float speedMean,
                           float speedStdDev,
@@ -35,7 +34,6 @@ public class ParticleSystem {
                           float lifetimeStdDev,
                           Texture texParticle,
                           Graphics2D graphics2D) {
-        this.center = center;
         this.sizeMean = sizeMean;
         this.sizeStdDev = sizeStdDev;
         this.speedMean = speedMean;
@@ -47,6 +45,9 @@ public class ParticleSystem {
     }
 
     public void update(double gameTime) {
+
+        System.out.println("In the particle system update");
+
         // Update existing particles
         List<Long> removeMe = new ArrayList<>();
 
@@ -82,12 +83,12 @@ public class ParticleSystem {
         return this.particles.values();
     }
 
-    private Particle createSparkle() {
+    private Particle createSparkle(float x, float y) {
         float size = (float) this.random.nextGaussian(this.sizeMean, this.sizeStdDev);
         var p = new Particle(
-                new Vector2f(this.center.x, this.center.y),
+                new Vector2f(x, y),
                 this.random.nextCircleVector(),
-                (float) this.random.nextGaussian(this.speedMean, this.speedStdDev),
+                0.0f,// (float) this.random.nextGaussian(this.speedMean, this.speedStdDev),
                 new Vector2f(size, size),
                 this.random.nextGaussian(this.lifetimeMean, this.lifetimeStdDev));
 
@@ -106,10 +107,31 @@ public class ParticleSystem {
         float entityWorldX = topLeftWorldX + position.j * EntityConstants.rectSize;
         float entityWorldY = topLeftWorldY + position.i * EntityConstants.rectSize;
 
+        System.out.println("Sparkles");
+        Particle p;
         // Create Top
+        for(int i = 0; i < 5; i++){
+            p = createSparkle(entityWorldX + (i * EntityConstants.rectSize / 5), entityWorldY);
+            particles.put(p.name, p);
+        }
+
         // Create Bottom
+        for(int i = 0; i < 5; i++){
+            p = createSparkle(entityWorldX + (i * EntityConstants.rectSize / 5), entityWorldY + EntityConstants.rectSize);
+            particles.put(p.name, p);
+        }
+
         // Create Left
+        for(int i = 0; i < 5; i++){
+            p = createSparkle(entityWorldX, entityWorldY  + (i * EntityConstants.rectSize / 5));
+            particles.put(p.name, p);
+        }
+
         // Create Right
+        for(int i = 0; i < 5; i++){
+            p = createSparkle(entityWorldX + EntityConstants.rectSize, entityWorldY  + (i * EntityConstants.rectSize / 5));
+            particles.put(p.name, p);
+        }
 
     }
 
@@ -121,8 +143,38 @@ public class ParticleSystem {
 
     }
 
-    public void objectIsWin() {
+    public void objectIsWin(Position position, Level level) {
+        float topLeftWorldX = -EntityConstants.rectSize * (level.getWidth() / 2f);
+        float topLeftWorldY = -EntityConstants.rectSize * (level.getHeight() / 2f);
 
+        float entityWorldX = topLeftWorldX + position.j * EntityConstants.rectSize;
+        float entityWorldY = topLeftWorldY + position.i * EntityConstants.rectSize;
+
+        System.out.println("Sparkles");
+        Particle p;
+        // Create Top
+        for(int i = 0; i < 5; i++){
+            p = createSparkle(entityWorldX + (i * EntityConstants.rectSize / 5), entityWorldY);
+            particles.put(p.name, p);
+        }
+
+        // Create Bottom
+        for(int i = 0; i < 5; i++){
+            p = createSparkle(entityWorldX + (i * EntityConstants.rectSize / 5), entityWorldY + EntityConstants.rectSize);
+            particles.put(p.name, p);
+        }
+
+        // Create Left
+        for(int i = 0; i < 5; i++){
+            p = createSparkle(entityWorldX, entityWorldY  + (i * EntityConstants.rectSize / 5));
+            particles.put(p.name, p);
+        }
+
+        // Create Right
+        for(int i = 0; i < 5; i++){
+            p = createSparkle(entityWorldX + EntityConstants.rectSize, entityWorldY  + (i * EntityConstants.rectSize / 5));
+            particles.put(p.name, p);
+        }
     }
 
 

@@ -22,12 +22,14 @@ public class Rules extends System{
 
     private final KeyBinds keybinds;
     private final Level level;
+    private ParticleSystem sysParticle;
 
-    public Rules(KeyBinds keyBinds, Level level) {
+    public Rules(KeyBinds keyBinds, Level level, ParticleSystem sysParticle) {
         super( // ecs.Components.Property.class,
                 ecs.Components.Position.class); // Must have a location on the map
         this.level = level;
         this.keybinds = keyBinds;
+        this.sysParticle = sysParticle;
     }
 
     @Override
@@ -128,6 +130,7 @@ public class Rules extends System{
                     case Action.YOU :
                         p.getProperties().add(Properties.YOU);
                         p.getProperties().add(Properties.MOVE);
+                        sysParticle.playerIsYou(entity.get(ecs.Components.Position.class), level);
                         break;
                     case Action.PUSH :
                         p.getProperties().add(Properties.PUSHABLE);
