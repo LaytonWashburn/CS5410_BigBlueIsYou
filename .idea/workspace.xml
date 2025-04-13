@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="particle system fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/ParticleSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/ParticleSystem.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -299,7 +300,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744587536391</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="particle system fix">
+      <option name="closed" value="true" />
+      <created>1744587727372</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1744587727372</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

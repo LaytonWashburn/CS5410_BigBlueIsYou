@@ -107,7 +107,6 @@ public class ParticleSystem {
         float entityWorldX = topLeftWorldX + position.j * EntityConstants.rectSize;
         float entityWorldY = topLeftWorldY + position.i * EntityConstants.rectSize;
 
-        System.out.println("Sparkles");
         Particle p;
         // Create Top
         for(int i = 0; i < 5; i++){

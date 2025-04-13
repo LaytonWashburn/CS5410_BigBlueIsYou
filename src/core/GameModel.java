@@ -99,8 +99,8 @@ public class GameModel {
                 0.0f,
                 0.0f,
                 0.0f,
-                2.0f,
-                0.2f,
+                0.7f,
+                0.1f,
                 texParticle,
                 graphics);
 
@@ -118,7 +118,6 @@ public class GameModel {
         initializeObjectTypes(level); // Take level and create entities for all objects
 
         undoStack.push(initialStackFrame);
-        System.out.println("UNDO STACK: " +undoStack);
 //        var test = CreateSprites.createBigBlue(this.texBigBlue, 0, 0);
 //        var test2 = test.clone();
 //        var test2Position = test2.get(ecs.Components.Position.class);
