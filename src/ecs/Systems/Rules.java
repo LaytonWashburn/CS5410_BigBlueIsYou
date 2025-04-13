@@ -36,56 +36,6 @@ public class Rules extends System{
     }
 
     /**
-     * Method: Scan Game Area
-     * Description:
-     *  - Scans the game play area for a change of rules and add / removes components accordingly
-     *  - Does this need to happen every update ?
-     * */
-
-    public ArrayList<Entity> renderEntity(double elapsedTime) {
-
-
-        ArrayList<Entity> changed = new ArrayList<>(); // Array list to hold the changed entities
-
-
-        for (Entity entity : entities.values()) {   // Ideally these don't have to be checked every update cycle, only after certain events are detected
-
-            var position = entity.get(ecs.Components.Position.class);
-
-
-            if(entity.contains(ecs.Components.Property.class)) {
-
-                var property = entity.get(ecs.Components.Property.class);
-
-
-                if (property.getProperties().contains(Properties.MOVE) && !entity.contains(ecs.Components.KeyboardControlled.class)) {
-
-                    entity.add(new ecs.Components.Movement(Direction.STOP));
-                    entity.add(new ecs.Components.KeyboardControlled(
-                            Map.of(keybinds.UP, Direction.UP,
-                                    keybinds.DOWN, Direction.DOWN,
-                                    keybinds.RIGHT, Direction.RIGHT,
-                                    keybinds.LEFT, Direction.LEFT
-                            )
-                    ));
-
-                    changed.add(entity);
-                }
-                if (!property.getProperties().contains(Properties.MOVE) && entity.contains(ecs.Components.KeyboardControlled.class)) {
-                    entity.remove(ecs.Components.KeyboardControlled.class);
-                    entity.remove(ecs.Components.Movement.class);
-
-                    changed.add(entity);
-                }
-            }
-
-        }
-
-        return changed;
-
-    }
-
-    /**
      * Method: Rules.java
      * Description: Scans the game play area when movement is triggered
      */
@@ -211,8 +161,9 @@ public class Rules extends System{
             var action = entity.get(ecs.Components.Action.class).getAction(); // Grab the action
 
             for(Entity e : entities.values()){ // Loop through the entities
-                // If the entity has properties and is not a TEXT entity
-                if(e.contains(ecs.Components.Property.class) && !e.contains(ecs.Components.Text.class)) {
+                // If the entity has properties and is not a TEXT entity AND if the entity is not a Hedge (hedges are unchangeable)
+                if(e.contains(ecs.Components.Property.class) && !e.contains(ecs.Components.Text.class) &&
+                        (e.contains(ecs.Components.Noun.class) && e.get(ecs.Components.Noun.class).getNounType()!=NounType.HEDGE)) {
                     switch (action){ // Based on the action, remove specific properties
                         case Action.STOP :
                             e.get(ecs.Components.Property.class).getProperties().remove(Properties.STOP);

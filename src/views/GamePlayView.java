@@ -34,15 +34,15 @@ public class GamePlayView extends GameStateView {
         inputKeyboard.registerCommand(GLFW_KEY_ESCAPE, true, (double elapsedTime) -> {
             nextGameState = GameStateEnum.NewGame;
         });
-        inputKeyboard.registerCommand(GLFW_KEY_Z, true, (double elapsedTime) -> {
-            gameModel.triggerUndo();
-        });
     }
 
     @Override
     public void initializeSession() {
         Level level = gameViewManager.getSelectedLevel();
         this.keyBindSerializer.loadGameState(this.keyBinds);
+        inputKeyboard.registerCommand(this.keyBinds.UNDO, true, (double elapsedTime) -> {
+            gameModel.triggerUndo();
+        });
         gameModel = new GameModel(level, this.keyBinds);
         try {
             gameModel.initialize(graphics);

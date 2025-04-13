@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Merge complete">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="add ability to bind undo button">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/keybinds.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/keybinds.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Components/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Components/Property.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/levels-all.bbiy" beforeDir="false" afterPath="$PROJECT_DIR$/src/levels-all.bbiy" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,12 +37,12 @@
     &quot;assignee&quot;: &quot;LaytonWashburn&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:LaytonWashburn/CS5410_BigBlueIsYou.git&quot;,
-    &quot;accountId&quot;: &quot;bb1a2716-acc5-4b6d-aca9-35ee4e29f2c7&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/LaytonWashburn/CS5410_BigBlueIsYou.git",
+    "accountId": "bb396ab9-696d-4548-90f7-1790c215295f"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -92,6 +99,14 @@
       <item itemvalue="Application.Driver - macOS" />
     </list>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -103,6 +118,7 @@
       <workItem from="1743722182498" duration="2134000" />
       <workItem from="1744140852560" duration="4159000" />
       <workItem from="1744146330394" duration="1488000" />
+      <workItem from="1744492763051" duration="3782000" />
     </task>
     <task id="LOCAL-00001" summary="controls menu fixes">
       <option name="closed" value="true" />
@@ -232,7 +248,23 @@
       <option name="project" value="LOCAL" />
       <updated>1744325741117</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="merge complete?">
+      <option name="closed" value="true" />
+      <created>1744340695158</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1744340695158</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add ability to bind undo button">
+      <option name="closed" value="true" />
+      <created>1744341823505</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1744341823505</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,7 +286,9 @@
     <MESSAGE value="Added documentation and cleaned up code for Rule system." />
     <MESSAGE value="Fixed IS YOU, can now switch moveable entities." />
     <MESSAGE value="Added deep clone to entity and a clone method to the base Component.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added deep clone to entity and a clone method to the base Component.java" />
+    <MESSAGE value="merge complete?" />
+    <MESSAGE value="add ability to bind undo button" />
+    <option name="LAST_COMMIT_MESSAGE" value="add ability to bind undo button" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

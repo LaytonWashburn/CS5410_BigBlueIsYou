@@ -83,6 +83,7 @@ public class Movement extends System{
         for (Entity otherEntity : entities.values()) {
 
             if(otherEntity.contains(ecs.Components.Property.class)) {
+
                 var otherProperties = otherEntity.get(ecs.Components.Property.class);
 
                 if(!otherProperties.getProperties().contains(Properties.MOVE)) {

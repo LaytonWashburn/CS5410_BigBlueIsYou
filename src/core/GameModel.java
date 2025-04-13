@@ -275,7 +275,7 @@ public class GameModel {
             StackFrame poppedFrame = undoStack.pop();
             ArrayList<Tuple2<Entity, Boolean>> poppedEntities = poppedFrame.getEntities();
             for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) {
-                Entity entityToReplace = entityTuple.item1().clone();
+                Entity entityToReplace = entityTuple.item1();
                 for (var system : systems) {
                     system.replaceEntity(entityToReplace);
                 }

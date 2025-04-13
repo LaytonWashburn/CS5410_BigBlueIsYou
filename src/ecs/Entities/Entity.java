@@ -1,6 +1,7 @@
 package ecs.Entities;
 
 import ecs.Components.Component;
+import ecs.Components.Property;
 
 import java.util.*;
 import java.util.stream.*;
@@ -55,7 +56,8 @@ public final class Entity implements Cloneable{
 
     @Override
     public String toString() {
-        return String.format("%d: %s", id, components.values().stream().map(c -> c.getClass().getSimpleName()).collect(Collectors.joining(", ")));
+        var noun = (ecs.Components.Noun)components.get(ecs.Components.Noun.class);
+        return String.format("%s: %s", id + " " + noun.getNounType().toString(), components.values().stream().map(c -> c.getClass().getSimpleName()).collect(Collectors.joining(", ")));
     }
 
     /**
