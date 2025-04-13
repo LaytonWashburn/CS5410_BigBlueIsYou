@@ -146,7 +146,7 @@ public class CreateSprites {
     public static Entity createFloor(Texture texture, int i, int j, KeyBinds keybinds) {
         Entity floor = new Entity();
 
-        floor.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
+        floor.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j), -1)));
         floor.add(new ecs.Components.Position(i, j));
         floor.add(new ecs.Components.Noun(NounType.FLOOR));
         floor.add(new ecs.Components.Property());
