@@ -17,7 +17,6 @@ public class Win extends System{
     public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) throws CloneNotSupportedException {
 
         for (Entity controllable : findControllable()) {
-            var moveableProperties = controllable.get(ecs.Components.Property.class);
             var moveablePosition = controllable.get(ecs.Components.Position.class);
 
             for(Entity entity : entities.values()) {
@@ -33,10 +32,12 @@ public class Win extends System{
                         if(moveablePosition.i == entityPosition.i && moveablePosition.j == entityPosition.j) {
                             // Call the Particle System for Win
                             for (Entity otherControllable : findControllable()) {
+                                // Remove the move property for every single controllable entity
                                 var otherProperties = otherControllable.get(ecs.Components.Property.class);
                                 otherProperties.removeProperty(Properties.MOVE);
-                                java.lang.System.out.println("GAME WON!!!!!!!");
                             }
+                            // Not sure why this is firing twice
+                            java.lang.System.out.println("GAME WON!!!!!!!");
                         }
                     }
                 }
