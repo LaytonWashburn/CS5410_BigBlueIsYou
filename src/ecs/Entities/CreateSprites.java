@@ -121,7 +121,7 @@ public class CreateSprites {
         bigBlue.add(new StaticSprite(texture));
         bigBlue.add(new ecs.Components.Position(i, j));
         bigBlue.add(new ecs.Components.Noun(NounType.BIGBLUE));
-        bigBlue.add(new ecs.Components.Property(Properties.MOVE));
+        bigBlue.add(new ecs.Components.Property());
         bigBlue.add(new ecs.Components.Movement(Direction.STOP));
         bigBlue.add(new ecs.Components.KeyboardControlled(
                 Map.of(keybinds.UP, Direction.UP,

@@ -107,7 +107,6 @@ public class ParticleSystem {
         float entityWorldX = topLeftWorldX + position.j * EntityConstants.rectSize;
         float entityWorldY = topLeftWorldY + position.i * EntityConstants.rectSize;
 
-        System.out.println("Sparkles");
         Particle p;
         // Create Top
         for(int i = 0; i < 5; i++){
@@ -116,7 +115,7 @@ public class ParticleSystem {
         }
 
         // Create Bottom
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 6; i++){ // I just made this 6 because the bottom row was missing a particle for some reason?
             p = createSparkle(entityWorldX + (i * EntityConstants.rectSize / 5), entityWorldY + EntityConstants.rectSize);
             particles.put(p.name, p);
         }
