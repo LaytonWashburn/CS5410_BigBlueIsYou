@@ -44,6 +44,7 @@ public class GameModel {
     private ParticleSystem sysParticle;
 
 
+    private BackgroundMusic backgroundMusic;
 
     private Graphics2D graphics;
 
@@ -85,7 +86,9 @@ public class GameModel {
         this.level = level;
         this.keybinds = keybinds;
         this.gameArea = new Entity[level.getHeight()][level.getWidth()];
+        this.backgroundMusic = new BackgroundMusic();
         systems.clear(); // clear the system list if you're starting a fresh game
+
     }
 
     /**
@@ -93,6 +96,7 @@ public class GameModel {
      * @param graphics - Graphics 2D object
      */
     public void initialize(Graphics2D graphics) throws CloneNotSupportedException{
+        this.backgroundMusic.play();
         this.graphics = graphics;
 
         this.sysParticle = new ParticleSystem(0.025f,
