@@ -161,7 +161,8 @@ public class GameModel {
 
         if(moved){ // Scan game play area if movement has occurred
             this.sysGridAlignment.updateGrid();
-            this.sysRules.scanGamePlayArea(this.gameArea);
+            ArrayList<Tuple2<Entity, Boolean>> rulesChangedEntities = this.sysRules.scanGamePlayArea(this.gameArea);
+            changed.addAll(rulesChangedEntities);
             //Add changed entities to a stack frame
             StackFrame stackFrame = new StackFrame();
             for (Tuple2<Entity, Boolean> entityTuple : changed) {
