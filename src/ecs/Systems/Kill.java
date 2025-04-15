@@ -4,14 +4,22 @@ import core.BackgroundMusic;
 import ecs.Components.Position;
 import ecs.Entities.Entity;
 import edu.usu.utils.Tuple2;
+import level.Level;
+import utils.ParticleSystem;
 import utils.Properties;
 
 import java.util.ArrayList;
 
 public class Kill extends System{
 
-    public Kill() {
+    private final Level level;
+    private final ParticleSystem sysParticle;
+
+    public Kill(Level level, ParticleSystem sysParticle) {
         super(Position.class);
+
+        this.level = level;
+        this.sysParticle = sysParticle;
     }
 
     @Override
@@ -33,7 +41,7 @@ public class Kill extends System{
                         var entityPosition = entity.get(Position.class);
 
                         if(moveablePosition.i == entityPosition.i && moveablePosition.j == entityPosition.j) {
-                            // Call the Particle System for Kill
+                            sysParticle.playerDeath(entity.get(ecs.Components.Position.class), level);
                             killed.add(new Tuple2<>(controllable, true));
                         }
                     }

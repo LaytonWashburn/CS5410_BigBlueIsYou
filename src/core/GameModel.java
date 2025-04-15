@@ -101,23 +101,16 @@ public class GameModel {
         this.backgroundMusic.play();
         this.graphics = graphics;
 
-        this.sysParticle = new ParticleSystem(0.025f,
-                0.0f,
-                0.0f,
-                0.0f,
-                0.7f,
-                0.1f,
-                texParticle,
-                graphics);
+        this.sysParticle = new ParticleSystem(texParticle, graphics);
 
         this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics, level);
         this.sysMovement = new Movement(graphics);
         this.sysGridAlignment = new GridAlignment(this.gameArea);
         this.sysRules = new Rules(keybinds, level, sysParticle);
-        this.sysWin = new Win(backgroundMusic);
-        this.sysKill = new Kill();
-        this.sysSink = new Sink();
+        this.sysWin = new Win(backgroundMusic, level, sysParticle);
+        this.sysKill = new Kill(level, sysParticle);
+        this.sysSink = new Sink(level, sysParticle);
 
 
         this.undoStack = new Stack<>();

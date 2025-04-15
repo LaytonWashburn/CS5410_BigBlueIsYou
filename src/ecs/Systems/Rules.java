@@ -208,6 +208,9 @@ public class Rules extends System{
                             p.getProperties().add(Properties.STOP);
                             break;
                         case Action.WIN :
+                            if (!entityCopy.get(ecs.Components.Property.class).getProperties().contains(Properties.WIN)) {
+                                sysParticle.objectIsWin(entity.get(ecs.Components.Position.class), level);
+                            }
                             p.getProperties().add(Properties.WIN);
                             break;
                         case Action.KILL :
