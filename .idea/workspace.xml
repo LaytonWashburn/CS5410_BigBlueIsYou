@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="sink system fix">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="all sprites are now animatedsprites">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sprites/sprites/objects/bigblue/BigBlue.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sprites/sprites/objects/bigblue/BigBlue.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Components/StaticSprite.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderStaticSprite.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sprites/sprites/objects/wall/wall.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sprites/sprites/objects/wall/wall.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sprites/sprites/words/kill/word-kill.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sprites/sprites/words/kill/word-kill.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sprites/sprites/words/kill/word-kill.png.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sprites/sprites/words/sink/word-sink.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sprites/sprites/words/sink/word-sink.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sprites/sprites/words/sink/word-sink.png.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sprites/sprites/words/win/word-win.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sprites/sprites/words/win/word-win.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +123,7 @@
       <workItem from="1744146330394" duration="1488000" />
       <workItem from="1744492763051" duration="4050000" />
       <workItem from="1744503441916" duration="2594000" />
-      <workItem from="1744745644955" duration="1979000" />
+      <workItem from="1744745644955" duration="3568000" />
     </task>
     <task id="LOCAL-00001" summary="controls menu fixes">
       <option name="closed" value="true" />
@@ -380,14 +381,21 @@
       <option name="project" value="LOCAL" />
       <updated>1744746744262</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="all sprites are now animatedsprites">
+      <option name="closed" value="true" />
+      <created>1744747943405</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1744747943405</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Cleanup and refactoring" />
     <MESSAGE value="fix level rendering for different sizes of levels" />
     <MESSAGE value="fixed pushing system?" />
     <MESSAGE value="can lo longer push moveable entities" />
@@ -412,7 +420,8 @@
     <MESSAGE value="undo system fix for NOUN IS NOUN" />
     <MESSAGE value="Kill and Sink systems" />
     <MESSAGE value="sink system fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="sink system fix" />
+    <MESSAGE value="all sprites are now animatedsprites" />
+    <option name="LAST_COMMIT_MESSAGE" value="all sprites are now animatedsprites" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
