@@ -37,6 +37,7 @@ public class Rules extends System{
     private Texture texHedge = new Texture("resources/sprites/sprites/objects/hedge/hedge.png");
     private Texture texBigBlue = new Texture("resources/sprites/sprites/objects/bigblue/BigBlue.png");
 
+
     public Rules(KeyBinds keyBinds, Level level, ParticleSystem sysParticle) {
         super( // ecs.Components.Property.class,
                 ecs.Components.Position.class); // Must have a location on the map
@@ -55,7 +56,6 @@ public class Rules extends System{
      * Description: Scans the game play area when movement is triggered
      */
     public void scanGamePlayArea(Entity[][] grid) throws CloneNotSupportedException {
-
         entitiesCopy.clear();
         for (Entity entity : entities.values()) {
             entitiesCopy.put(entity.getId(), entity.clone());
@@ -172,12 +172,39 @@ public class Rules extends System{
                     Represent noun = second.get(ecs.Components.Represent.class);
                     Position position = entity.get(ecs.Components.Position.class);
                     java.lang.System.out.println(noun.getNounType());
-                    AnimatedSprite as = switch (noun.getNounType()) {
-                        case NounType.ROCK -> changeAnimatedSprite(position.i, position.j, texRock);
-                        case NounType.FLAG -> changeAnimatedSprite(position.i, position.j, texFlag);
-                        case NounType.WALL -> changeAnimatedSprite(position.i, position.j, texWall);
-                        default -> null;
+                    AnimatedSprite as;
+                     switch (noun.getNounType()) {
+                         case NounType.ROCK:
+                             as = changeAnimatedSprite(position.i, position.j, texRock);
+                             break;
+                         case NounType.FLAG:
+                             as = changeAnimatedSprite(position.i, position.j, texFlag);
+                             break;
+                         case NounType.WALL:
+                             as = changeAnimatedSprite(position.i, position.j, texWall);
+                             break;
+                         case NounType.FLOOR:
+                             as = changeAnimatedSprite(position.i, position.j, texFloor);
+                             break;
+                         case NounType.GRASS:
+                             as = changeAnimatedSprite(position.i, position.j, texGrass);
+                             break;
+                         case NounType.LAVA:
+                             as = changeAnimatedSprite(position.i, position.j, texLava);
+                             break;
+                         case NounType.BIGBLUE:
+                             as = changeAnimatedSprite(position.i, position.j, texBigBlue); // Need to switch this one
+                             break;
+                         case NounType.WATER:
+                             as = changeAnimatedSprite(position.i, position.j, texWater);
+                             break;
+                         case NounType.HEDGE:
+                             as = changeAnimatedSprite(position.i, position.j, texHedge);
+                             break;
+                         default:
+                             as = null;
                     };
+
 
                     entity.remove(ecs.Components.AnimatedSprite.class);
                     entity.add(as);

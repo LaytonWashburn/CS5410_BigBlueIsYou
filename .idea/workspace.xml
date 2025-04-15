@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Starting background music">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Background music working, starts on the level and ends when level is completed or esc.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Win.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Win.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/GamePlayView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GamePlayView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -318,7 +316,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744657156739</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Background music working, starts on the level and ends when level is completed or esc.">
+      <option name="closed" value="true" />
+      <created>1744686802058</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1744686802058</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -347,7 +353,8 @@
     <MESSAGE value="win system works" />
     <MESSAGE value="particle system fix" />
     <MESSAGE value="Starting background music" />
-    <option name="LAST_COMMIT_MESSAGE" value="Starting background music" />
+    <MESSAGE value="Background music working, starts on the level and ends when level is completed or esc." />
+    <option name="LAST_COMMIT_MESSAGE" value="Background music working, starts on the level and ends when level is completed or esc." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
