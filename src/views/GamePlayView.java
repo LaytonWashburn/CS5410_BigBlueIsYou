@@ -1,5 +1,6 @@
 package views;
 
+import core.BackgroundMusic;
 import core.GameModel;
 import core.GameStateEnum;
 import core.KeyboardInput;
@@ -20,9 +21,12 @@ public class GamePlayView extends GameStateView {
     private KeyBindSerializer keyBindSerializer;
     private KeyBinds keyBinds;
 
+    private BackgroundMusic backgroundMusic;
+
     public GamePlayView(KeyBindSerializer serializer){
         this.keyBindSerializer = serializer;
         this.keyBinds = this.keyBindSerializer.keybinds;
+        this.backgroundMusic = new BackgroundMusic();
     }
 
     @Override
@@ -33,6 +37,7 @@ public class GamePlayView extends GameStateView {
         // When ESC is pressed, set the appropriate new game state
         inputKeyboard.registerCommand(GLFW_KEY_ESCAPE, true, (double elapsedTime) -> {
             nextGameState = GameStateEnum.NewGame;
+            this.backgroundMusic.stop();
         });
     }
 
@@ -43,7 +48,7 @@ public class GamePlayView extends GameStateView {
         inputKeyboard.registerCommand(this.keyBinds.UNDO, true, (double elapsedTime) -> {
             gameModel.triggerUndo();
         });
-        gameModel = new GameModel(level, this.keyBinds);
+        gameModel = new GameModel(level, this.keyBinds, backgroundMusic);
         try {
             gameModel.initialize(graphics);
         } catch (CloneNotSupportedException e) {

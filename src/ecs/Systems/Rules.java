@@ -1,11 +1,14 @@
 package ecs.Systems;
 
-import ecs.Components.Noun;
-import ecs.Components.Property;
+import ecs.Components.*;
 import ecs.Entities.Entity;
+import edu.usu.graphics.Texture;
 import edu.usu.utils.Tuple2;
 import level.Level;
+import org.joml.Vector2f;
 import utils.*;
+import utils.Action;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +26,16 @@ public class Rules extends System{
     private ParticleSystem sysParticle;
 
     private final Map<Long, Entity> entitiesCopy = new HashMap<>();
+
+    private Texture texFlag = new Texture("resources/sprites/sprites/objects/flag/flag.png");
+    private Texture texRock = new Texture("resources/sprites/sprites/objects/rock/rock.png");
+    private Texture texWall = new Texture("resources/sprites/sprites/objects/wall/wall.png");
+    private Texture texFloor = new Texture("resources/sprites/sprites/objects/floor/floor.png");
+    private Texture texGrass = new Texture("resources/sprites/sprites/objects/grass/grass.png");
+    private Texture texWater = new Texture("resources/sprites/sprites/objects/water/water.png");
+    private Texture texLava = new Texture("resources/sprites/sprites/objects/lava/lava.png");
+    private Texture texHedge = new Texture("resources/sprites/sprites/objects/hedge/hedge.png");
+    private Texture texBigBlue = new Texture("resources/sprites/sprites/objects/bigblue/BigBlue.png");
 
     public Rules(KeyBinds keyBinds, Level level, ParticleSystem sysParticle) {
         super( // ecs.Components.Property.class,
@@ -118,41 +131,68 @@ public class Rules extends System{
             if (entity.contains(Noun.class) &&
                     entity.get(Noun.class).getNounType() == textNoun.getNounType()) {
 
-                Entity entityCopy = entitiesCopy.get(entity.getId());
+                if(second.contains(ecs.Components.Action.class)) {
+                    Entity entityCopy = entitiesCopy.get(entity.getId());
 
-                var action = second.get(ecs.Components.Action.class).getAction();
-                var p = entity.contains(ecs.Components.Property.class) ? entity.get(ecs.Components.Property.class) : new Property();
+                    var action = second.get(ecs.Components.Action.class).getAction();
+                    var p = entity.contains(ecs.Components.Property.class) ? entity.get(ecs.Components.Property.class) : new Property();
 
-                switch (action) {
-                    case Action.STOP :
-                        p.getProperties().add(Properties.STOP);
-                        break;
-                    case Action.WIN :
-                        p.getProperties().add(Properties.WIN);
-                        break;
-                    case Action.KILL :
-                        p.getProperties().add(Properties.KILL);
-                        break;
-                    case Action.YOU :
-                        if (!entityCopy.get(ecs.Components.Property.class).getProperties().contains(Properties.YOU)) {
-                            sysParticle.playerIsYou(entity.get(ecs.Components.Position.class), level);
-                        }
-                        p.getProperties().add(Properties.YOU);
-                        p.getProperties().add(Properties.MOVE);
-                        break;
-                    case Action.PUSH :
-                        p.getProperties().add(Properties.PUSHABLE);
-                        break;
-                    case Action.SINK :
-                        p.getProperties().add(Properties.SINK);
-                        break;
+                    switch (action) {
+                        case Action.STOP :
+                            p.getProperties().add(Properties.STOP);
+                            break;
+                        case Action.WIN :
+                            p.getProperties().add(Properties.WIN);
+                            break;
+                        case Action.KILL :
+                            p.getProperties().add(Properties.KILL);
+                            break;
+                        case Action.YOU :
+                            if (!entityCopy.get(ecs.Components.Property.class).getProperties().contains(Properties.YOU)) {
+                                sysParticle.playerIsYou(entity.get(ecs.Components.Position.class), level);
+                            }
+                            p.getProperties().add(Properties.YOU);
+                            p.getProperties().add(Properties.MOVE);
+                            break;
+                        case Action.PUSH :
+                            p.getProperties().add(Properties.PUSHABLE);
+                            break;
+                        case Action.SINK :
+                            p.getProperties().add(Properties.SINK);
+                            break;
+                    }
+
+                    if(!entity.contains(ecs.Components.Property.class)) {
+                        entity.add(p);
+                    }
                 }
 
-                if(!entity.contains(ecs.Components.Property.class)) {
-                    entity.add(p);
+                if(second.contains(ecs.Components.Text.class) && second.get(ecs.Components.Text.class).getTextType() == TextType.NOUN) {
+                    java.lang.System.out.println("In the second if");
+                    Represent noun = second.get(ecs.Components.Represent.class);
+                    Position position = entity.get(ecs.Components.Position.class);
+                    java.lang.System.out.println(noun.getNounType());
+                    AnimatedSprite as = switch (noun.getNounType()) {
+                        case NounType.ROCK -> changeAnimatedSprite(position.i, position.j, texRock);
+                        case NounType.FLAG -> changeAnimatedSprite(position.i, position.j, texFlag);
+                        case NounType.WALL -> changeAnimatedSprite(position.i, position.j, texWall);
+                        default -> null;
+                    };
+
+                    entity.remove(ecs.Components.AnimatedSprite.class);
+                    entity.add(as);
+
                 }
             }
         }
+    }
+
+    public AnimatedSprite changeAnimatedSprite(int i, int j, Texture texture) {
+        return new ecs.Components.AnimatedSprite(new edu.usu.graphics.AnimatedSprite(texture,
+
+                new float[] {EntityConstants.frameTime, EntityConstants.frameTime, EntityConstants.frameTime},
+                new Vector2f(EntityConstants.rectSize, EntityConstants.rectSize),
+                new Vector2f(i, j)));
     }
 
     /**

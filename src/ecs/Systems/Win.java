@@ -1,5 +1,6 @@
 package ecs.Systems;
 
+import core.BackgroundMusic;
 import ecs.Components.Position;
 import ecs.Entities.Entity;
 import edu.usu.utils.Tuple2;
@@ -9,8 +10,11 @@ import java.util.ArrayList;
 
 public class Win extends System{
 
-    public Win() {
+    BackgroundMusic backgroundMusic;
+
+    public Win(BackgroundMusic backgroundMusic) {
         super(ecs.Components.Position.class);
+        this.backgroundMusic = backgroundMusic;
     }
 
     @Override
@@ -38,6 +42,7 @@ public class Win extends System{
                             }
                             // Not sure why this is firing twice
                             java.lang.System.out.println("GAME WON!!!!!!!");
+                            backgroundMusic.stop();
                         }
                     }
                 }

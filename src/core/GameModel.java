@@ -82,14 +82,15 @@ public class GameModel {
      * @param level - Current level to wrap the game model around
      * @param keybinds - Current key bind configuration for the game
      */
-    public GameModel(Level level, KeyBinds keybinds) {
+    public GameModel(Level level, KeyBinds keybinds, BackgroundMusic backgroundMusic) {
         this.level = level;
         this.keybinds = keybinds;
         this.gameArea = new Entity[level.getHeight()][level.getWidth()];
-        this.backgroundMusic = new BackgroundMusic();
+        this.backgroundMusic = backgroundMusic;
         systems.clear(); // clear the system list if you're starting a fresh game
 
     }
+
 
     /**
      * Method: Initialize
@@ -114,7 +115,7 @@ public class GameModel {
         this.sysMovement = new Movement(graphics);
         this.sysGridAlignment = new GridAlignment(this.gameArea);
         this.sysRules = new Rules(keybinds, level, sysParticle);
-        this.sysWin = new Win();
+        this.sysWin = new Win(backgroundMusic);
 
 
         this.undoStack = new Stack<>();
