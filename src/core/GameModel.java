@@ -103,7 +103,7 @@ public class GameModel {
 
         this.sysParticle = new ParticleSystem(texParticle, graphics);
 
-        this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
+        this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds, this::reset);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics, level);
         this.sysMovement = new Movement(graphics);
         this.sysGridAlignment = new GridAlignment(this.gameArea);
@@ -118,13 +118,6 @@ public class GameModel {
         initializeObjectTypes(level); // Take level and create entities for all objects
 
         undoStack.push(initialStackFrame);
-//        var test = CreateSprites.createBigBlue(this.texBigBlue, 0, 0);
-//        var test2 = test.clone();
-//        var test2Position = test2.get(ecs.Components.Position.class);
-//        var test2NounType = test2.get(ecs.Components.Noun.class);
-//        test2Position.i = 55;
-//        test2NounType.setNounType(NounType.TEXT);
-//        System.out.println();
 
         this.sysGridAlignment.updateGrid();
         this.sysRules.scanGamePlayArea(this.gameArea); // Do an initial scan of the game area
@@ -299,6 +292,25 @@ public class GameModel {
             this.gameArea[row][col] = entity;
         }
 
+    }
+
+    public void reset() throws CloneNotSupportedException {
+        StackFrame poppedFrame = this.initialStackFrame;
+        this.undoStack.clear();
+        ArrayList<Tuple2<Entity, Boolean>> poppedEntities = poppedFrame.getEntities();
+        for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) {
+            Entity entityToReplace = entityTuple.item1();
+            for (var system : systems) {
+                system.replaceEntity(entityToReplace);
+            }
+        }
+        this.sysGridAlignment.updateGrid();
+        this.sysRules.scanGamePlayArea(this.gameArea);
+        for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) { // Allow systems to decide if they are interested or not in the changed
+            for (var system : systems) {
+                system.updatedEntity(entityTuple.item1());
+            }
+        }
     }
 
     public void triggerUndo() throws CloneNotSupportedException {
