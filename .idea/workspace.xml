@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Rules working better but properties aren't being added when a noun changes a noun.">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="undo system fix for NOUN IS NOUN">
+      <change afterPath="$PROJECT_DIR$/src/ecs/Systems/Kill.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ecs/Systems/Sink.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +71,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ecs.Systems" />
       <recent name="ecs.Components" />
     </key>
   </component>
@@ -333,7 +334,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744687826255</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="undo system fix for NOUN IS NOUN">
+      <option name="closed" value="true" />
+      <created>1744689859567</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1744689859567</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,7 +373,8 @@
     <MESSAGE value="Starting background music" />
     <MESSAGE value="Background music working, starts on the level and ends when level is completed or esc." />
     <MESSAGE value="Rules working better but properties aren't being added when a noun changes a noun." />
-    <option name="LAST_COMMIT_MESSAGE" value="Rules working better but properties aren't being added when a noun changes a noun." />
+    <MESSAGE value="undo system fix for NOUN IS NOUN" />
+    <option name="LAST_COMMIT_MESSAGE" value="undo system fix for NOUN IS NOUN" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

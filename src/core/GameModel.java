@@ -41,6 +41,8 @@ public class GameModel {
     private Rules sysRules;
     private GridAlignment sysGridAlignment;
     private Win sysWin;
+    private Kill sysKill;
+    private Sink sysSink;
     private ParticleSystem sysParticle;
 
 
@@ -116,6 +118,8 @@ public class GameModel {
         this.sysGridAlignment = new GridAlignment(this.gameArea);
         this.sysRules = new Rules(keybinds, level, sysParticle);
         this.sysWin = new Win(backgroundMusic);
+        this.sysKill = new Kill();
+        this.sysSink = new Sink();
 
 
         this.undoStack = new Stack<>();
@@ -148,9 +152,24 @@ public class GameModel {
         var changed = new ArrayList<Tuple2<Entity, Boolean>>(); // Update the systems and put in changed map
         for(ecs.Systems.System system : systems) {
             ArrayList<Tuple2<Entity, Boolean>> changedEntities = system.update(elapsedTime);
+            ArrayList<Tuple2<Entity, Boolean>> changedEntitiesToAdd = new ArrayList<>();
             for (Tuple2<Entity, Boolean> changedEntity : changedEntities) {
-                if (!changed.contains(changedEntity)) {
+                boolean changedAlreadyContainsEntity = false;
+                for (Tuple2<Entity, Boolean> changed2 : changed) {
+                    if (changedEntity.item1().getId() == changed2.item1().getId()) {
+                        changedAlreadyContainsEntity = true;
+                        if (!changed2.item2() && changedEntity.item2()) {
+                            changedEntitiesToAdd.add(new Tuple2<>(changed2.item1().clone(), true));
+                        }
+                        break;
+                    }
+                }
+                if (!changedAlreadyContainsEntity) {
                     changed.add(changedEntity);
+                }
+                for (Tuple2<Entity, Boolean> changedToAdd : changedEntitiesToAdd) {
+                    changed.remove(new Tuple2<>(changedToAdd.item1(), false));
+                    changed.add(changedToAdd);
                 }
             }
             if (system instanceof Movement && !changedEntities.isEmpty()) {
@@ -178,10 +197,11 @@ public class GameModel {
         }
 
         // Remove entities
-        for (var entity : removeThese) {
-            removeEntity(entity);
+        for (Tuple2<Entity, Boolean> entity : changed) {
+            if (entity.item2()) {
+                removeEntity(entity.item1());
+            }
         }
-        removeThese.clear();
 
         // Add Entities
         for (var entity : addThese) {
