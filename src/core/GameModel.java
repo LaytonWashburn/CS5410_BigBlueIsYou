@@ -97,7 +97,7 @@ public class GameModel {
      * @param graphics - Graphics 2D object
      */
     public void initialize(Graphics2D graphics) throws CloneNotSupportedException{
-        // this.backgroundMusic.play();
+        this.backgroundMusic.play();
         this.graphics = graphics;
 
         this.sysParticle = new ParticleSystem(0.025f,
