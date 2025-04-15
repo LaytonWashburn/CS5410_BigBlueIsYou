@@ -98,12 +98,12 @@ public class GameModel {
      * @param graphics - Graphics 2D object
      */
     public void initialize(Graphics2D graphics) throws CloneNotSupportedException{
-        this.backgroundMusic.play();
+        // this.backgroundMusic.play();
         this.graphics = graphics;
 
         this.sysParticle = new ParticleSystem(texParticle, graphics);
 
-        this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds, this::reset);
+        this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics, level);
         this.sysMovement = new Movement(graphics);
         this.sysGridAlignment = new GridAlignment(this.gameArea);
@@ -295,20 +295,24 @@ public class GameModel {
     }
 
     public void reset() throws CloneNotSupportedException {
-        StackFrame poppedFrame = this.initialStackFrame;
-        this.undoStack.clear();
-        ArrayList<Tuple2<Entity, Boolean>> poppedEntities = poppedFrame.getEntities();
-        for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) {
-            Entity entityToReplace = entityTuple.item1();
-            for (var system : systems) {
-                system.replaceEntity(entityToReplace);
+        if (!undoStack.isEmpty()) {
+            StackFrame poppedFrame = this.undoStack.getFirst();
+            this.undoStack.clear();
+            this.undoStack.add(poppedFrame);
+            ArrayList<Tuple2<Entity, Boolean>> poppedEntities = poppedFrame.getEntities();
+            for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) {
+                //System.out.println("Popped entities");
+                Entity entityToReplace = entityTuple.item1();
+                for (var system : systems) {
+                    system.replaceEntity(entityToReplace);
+                }
             }
-        }
-        this.sysGridAlignment.updateGrid();
-        this.sysRules.scanGamePlayArea(this.gameArea);
-        for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) { // Allow systems to decide if they are interested or not in the changed
-            for (var system : systems) {
-                system.updatedEntity(entityTuple.item1());
+            this.sysGridAlignment.updateGrid();
+            this.sysRules.scanGamePlayArea(this.gameArea);
+            for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) { // Allow systems to decide if they are interested or not in the changed
+                for (var system : systems) {
+                    system.updatedEntity(entityTuple.item1());
+                }
             }
         }
     }

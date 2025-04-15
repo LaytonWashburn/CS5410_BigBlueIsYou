@@ -48,6 +48,11 @@ public class GamePlayView extends GameStateView {
         inputKeyboard.registerCommand(this.keyBinds.UNDO, true, (double elapsedTime) -> {
             gameModel.triggerUndo();
         });
+
+        inputKeyboard.registerCommand(this.keyBinds.RESET, true, (double elapsedTime) -> {
+            gameModel.reset();
+            System.out.println("Reset");
+        });
         gameModel = new GameModel(level, this.keyBinds, backgroundMusic);
         try {
             gameModel.initialize(graphics);

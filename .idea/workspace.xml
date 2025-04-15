@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="fix sprite appearances">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Reset complete, needs to be better, being called multiple times instead of just one.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ecs/Systems/KeyboardInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/KeyboardInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/GamePlayView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GamePlayView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -396,14 +395,21 @@
       <option name="project" value="LOCAL" />
       <updated>1744749464402</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Reset complete, needs to be better, being called multiple times instead of just one.">
+      <option name="closed" value="true" />
+      <created>1744757389037</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1744757389037</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed pushing system?" />
     <MESSAGE value="can lo longer push moveable entities" />
     <MESSAGE value="Can add STOP to WALL but other rule system isn't working." />
     <MESSAGE value="Game area only needs to contain text entities" />
@@ -428,7 +434,8 @@
     <MESSAGE value="sink system fix" />
     <MESSAGE value="all sprites are now animatedsprites" />
     <MESSAGE value="fix sprite appearances" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix sprite appearances" />
+    <MESSAGE value="Reset complete, needs to be better, being called multiple times instead of just one." />
+    <option name="LAST_COMMIT_MESSAGE" value="Reset complete, needs to be better, being called multiple times instead of just one." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

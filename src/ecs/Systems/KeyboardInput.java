@@ -18,18 +18,12 @@ public class KeyboardInput extends System {
 
     KeyBinds keyBinds;
 
-    public interface IresetGame {
-        void invoke() throws CloneNotSupportedException;
-    }
 
-    private final KeyboardInput.IresetGame IresetGame;
-
-    public KeyboardInput(long window, KeyBinds keyBinds, IresetGame IresetGame) {
+    public KeyboardInput(long window, KeyBinds keyBinds) {
         super(ecs.Components.KeyboardControlled.class);
 
         this.window = window;
         this.keyBinds = keyBinds;
-        this.IresetGame = IresetGame;
     }
 
     @Override
@@ -60,20 +54,12 @@ public class KeyboardInput extends System {
                 input.keysPressed.put(Direction.DOWN, true);
             }
 
-            if (glfwGetKey(window, input.lookup.get(Direction.RESET)) == GLFW_PRESS && !input.keysPressed.get(Direction.RESET)) {
-                reset = true;
-                input.keysPressed.put(Direction.RESET, true);
-            }
-
             input.keysPressed.put(Direction.LEFT, glfwGetKey(window, keyBinds.LEFT) == GLFW_PRESS);
             input.keysPressed.put(Direction.RIGHT, glfwGetKey(window, keyBinds.RIGHT) == GLFW_PRESS);
             input.keysPressed.put(Direction.UP, glfwGetKey(window, keyBinds.UP) == GLFW_PRESS);
             input.keysPressed.put(Direction.DOWN, glfwGetKey(window, keyBinds.DOWN) == GLFW_PRESS);
-            input.keysPressed.put(Direction.RESET, glfwGetKey(window, keyBinds.RESET) == GLFW_PRESS);
         }
-        if(reset) {
-            this.IresetGame.invoke();
-        }
+
         return new ArrayList<>();
     }
 }
