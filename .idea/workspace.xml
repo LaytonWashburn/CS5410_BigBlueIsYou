@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Kill and Sink systems">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="sink system fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Sink.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Sink.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sprites/sprites/objects/bigblue/BigBlue.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sprites/sprites/objects/bigblue/BigBlue.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Components/StaticSprite.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Entities/CreateSprites.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/RenderStaticSprite.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,28 +50,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Driver - Windows/Linux.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Driver.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/layto/USU/CS5410/Projects/LunarLander&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Driver - Windows/Linux.executor": "Run",
+    "Application.Driver.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Ben Tomlinson/IdeaProjects/CS5410_BigBlueIsYou/resources/sprites/sprites/objects/bigblue",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.appearance",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ben Tomlinson\IdeaProjects\CS5410_BigBlueIsYou\resources\sprites\sprites\objects\bigblue" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ecs.Systems" />
       <recent name="ecs.Components" />
@@ -115,7 +122,7 @@
       <workItem from="1744146330394" duration="1488000" />
       <workItem from="1744492763051" duration="4050000" />
       <workItem from="1744503441916" duration="2594000" />
-      <workItem from="1744745644955" duration="1077000" />
+      <workItem from="1744745644955" duration="1979000" />
     </task>
     <task id="LOCAL-00001" summary="controls menu fixes">
       <option name="closed" value="true" />
@@ -365,14 +372,21 @@
       <option name="project" value="LOCAL" />
       <updated>1744694528626</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="sink system fix">
+      <option name="closed" value="true" />
+      <created>1744746744262</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1744746744262</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="AnimatedSprite example" />
     <MESSAGE value="Cleanup and refactoring" />
     <MESSAGE value="fix level rendering for different sizes of levels" />
     <MESSAGE value="fixed pushing system?" />
@@ -397,7 +411,8 @@
     <MESSAGE value="Rules working better but properties aren't being added when a noun changes a noun." />
     <MESSAGE value="undo system fix for NOUN IS NOUN" />
     <MESSAGE value="Kill and Sink systems" />
-    <option name="LAST_COMMIT_MESSAGE" value="Kill and Sink systems" />
+    <MESSAGE value="sink system fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="sink system fix" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

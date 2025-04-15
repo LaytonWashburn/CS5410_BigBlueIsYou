@@ -1,6 +1,5 @@
 package ecs.Entities;
 
-import ecs.Components.StaticSprite;
 import edu.usu.graphics.AnimatedSprite;
 import edu.usu.graphics.Texture;
 import org.joml.Vector2f;
@@ -118,7 +117,7 @@ public class CreateSprites {
         Entity bigBlue = new Entity();
 
         bigBlue.add(new ecs.Components.BigBlue()); // Don't know if this is needed
-        bigBlue.add(new StaticSprite(texture));
+        bigBlue.add(new ecs.Components.AnimatedSprite(new AnimatedSprite(texture, new float[] {frameTime, frameTime, frameTime}, new Vector2f(rectSize, rectSize), new Vector2f(i, j))));
         bigBlue.add(new ecs.Components.Position(i, j));
         bigBlue.add(new ecs.Components.Noun(NounType.BIGBLUE));
         bigBlue.add(new ecs.Components.Property());

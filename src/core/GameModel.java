@@ -36,7 +36,6 @@ public class GameModel {
 
     // Systems
     private KeyboardInput sysKeyboardInput;
-    private RenderStaticSprite sysRenderStaticSprite;
     private Movement sysMovement;
     private Rules sysRules;
     private GridAlignment sysGridAlignment;
@@ -112,7 +111,6 @@ public class GameModel {
                 graphics);
 
         this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
-        this.sysRenderStaticSprite = new RenderStaticSprite(graphics, level);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics, level);
         this.sysMovement = new Movement(graphics);
         this.sysGridAlignment = new GridAlignment(this.gameArea);
