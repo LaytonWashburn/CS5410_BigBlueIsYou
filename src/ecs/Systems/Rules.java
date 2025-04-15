@@ -131,6 +131,64 @@ public class Rules extends System{
             if (entity.contains(Noun.class) &&
                     entity.get(Noun.class).getNounType() == textNoun.getNounType()) {
 
+                if(second.contains(ecs.Components.Text.class) &&
+                        second.get(ecs.Components.Text.class).getTextType() == TextType.NOUN) {
+
+                    Represent noun = second.get(ecs.Components.Represent.class);
+                    Position position = entity.get(ecs.Components.Position.class);
+
+                    AnimatedSprite as;
+                    Noun nounChanged;
+                    switch (noun.getNounType()) {
+                        case NounType.ROCK:
+                            as = changeAnimatedSprite(position.i, position.j, texRock);
+                            nounChanged = new Noun(NounType.ROCK);
+                            break;
+                        case NounType.FLAG:
+                            as = changeAnimatedSprite(position.i, position.j, texFlag);
+                            nounChanged = new Noun(NounType.FLAG);
+                            break;
+                        case NounType.WALL:
+                            as = changeAnimatedSprite(position.i, position.j, texWall);
+                            nounChanged = new Noun(NounType.WALL);
+                            break;
+                        case NounType.FLOOR:
+                            as = changeAnimatedSprite(position.i, position.j, texFloor);
+                            nounChanged = new Noun(NounType.FLOOR);
+                            break;
+                        case NounType.GRASS:
+                            as = changeAnimatedSprite(position.i, position.j, texGrass);
+                            nounChanged = new Noun(NounType.GRASS);
+                            break;
+                        case NounType.LAVA:
+                            as = changeAnimatedSprite(position.i, position.j, texLava);
+                            nounChanged = new Noun(NounType.LAVA);
+                            break;
+                        case NounType.BIGBLUE:
+                            as = changeAnimatedSprite(position.i, position.j, texBigBlue); // Need to switch this one
+                            nounChanged = new Noun(NounType.BIGBLUE);
+                            break;
+                        case NounType.WATER:
+                            as = changeAnimatedSprite(position.i, position.j, texWater);
+                            nounChanged = new Noun(NounType.WATER);
+                            break;
+                        case NounType.HEDGE:
+                            as = changeAnimatedSprite(position.i, position.j, texHedge);
+                            nounChanged = new Noun(NounType.HEDGE);
+                            break;
+                        default:
+                            as = null;
+                            nounChanged = null;
+                    };
+
+
+                    entity.remove(ecs.Components.AnimatedSprite.class);
+                    entity.remove(ecs.Components.Noun.class);
+                    entity.add(as);
+                    entity.add(nounChanged);
+
+                }
+
                 if(second.contains(ecs.Components.Action.class)) {
                     Entity entityCopy = entitiesCopy.get(entity.getId());
 
@@ -167,49 +225,7 @@ public class Rules extends System{
                     }
                 }
 
-                if(second.contains(ecs.Components.Text.class) && second.get(ecs.Components.Text.class).getTextType() == TextType.NOUN) {
-                    java.lang.System.out.println("In the second if");
-                    Represent noun = second.get(ecs.Components.Represent.class);
-                    Position position = entity.get(ecs.Components.Position.class);
-                    java.lang.System.out.println(noun.getNounType());
-                    AnimatedSprite as;
-                     switch (noun.getNounType()) {
-                         case NounType.ROCK:
-                             as = changeAnimatedSprite(position.i, position.j, texRock);
-                             break;
-                         case NounType.FLAG:
-                             as = changeAnimatedSprite(position.i, position.j, texFlag);
-                             break;
-                         case NounType.WALL:
-                             as = changeAnimatedSprite(position.i, position.j, texWall);
-                             break;
-                         case NounType.FLOOR:
-                             as = changeAnimatedSprite(position.i, position.j, texFloor);
-                             break;
-                         case NounType.GRASS:
-                             as = changeAnimatedSprite(position.i, position.j, texGrass);
-                             break;
-                         case NounType.LAVA:
-                             as = changeAnimatedSprite(position.i, position.j, texLava);
-                             break;
-                         case NounType.BIGBLUE:
-                             as = changeAnimatedSprite(position.i, position.j, texBigBlue); // Need to switch this one
-                             break;
-                         case NounType.WATER:
-                             as = changeAnimatedSprite(position.i, position.j, texWater);
-                             break;
-                         case NounType.HEDGE:
-                             as = changeAnimatedSprite(position.i, position.j, texHedge);
-                             break;
-                         default:
-                             as = null;
-                    };
 
-
-                    entity.remove(ecs.Components.AnimatedSprite.class);
-                    entity.add(as);
-
-                }
             }
         }
     }
