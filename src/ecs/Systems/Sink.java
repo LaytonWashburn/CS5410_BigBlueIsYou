@@ -44,24 +44,4 @@ public class Sink extends System{
         return sunk;
     }
 
-    /**
-     * Returns a collection of all the currently controllable entities.
-     */
-    private ArrayList<Entity> findControllable() {
-
-        ArrayList<Entity> controllables = new ArrayList<>();
-
-        for (var entity : entities.values()) {
-            if (entity.contains(ecs.Components.Property.class)) {
-                var property = entity.get(ecs.Components.Property.class);
-                if (property.getProperties().contains(Properties.MOVE)) {
-                    controllables.add(entity);
-                }
-            }
-        }
-
-        return controllables;
-    }
-
-
 }
