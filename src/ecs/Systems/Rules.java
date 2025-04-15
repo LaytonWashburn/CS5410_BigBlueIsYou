@@ -27,6 +27,8 @@ public class Rules extends System{
 
     private final Map<Long, Entity> entitiesCopy = new HashMap<>();
 
+    private ArrayList<Tuple2<Entity, Boolean>> changed;
+
     private Texture texFlag = new Texture("resources/sprites/sprites/objects/flag/flag.png");
     private Texture texRock = new Texture("resources/sprites/sprites/objects/rock/rock.png");
     private Texture texWall = new Texture("resources/sprites/sprites/objects/wall/wall.png");
@@ -44,6 +46,7 @@ public class Rules extends System{
         this.level = level;
         this.keybinds = keyBinds;
         this.sysParticle = sysParticle;
+        this.changed = new ArrayList<>();
     }
 
     @Override
@@ -55,7 +58,9 @@ public class Rules extends System{
      * Method: Rules.java
      * Description: Scans the game play area when movement is triggered
      */
-    public void scanGamePlayArea(Entity[][] grid) throws CloneNotSupportedException {
+    public ArrayList<Tuple2<Entity, Boolean>> scanGamePlayArea(Entity[][] grid) throws CloneNotSupportedException {
+        this.changed.clear();
+
         entitiesCopy.clear();
         for (Entity entity : entities.values()) {
             entitiesCopy.put(entity.getId(), entity.clone());
@@ -63,13 +68,15 @@ public class Rules extends System{
 
         cleanComponents(grid); // Remove all components from non TEXT entities
         makeNewRuleSet(grid); // Apply new rules
+
+        return changed;
     }
 
     /**
      * Method: Scan Horizontal
      * Description:
      */
-    public void scanHorizontal(Entity[][] grid, int row, int col,  int maxRow, int maxCol) {
+    public void scanHorizontal(Entity[][] grid, int row, int col,  int maxRow, int maxCol) throws CloneNotSupportedException {
 
         // Check if there is a valid rule
         boolean rule = checkNext(grid, row, col - 1, maxRow, maxCol) && checkNext(grid, row, col + 1, maxRow, maxCol);
@@ -87,7 +94,7 @@ public class Rules extends System{
      * Method: Scan Vertical
      * Description:
      */
-    public void scanVertical(Entity[][] grid, int row, int col,  int maxRow, int maxCol) {
+    public void scanVertical(Entity[][] grid, int row, int col,  int maxRow, int maxCol) throws CloneNotSupportedException {
 
         // Check if there is a valid rule
         boolean rule = checkNext(grid, row + 1, col, maxRow, maxCol) && checkNext(grid, row - 1, col, maxRow, maxCol);
@@ -123,7 +130,7 @@ public class Rules extends System{
      * Description: Adds component to entity
      * @param textEntity - Entity to add the component to
      */
-    public void addComponents(Entity textEntity, Entity second) {
+    public void addComponents(Entity textEntity, Entity second) throws CloneNotSupportedException {
 
         var textNoun = textEntity.get(ecs.Components.Represent.class); // Get the Noun type for what the text represents
 
@@ -181,6 +188,7 @@ public class Rules extends System{
                             nounChanged = null;
                     };
 
+                    changed.add(new Tuple2<>(entity.clone(), false));
 
                     entity.remove(ecs.Components.AnimatedSprite.class);
                     entity.remove(ecs.Components.Noun.class);
@@ -314,7 +322,7 @@ public class Rules extends System{
      * Description: Scans the grid for complete rules
      * @param grid - 2D array of TEXT Entities
      */
-    public void makeNewRuleSet(Entity[][] grid) {
+    public void makeNewRuleSet(Entity[][] grid) throws CloneNotSupportedException {
         // Iterate through the grid game area
         for(int row = 0; row < level.getHeight(); row++) {
 

@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Slight improvement to rule system.">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Rules working better but properties aren't being added when a noun changes a noun.">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -330,15 +333,7 @@
       <option name="project" value="LOCAL" />
       <updated>1744687826255</updated>
     </task>
-    <task id="LOCAL-00029" summary="Slight improvement to rule system.">
-      <option name="closed" value="true" />
-      <created>1744688669453</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1744688669453</updated>
-    </task>
-    <option name="localTasksCounter" value="30" />
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -369,8 +364,7 @@
     <MESSAGE value="Starting background music" />
     <MESSAGE value="Background music working, starts on the level and ends when level is completed or esc." />
     <MESSAGE value="Rules working better but properties aren't being added when a noun changes a noun." />
-    <MESSAGE value="Slight improvement to rule system." />
-    <option name="LAST_COMMIT_MESSAGE" value="Slight improvement to rule system." />
+    <option name="LAST_COMMIT_MESSAGE" value="Rules working better but properties aren't being added when a noun changes a noun." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
