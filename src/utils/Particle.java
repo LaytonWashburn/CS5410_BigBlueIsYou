@@ -1,5 +1,6 @@
 package utils;
 
+import edu.usu.graphics.Color;
 import org.joml.Vector2f;
 import edu.usu.graphics.Rectangle;
 
@@ -10,8 +11,21 @@ public class Particle {
         this.direction = direction;
         this.speed = speed;
         this.size = size;
-        this.area = new Rectangle(center.x - size.x / 2, center.y - size.y / 2, size.x, size.y);
+        this.area = new Rectangle(center.x - size.x / 2, center.y - size.y / 2, size.x, size.y, 1f);
         this.lifetime = lifetime;
+
+        this.rotation = 0;
+    }
+
+    public Particle(Vector2f center, Vector2f direction, float speed, Vector2f size, double lifetime, Color color) {
+        this.name = nextName++;
+        this.center = center;
+        this.direction = direction;
+        this.speed = speed;
+        this.size = size;
+        this.area = new Rectangle(center.x - size.x / 2, center.y - size.y / 2, size.x, size.y, 1f);
+        this.lifetime = lifetime;
+        this.color = color;
 
         this.rotation = 0;
     }
@@ -43,4 +57,6 @@ public class Particle {
     private double lifetime;
     private double alive = 0;
     private static long nextName = 0;
+
+    public Color color = Color.WHITE;
 }

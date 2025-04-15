@@ -4,6 +4,8 @@ import core.BackgroundMusic;
 import ecs.Components.Position;
 import ecs.Entities.Entity;
 import edu.usu.utils.Tuple2;
+import level.Level;
+import utils.ParticleSystem;
 import utils.Properties;
 
 import java.util.ArrayList;
@@ -11,10 +13,14 @@ import java.util.ArrayList;
 public class Win extends System{
 
     BackgroundMusic backgroundMusic;
+    private final Level level;
+    private final ParticleSystem sysParticle;
 
-    public Win(BackgroundMusic backgroundMusic) {
+    public Win(BackgroundMusic backgroundMusic, Level level, ParticleSystem sysParticle) {
         super(ecs.Components.Position.class);
         this.backgroundMusic = backgroundMusic;
+        this.level = level;
+        this.sysParticle = sysParticle;
     }
 
     @Override
@@ -34,14 +40,12 @@ public class Win extends System{
                         var entityPosition = entity.get(ecs.Components.Position.class);
 
                         if(moveablePosition.i == entityPosition.i && moveablePosition.j == entityPosition.j) {
-                            // Call the Particle System for Win
+                            sysParticle.levelWin(entity.get(ecs.Components.Position.class), level);
                             for (Entity otherControllable : findControllable()) {
                                 // Remove the move property for every single controllable entity
                                 var otherProperties = otherControllable.get(ecs.Components.Property.class);
                                 otherProperties.removeProperty(Properties.MOVE);
                             }
-                            // Not sure why this is firing twice
-                            java.lang.System.out.println("GAME WON!!!!!!!");
                             backgroundMusic.stop();
                         }
                     }

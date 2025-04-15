@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Kill and Sink systems">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="fix sprite appearances">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Kill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Kill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Sink.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Sink.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Win.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Win.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/Particle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Particle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/ParticleSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/ParticleSystem.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +39,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:LaytonWashburn/CS5410_BigBlueIsYou.git&quot;,
-    &quot;accountId&quot;: &quot;bb1a2716-acc5-4b6d-aca9-35ee4e29f2c7&quot;
+    &quot;url&quot;: &quot;https://github.com/LaytonWashburn/CS5410_BigBlueIsYou.git&quot;,
+    &quot;accountId&quot;: &quot;bb396ab9-696d-4548-90f7-1790c215295f&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -45,28 +52,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Driver - Windows/Linux.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Driver.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/layto/USU/CS5410/Projects/LunarLander&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Driver - Windows/Linux.executor": "Run",
+    "Application.Driver.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Ben Tomlinson/IdeaProjects/Midterm Submission",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.appearance",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ben Tomlinson\IdeaProjects\CS5410_BigBlueIsYou\resources\sprites\sprites\objects\bigblue" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ecs.Systems" />
       <recent name="ecs.Components" />
@@ -93,6 +103,14 @@
       <item itemvalue="Application.Driver - macOS" />
     </list>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -106,6 +124,8 @@
       <workItem from="1744146330394" duration="1488000" />
       <workItem from="1744492763051" duration="4050000" />
       <workItem from="1744503441916" duration="2594000" />
+      <workItem from="1744745644955" duration="4088000" />
+      <workItem from="1744750920034" duration="3227000" />
     </task>
     <task id="LOCAL-00001" summary="controls menu fixes">
       <option name="closed" value="true" />
@@ -347,16 +367,45 @@
       <option name="project" value="LOCAL" />
       <updated>1744694390029</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Kill and Sink systems">
+      <option name="closed" value="true" />
+      <created>1744694528626</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1744694528626</updated>
+    </task>
+    <task id="LOCAL-00032" summary="sink system fix">
+      <option name="closed" value="true" />
+      <created>1744746744262</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1744746744262</updated>
+    </task>
+    <task id="LOCAL-00033" summary="all sprites are now animatedsprites">
+      <option name="closed" value="true" />
+      <created>1744747943405</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1744747943405</updated>
+    </task>
+    <task id="LOCAL-00034" summary="fix sprite appearances">
+      <option name="closed" value="true" />
+      <created>1744749464402</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1744749464402</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="AnimatedSprite example" />
-    <MESSAGE value="Cleanup and refactoring" />
-    <MESSAGE value="fix level rendering for different sizes of levels" />
     <MESSAGE value="fixed pushing system?" />
     <MESSAGE value="can lo longer push moveable entities" />
     <MESSAGE value="Can add STOP to WALL but other rule system isn't working." />
@@ -379,7 +428,10 @@
     <MESSAGE value="Rules working better but properties aren't being added when a noun changes a noun." />
     <MESSAGE value="undo system fix for NOUN IS NOUN" />
     <MESSAGE value="Kill and Sink systems" />
-    <option name="LAST_COMMIT_MESSAGE" value="Kill and Sink systems" />
+    <MESSAGE value="sink system fix" />
+    <MESSAGE value="all sprites are now animatedsprites" />
+    <MESSAGE value="fix sprite appearances" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix sprite appearances" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
