@@ -45,7 +45,7 @@ public class GameModel {
     private ParticleSystem sysParticle;
 
 
-    private BackgroundMusic backgroundMusic;
+    public BackgroundMusic backgroundMusic;
 
     private Graphics2D graphics;
 

@@ -50,8 +50,15 @@ public class GamePlayView extends GameStateView {
         });
 
         inputKeyboard.registerCommand(this.keyBinds.RESET, true, (double elapsedTime) -> {
-            gameModel.reset();
-            System.out.println("Reset");
+            gameModel.backgroundMusic.stop();
+            gameModel = new GameModel(level, this.keyBinds, backgroundMusic);
+            try {
+                gameModel.initialize(graphics);
+            } catch (CloneNotSupportedException e) {
+                throw new RuntimeException(e);
+            }
+            nextGameState = GameStateEnum.GamePlay;
+
         });
         gameModel = new GameModel(level, this.keyBinds, backgroundMusic);
         try {
