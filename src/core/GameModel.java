@@ -295,13 +295,10 @@ public class GameModel {
     }
 
     public void reset() throws CloneNotSupportedException {
-        if (!undoStack.isEmpty()) {
-            StackFrame poppedFrame = this.undoStack.getFirst();
-            this.undoStack.clear();
-            this.undoStack.add(poppedFrame);
+
+            StackFrame poppedFrame = this.initialStackFrame;
             ArrayList<Tuple2<Entity, Boolean>> poppedEntities = poppedFrame.getEntities();
             for (Tuple2<Entity, Boolean> entityTuple : poppedEntities) {
-                //System.out.println("Popped entities");
                 Entity entityToReplace = entityTuple.item1();
                 for (var system : systems) {
                     system.replaceEntity(entityToReplace);
@@ -314,7 +311,11 @@ public class GameModel {
                     system.updatedEntity(entityTuple.item1());
                 }
             }
-        }
+            this.undoStack.clear();
+            this.undoStack.push(new StackFrame());
+
+            this.undoStack.push(poppedFrame);
+
     }
 
     public void triggerUndo() throws CloneNotSupportedException {
