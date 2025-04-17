@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Refactored but still only get one reset but it resets the entire board">
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Added game sounds">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/keybinds.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/keybinds.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Win.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Win.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/ParticleSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/ParticleSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameSounds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameSounds.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -405,14 +402,21 @@
       <option name="project" value="LOCAL" />
       <updated>1744762699002</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Added game sounds">
+      <option name="closed" value="true" />
+      <created>1744848079452</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1744848079452</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Can add STOP to WALL but other rule system isn't working." />
     <MESSAGE value="Game area only needs to contain text entities" />
     <MESSAGE value="Rocks can move now, need to work on removing components" />
     <MESSAGE value="Added grid alignment system" />
@@ -437,7 +441,8 @@
     <MESSAGE value="fix sprite appearances" />
     <MESSAGE value="Reset complete, needs to be better, being called multiple times instead of just one." />
     <MESSAGE value="Refactored but still only get one reset but it resets the entire board" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored but still only get one reset but it resets the entire board" />
+    <MESSAGE value="Added game sounds" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added game sounds" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

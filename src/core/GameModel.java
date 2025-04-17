@@ -89,7 +89,7 @@ public class GameModel {
         this.keybinds = keybinds;
         this.gameArea = new Entity[level.getHeight()][level.getWidth()];
         this.backgroundMusic = backgroundMusic;
-        this.gameSounds = new GameSounds();
+        this.gameSounds = new GameSounds(this.backgroundMusic.soundManager);
         systems.clear(); // clear the system list if you're starting a fresh game
 
     }
@@ -100,7 +100,7 @@ public class GameModel {
      * @param graphics - Graphics 2D object
      */
     public void initialize(Graphics2D graphics) throws CloneNotSupportedException{
-        // this.backgroundMusic.play();
+        this.backgroundMusic.play();
         this.graphics = graphics;
 
         this.sysParticle = new ParticleSystem(texParticle, graphics, gameSounds);
