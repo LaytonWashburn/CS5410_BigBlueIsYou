@@ -44,8 +44,9 @@ public class GameModel {
     private Sink sysSink;
     private ParticleSystem sysParticle;
 
-
+    // Sound
     public BackgroundMusic backgroundMusic;
+    public GameSounds gameSounds;
 
     private Graphics2D graphics;
 
@@ -88,6 +89,7 @@ public class GameModel {
         this.keybinds = keybinds;
         this.gameArea = new Entity[level.getHeight()][level.getWidth()];
         this.backgroundMusic = backgroundMusic;
+        this.gameSounds = new GameSounds();
         systems.clear(); // clear the system list if you're starting a fresh game
 
     }
@@ -101,14 +103,14 @@ public class GameModel {
         // this.backgroundMusic.play();
         this.graphics = graphics;
 
-        this.sysParticle = new ParticleSystem(texParticle, graphics);
+        this.sysParticle = new ParticleSystem(texParticle, graphics, gameSounds);
 
         this.sysKeyboardInput = new KeyboardInput(graphics.getWindow(), keybinds);
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics, level);
-        this.sysMovement = new Movement(graphics);
+        this.sysMovement = new Movement(graphics, gameSounds);
         this.sysGridAlignment = new GridAlignment(this.gameArea);
         this.sysRules = new Rules(keybinds, level, sysParticle);
-        this.sysWin = new Win(backgroundMusic, level, sysParticle);
+        this.sysWin = new Win(backgroundMusic, level, sysParticle, gameSounds);
         this.sysKill = new Kill(level, sysParticle);
         this.sysSink = new Sink(level, sysParticle);
 

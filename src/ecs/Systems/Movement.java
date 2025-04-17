@@ -1,5 +1,6 @@
 package ecs.Systems;
 
+import core.GameSounds;
 import ecs.Components.Position;
 import ecs.Entities.Entity;
 import edu.usu.graphics.Graphics2D;
@@ -14,13 +15,14 @@ import java.util.Map;
 public class Movement extends System{
 
     Graphics2D graphics;
-
+    GameSounds gameSounds;
     private ArrayList<Tuple2<Entity, Boolean>> moved;
 
-    public Movement(Graphics2D graphics){
+    public Movement(Graphics2D graphics, GameSounds gameSounds){
         super(ecs.Components.Position.class);
 
         this.graphics = graphics;
+        this.gameSounds = gameSounds;
 
     }
     @Override
@@ -41,24 +43,28 @@ public class Movement extends System{
                         if (!checkCollisionAt(position.i-1, position.j, moving.moving)) {
                             moved.add(new Tuple2<>(entity.clone(), false));
                             position.i -= 1;
+                            gameSounds.movement.play();
                         }
                         break;
                     case Direction.DOWN:
                         if (!checkCollisionAt(position.i+1, position.j, moving.moving)) {
                             moved.add(new Tuple2<>(entity.clone(), false));
                             position.i += 1;
+                            gameSounds.movement.play();
                         }
                         break;
                     case Direction.LEFT:
                         if (!checkCollisionAt(position.i, position.j-1, moving.moving)) {
                             moved.add(new Tuple2<>(entity.clone(), false));
                             position.j -= 1;
+                            gameSounds.movement.play();
                         }
                         break;
                     case Direction.RIGHT:
                         if (!checkCollisionAt(position.i, position.j+1, moving.moving)) {
                             moved.add(new Tuple2<>(entity.clone(), false));
                             position.j += 1;
+                            gameSounds.movement.play();
                         }
                         break;
                     default:

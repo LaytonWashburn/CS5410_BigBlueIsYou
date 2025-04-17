@@ -1,5 +1,6 @@
 package utils;
 
+import core.GameSounds;
 import ecs.Components.Position;
 import edu.usu.graphics.Color;
 import edu.usu.graphics.Graphics2D;
@@ -19,12 +20,16 @@ public class ParticleSystem {
 
     Graphics2D graphics;
     Texture texParticles;
+    GameSounds gameSounds;
+    boolean winCondition;
 
-    public ParticleSystem(Texture texParticle, Graphics2D graphics2D) {
+    public ParticleSystem(Texture texParticle, Graphics2D graphics2D, GameSounds gameSounds) {
 
 
         this.graphics = graphics2D;
         this.texParticles = texParticle;
+        this.gameSounds = gameSounds;
+        this.winCondition = false;
     }
 
     public void update(double gameTime) {
@@ -158,6 +163,9 @@ public class ParticleSystem {
     }
 
     public void objectIsWin(Position position, Level level) {
+        if(this.winCondition){
+            this.gameSounds.winCondition.play();
+        }
         float topLeftWorldX = -EntityConstants.rectSize * (level.getWidth() / 2f);
         float topLeftWorldY = -EntityConstants.rectSize * (level.getHeight() / 2f);
 
@@ -187,6 +195,9 @@ public class ParticleSystem {
         for(int i = 0; i < 5; i++){
             p = createSparkle(entityWorldX + EntityConstants.rectSize, entityWorldY  + (i * EntityConstants.rectSize / 5));
             particles.put(p.name, p);
+        }
+        if(!winCondition){
+            winCondition = true;
         }
     }
 

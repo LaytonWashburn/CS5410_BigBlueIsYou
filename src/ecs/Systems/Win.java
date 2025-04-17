@@ -1,6 +1,7 @@
 package ecs.Systems;
 
 import core.BackgroundMusic;
+import core.GameSounds;
 import ecs.Components.Position;
 import ecs.Entities.Entity;
 import edu.usu.utils.Tuple2;
@@ -13,14 +14,16 @@ import java.util.ArrayList;
 public class Win extends System{
 
     BackgroundMusic backgroundMusic;
+    GameSounds gameSounds;
     private final Level level;
     private final ParticleSystem sysParticle;
 
-    public Win(BackgroundMusic backgroundMusic, Level level, ParticleSystem sysParticle) {
+    public Win(BackgroundMusic backgroundMusic, Level level, ParticleSystem sysParticle, GameSounds gameSounds) {
         super(ecs.Components.Position.class);
         this.backgroundMusic = backgroundMusic;
         this.level = level;
         this.sysParticle = sysParticle;
+        this.gameSounds = gameSounds;
     }
 
     @Override
@@ -47,6 +50,7 @@ public class Win extends System{
                                 otherProperties.removeProperty(Properties.MOVE);
                             }
                             backgroundMusic.stop();
+                            gameSounds.levelWin.play();
                         }
                     }
                 }
