@@ -55,7 +55,9 @@ public class ParticleSystem {
             graphics.draw(texParticles, particle.area, particle.rotation, particle.center, particle.color);
         }
 
-
+        if(!winCondition){
+            winCondition = true;
+        }
     }
 
     public Collection<Particle> getParticles() {
@@ -195,9 +197,6 @@ public class ParticleSystem {
         for(int i = 0; i < 5; i++){
             p = createSparkle(entityWorldX + EntityConstants.rectSize, entityWorldY  + (i * EntityConstants.rectSize / 5));
             particles.put(p.name, p);
-        }
-        if(!winCondition){
-            winCondition = true;
         }
     }
 
