@@ -111,8 +111,8 @@ public class GameModel {
         this.sysGridAlignment = new GridAlignment(this.gameArea);
         this.sysRules = new Rules(keybinds, level, sysParticle);
         this.sysWin = new Win(backgroundMusic, level, sysParticle, gameSounds);
-        this.sysKill = new Kill(level, sysParticle);
-        this.sysSink = new Sink(level, sysParticle);
+        this.sysKill = new Kill(level, sysParticle, gameSounds);
+        this.sysSink = new Sink(level, sysParticle, gameSounds);
 
 
         this.undoStack = new Stack<>();

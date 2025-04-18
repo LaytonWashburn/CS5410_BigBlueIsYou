@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Added game sounds">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="sound volume lowered/balanced, objectIsWin bug fixed">
+      <change afterPath="$PROJECT_DIR$/resources/sound/sprite_destroy.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sound/wall_hit.ogg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sound/baba_is_you_puzzle_theme.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sound/baba_is_you_puzzle_theme.ogg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sound/level_win.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sound/level_win.ogg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/sound/movement.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sound/movement.ogg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sound/win_condition_changed.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sound/win_condition_changed.ogg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/ParticleSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/ParticleSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameSounds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameSounds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Kill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Kill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Movement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Sink.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Sink.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/KeyBindSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/KeyBindSerializer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,12 +39,12 @@
     &quot;assignee&quot;: &quot;LaytonWashburn&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:LaytonWashburn/CS5410_BigBlueIsYou.git&quot;,
-    &quot;accountId&quot;: &quot;bb1a2716-acc5-4b6d-aca9-35ee4e29f2c7&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/LaytonWashburn/CS5410_BigBlueIsYou.git",
+    "accountId": "bb396ab9-696d-4548-90f7-1790c215295f"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -51,29 +54,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Driver - Windows/Linux.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Driver.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ben Tomlinson/IdeaProjects/Midterm Submission&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Driver - Windows/Linux.executor": "Run",
+    "Application.Driver.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Ben Tomlinson/IdeaProjects/CS5410_BigBlueIsYou/resources/sound",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.appearance",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ben Tomlinson\IdeaProjects\CS5410_BigBlueIsYou\resources\sound" />
       <recent name="C:\Users\Ben Tomlinson\IdeaProjects\CS5410_BigBlueIsYou\resources\sprites\sprites\objects\bigblue" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -102,6 +106,14 @@
       <item itemvalue="Application.Driver - macOS" />
     </list>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -117,6 +129,7 @@
       <workItem from="1744503441916" duration="2594000" />
       <workItem from="1744745644955" duration="4088000" />
       <workItem from="1744750920034" duration="3227000" />
+      <workItem from="1744930258046" duration="4466000" />
     </task>
     <task id="LOCAL-00001" summary="controls menu fixes">
       <option name="closed" value="true" />
@@ -414,14 +427,21 @@
       <option name="project" value="LOCAL" />
       <updated>1744848079452</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="sound volume lowered/balanced, objectIsWin bug fixed">
+      <option name="closed" value="true" />
+      <created>1744855515124</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1744855515124</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Game area only needs to contain text entities" />
     <MESSAGE value="Rocks can move now, need to work on removing components" />
     <MESSAGE value="Added grid alignment system" />
     <MESSAGE value="Rules should be working for adding, need to remove componenets" />
@@ -446,7 +466,8 @@
     <MESSAGE value="Reset complete, needs to be better, being called multiple times instead of just one." />
     <MESSAGE value="Refactored but still only get one reset but it resets the entire board" />
     <MESSAGE value="Added game sounds" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added game sounds" />
+    <MESSAGE value="sound volume lowered/balanced, objectIsWin bug fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="sound volume lowered/balanced, objectIsWin bug fixed" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

@@ -1,6 +1,7 @@
 package ecs.Systems;
 
 import core.BackgroundMusic;
+import core.GameSounds;
 import ecs.Components.Position;
 import ecs.Entities.Entity;
 import edu.usu.utils.Tuple2;
@@ -14,12 +15,14 @@ public class Kill extends System{
 
     private final Level level;
     private final ParticleSystem sysParticle;
+    private GameSounds gameSounds;
 
-    public Kill(Level level, ParticleSystem sysParticle) {
+    public Kill(Level level, ParticleSystem sysParticle, GameSounds gameSounds) {
         super(Position.class);
 
         this.level = level;
         this.sysParticle = sysParticle;
+        this.gameSounds = gameSounds;
     }
 
     @Override
@@ -43,6 +46,7 @@ public class Kill extends System{
                         if(moveablePosition.i == entityPosition.i && moveablePosition.j == entityPosition.j) {
                             sysParticle.playerDeath(entity.get(ecs.Components.Position.class), level);
                             killed.add(new Tuple2<>(controllable, true));
+                            gameSounds.spriteDestroy.play();
                         }
                     }
                 }

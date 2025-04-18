@@ -1,5 +1,6 @@
 package ecs.Systems;
 
+import core.GameSounds;
 import ecs.Components.Noun;
 import ecs.Components.Position;
 import ecs.Entities.Entity;
@@ -15,12 +16,14 @@ public class Sink extends System{
 
     private final ParticleSystem sysParticle;
     private final Level level;
+    private GameSounds gameSounds;
 
-    public Sink(Level level, ParticleSystem sysParticle) {
+    public Sink(Level level, ParticleSystem sysParticle, GameSounds gameSounds) {
         super(Position.class, Noun.class);
 
         this.level = level;
         this.sysParticle = sysParticle;
+        this.gameSounds = gameSounds;
     }
 
     @Override
@@ -54,6 +57,7 @@ public class Sink extends System{
                             }
                             sunk.add(new Tuple2<>(entity1, true));
                             sunk.add(new Tuple2<>(entity2, true));
+                            gameSounds.spriteDestroy.play();
                         }
                     }
                 }

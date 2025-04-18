@@ -87,7 +87,7 @@ public class KeyBindSerializer implements Runnable {
     /// Public method used to signal this code to perform a graceful shutdown
     public void shutdown() {
         try {
-            System.out.println("Shutting down thes keyBindSerializer");
+            System.out.println("Shutting down the keyBindSerializer");
             lockSignal.lock();
 
             doThis = Activity.Nothing;
@@ -124,8 +124,7 @@ public class KeyBindSerializer implements Runnable {
             // GameScores state = (new Gson()).fromJson(reader, GameScores.class);
             // this.gameScores.scores = state.scores;
             // this.gameScores.initialized = true;
-            KeyBinds keyBinds = (new Gson()).fromJson(reader, KeyBinds.class);
-            this.keybinds = keyBinds; // Load the current key binds
+            this.keybinds = (new Gson()).fromJson(reader, KeyBinds.class); // Load the current key binds
             this.keybinds.initialized = true;
 
 //            // Load the current key binds

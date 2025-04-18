@@ -98,6 +98,7 @@ public class Movement extends System{
 
                     if (targetI == otherPosition.i && targetJ == otherPosition.j && otherProperties.getProperties().contains(Properties.STOP)) {  // If there is a collision and the other entity is immovable
                         immovableHit = true;
+                        gameSounds.wallHit.play();
                     }
 
                     if (targetI == otherPosition.i && targetJ == otherPosition.j && otherProperties.getProperties().contains(Properties.PUSHABLE) && !immovableHit) { // If there is a collision and the other entity is pushable
