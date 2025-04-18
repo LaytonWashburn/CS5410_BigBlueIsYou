@@ -111,7 +111,7 @@ public class KeyBindSerializer implements Runnable {
     /// This is where the actual serialization of the game state is performed.  Have
     /// chosen to save in JSON format for readability for the demo, but the state
     /// could have been stored using a binary serializer for more efficient storage
-    private synchronized void saveSomething() {
+    public synchronized void saveSomething() {
         System.out.println("saving something...");
         try (FileWriter writer = new FileWriter("src/data/keybinds.json")) {
             Gson gson = new Gson();

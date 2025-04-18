@@ -85,13 +85,11 @@ public class ControlsView extends GameStateView {
                 nextGameState = GameStateEnum.MainMenu;
             }
 
-//            // Remove the current key bind
-//            this.inputKeyboard.deregisterCommand(glfwGetKeyScancode(this.currentSelection.ordinal()));
-
             if(initialized){
                 waitingForNewKey = true; // !waitingForNewKey;
                 deregisterArrows = true;
             }
+
 
         });
 
@@ -141,26 +139,38 @@ public class ControlsView extends GameStateView {
                         case ControlState.UP:
                             System.out.println("In the UP");
                             this.keyBinds.UP = key;
+                            this.keyBindSerializer.saveGameState(this.keyBinds);
+                            this.keyBindSerializer.saveSomething();
                             break;
                         case ControlState.DOWN:
                             System.out.println("In the DOWN");
                             this.keyBinds.DOWN = key;
+                            this.keyBindSerializer.saveGameState(this.keyBinds);
+                            this.keyBindSerializer.saveSomething();
                             break;
                         case ControlState.LEFT:
                             System.out.println("In the LEFT");
                             this.keyBinds.LEFT = key;
+                            this.keyBindSerializer.saveGameState(this.keyBinds);
+                            this.keyBindSerializer.saveSomething();
                             break;
                         case ControlState.RIGHT:
                             System.out.println("In the RIGHT");
                             this.keyBinds.RIGHT = key;
+                            this.keyBindSerializer.saveGameState(this.keyBinds);
+                            this.keyBindSerializer.saveSomething();
                             break;
                         case ControlState.RESET:
                             System.out.println("In the RESET");
                             this.keyBinds.RESET = key;
+                            this.keyBindSerializer.saveGameState(this.keyBinds);
+                            this.keyBindSerializer.saveSomething();
                             break;
                         case ControlState.UNDO:
                             System.out.println("In the UNDO");
                             this.keyBinds.UNDO = key;
+                            this.keyBindSerializer.saveGameState(this.keyBinds);
+                            this.keyBindSerializer.saveSomething();
                             break;
                         default:
                             System.out.println("In the Default");
