@@ -72,6 +72,20 @@ public class Rules extends System{
         return changed;
     }
 
+    private boolean nonSenseRule(Entity entity1, Entity entity2) {
+        if(entity1 == null || entity2 == null){
+            return false;
+        }
+        if(entity1.contains(ecs.Components.Action.class) && entity2.contains(ecs.Components.Action.class)){
+            return true;
+        }
+        if(entity1.contains(ecs.Components.Action.class) && entity2.contains(ecs.Components.Represent.class)){
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Method: Scan Horizontal
      * Description:
@@ -84,8 +98,10 @@ public class Rules extends System{
         Entity left = grid[row][col-1]; // Grab the left text entity
         Entity right = grid[row][col+1]; // Grab the right text entity
 
+        boolean nonsenseRule = nonSenseRule(left, right);
+
         // If there's a rule horizontal
-        if(rule) {
+        if(rule && !nonsenseRule) {
             addComponents(left, right); // Apply the correct components
         }
     }
@@ -101,9 +117,10 @@ public class Rules extends System{
 
         Entity up = grid[row-1][col]; // Grab the left text entity
         Entity down = grid[row+1][col]; // Grab the right text entity
+        boolean nonsenseRule = nonSenseRule(up, down);
 
         // If there's a rule horizontal, no need to grab the center VERB
-        if(rule) {
+        if(rule && !nonsenseRule) {
             addComponents(up, down); // Apply the correct components
         }
     }
