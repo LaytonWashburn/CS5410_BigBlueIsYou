@@ -82,6 +82,12 @@ public class Rules extends System{
         if(entity1.contains(ecs.Components.Action.class) && entity2.contains(ecs.Components.Represent.class)){
             return true;
         }
+        if(entity1.contains(ecs.Components.Text.class) && entity1.get(ecs.Components.Text.class).getTextType() == TextType.VERB){
+            return true;
+        }
+        if(entity2.contains(ecs.Components.Text.class) && entity2.get(ecs.Components.Text.class).getTextType() == TextType.VERB){
+            return true;
+        }
 
         return false;
     }
