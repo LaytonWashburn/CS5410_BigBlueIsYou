@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="sound volume lowered/balanced, objectIsWin bug fixed">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="Fixed Verb Verb Verb">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/Systems/Rules.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameViewManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameViewManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/KeyBindSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/KeyBindSerializer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +34,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/LaytonWashburn/CS5410_BigBlueIsYou.git&quot;,
-    &quot;accountId&quot;: &quot;bb396ab9-696d-4548-90f7-1790c215295f&quot;
+    &quot;url&quot;: &quot;git@github.com:LaytonWashburn/CS5410_BigBlueIsYou.git&quot;,
+    &quot;accountId&quot;: &quot;bb1a2716-acc5-4b6d-aca9-35ee4e29f2c7&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -98,14 +98,6 @@
       <item itemvalue="Application.Driver - Windows/Linux" />
       <item itemvalue="Application.Driver - macOS" />
     </list>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -428,15 +420,29 @@
       <option name="project" value="LOCAL" />
       <updated>1744855515124</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Some cases of nonsense rules are ignored">
+      <option name="closed" value="true" />
+      <created>1744938843354</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1744938843354</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Fixed Verb Verb Verb">
+      <option name="closed" value="true" />
+      <created>1744940799366</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1744940799366</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Rocks can move now, need to work on removing components" />
-    <MESSAGE value="Added grid alignment system" />
     <MESSAGE value="Rules should be working for adding, need to remove componenets" />
     <MESSAGE value="Removing in a working state, rough state though" />
     <MESSAGE value="Added documentation and cleaned up code for Rule system." />
@@ -460,7 +466,9 @@
     <MESSAGE value="Refactored but still only get one reset but it resets the entire board" />
     <MESSAGE value="Added game sounds" />
     <MESSAGE value="sound volume lowered/balanced, objectIsWin bug fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="sound volume lowered/balanced, objectIsWin bug fixed" />
+    <MESSAGE value="Some cases of nonsense rules are ignored" />
+    <MESSAGE value="Fixed Verb Verb Verb" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Verb Verb Verb" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

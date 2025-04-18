@@ -26,14 +26,15 @@ public class GameViewManager {
     public GameViewManager(Graphics2D graphics) {
 
         this.graphics = graphics;
-        this.keyBind = new KeyBinds();
+        //this.keyBind = new KeyBinds();
     }
 
     public void initialize() {
-
+        this.keyBind = new KeyBinds();
         this.keyBindSerializer = new KeyBindSerializer(keyBind);
         this.levelSerializer = new Serializer();
-
+        this.keyBind = this.keyBindSerializer.getKeybinds();
+        this.keyBind.printKeyBinds();
         states = new HashMap<>() {
             {
                 put(GameStateEnum.MainMenu, new MainMenuView());

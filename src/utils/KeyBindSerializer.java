@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.security.Key;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.Condition;
@@ -32,7 +33,12 @@ public class KeyBindSerializer implements Runnable {
         this.tInternal = new Thread(this);
         this.tInternal.start();
         this.keybinds = binds; // Set the key binds to the serializer
-        this.saveSomething(); // Save the game state
+        this.loadSomething();
+        // this.saveSomething(); // Save the game state
+    }
+
+    public KeyBinds getKeybinds() {
+        return this.keybinds;
     }
 
     @Override
