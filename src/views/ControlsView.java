@@ -206,7 +206,7 @@ public class ControlsView extends GameStateView {
     @Override
     public void render(double elapsedTime) {
         final float HEIGHT_MENU_ITEM = 0.075f;
-        float top = -0.2f;
+        float top = -0.35f;
 
         this.keyBindSerializer.loadGameState(this.keyBinds); // Find a better spot for this
 
@@ -236,7 +236,7 @@ public class ControlsView extends GameStateView {
         top = renderMenuItem(currentSelection == ControlsView.ControlState.RIGHT ? fontSelected : fontMenu, "RIGHT : " + keysAndNames.get(this.keyBinds.RIGHT), top, HEIGHT_MENU_ITEM, currentSelection == ControlState.RIGHT? Color.GREEN : Color.WHITE);
         top = renderMenuItem(currentSelection == ControlsView.ControlState.RESET ? fontSelected : fontMenu, "RESET : " + keysAndNames.get(this.keyBinds.RESET), top, HEIGHT_MENU_ITEM, currentSelection == ControlState.RESET ? Color.GREEN : Color.WHITE);
         top = renderMenuItem(currentSelection == ControlsView.ControlState.UNDO ? fontSelected : fontMenu, "UNDO : " + keysAndNames.get(this.keyBinds.UNDO), top, HEIGHT_MENU_ITEM, currentSelection == ControlState.UNDO ? Color.GREEN : Color.WHITE);
-        top = renderMenuItem(currentSelection == ControlsView.ControlState.EXIT ? fontSelected : fontMenu, "EXIT", top, HEIGHT_MENU_ITEM, currentSelection == ControlState.EXIT ? Color.GREEN : Color.WHITE);
+        renderMenuItem(currentSelection == ControlsView.ControlState.EXIT ? fontSelected : fontMenu, "EXIT", top+.1f, HEIGHT_MENU_ITEM, currentSelection == ControlState.EXIT ? Color.GREEN : Color.WHITE);
 
         if(waitingForNewKey){
             renderMenuItem(fontSelected , "SETTING NEW KEY", top, HEIGHT_MENU_ITEM, Color.RED);

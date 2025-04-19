@@ -3,9 +3,8 @@ package views;
 
 import core.GameStateEnum;
 import core.KeyboardInput;
-import edu.usu.graphics.Color;
-import edu.usu.graphics.Font;
-import edu.usu.graphics.Graphics2D;
+import ecs.Components.Text;
+import edu.usu.graphics.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -36,6 +35,7 @@ public class MainMenuView extends GameStateView {
     private GameStateEnum nextGameState = GameStateEnum.MainMenu;
     private Font fontMenu;
     private Font fontSelected;
+    private Texture texTitle;
 
     @Override
     public void initialize(Graphics2D graphics) {
@@ -43,6 +43,8 @@ public class MainMenuView extends GameStateView {
 
         fontMenu = new Font("resources/fonts/ChakraPetch-Regular.ttf", 48, false);
         fontSelected = new Font("resources/fonts/ChakraPetch-Bold.ttf", 48, false);
+
+        texTitle = new Texture("resources/images/big_blue_is_you.png");
 
         inputKeyboard = new KeyboardInput(graphics.getWindow());
         // Arrow keys to navigate the menu
@@ -81,6 +83,9 @@ public class MainMenuView extends GameStateView {
 
     @Override
     public void render(double elapsedTime) {
+        Rectangle titleRect = new Rectangle(-.3f, -.5f, .6f, .2f);
+        graphics.draw(texTitle, titleRect, Color.WHITE);
+
         final float HEIGHT_MENU_ITEM = 0.075f;
         float top = -0.2f;
         top = renderMenuItem(currentSelection == MenuState.NewGame ? fontSelected : fontMenu, "New Game", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.NewGame ? Color.GREEN : Color.WHITE);
