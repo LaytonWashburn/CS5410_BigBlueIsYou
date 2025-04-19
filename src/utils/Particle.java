@@ -52,9 +52,9 @@ public class Particle {
     public Vector2f center;
     public Rectangle area;
     public float rotation;
-    private Vector2f direction;
-    private float speed;
-    private double lifetime;
+    private final Vector2f direction;
+    private final float speed;
+    private final double lifetime;
     private double alive = 0;
     private static long nextName = 0;
 

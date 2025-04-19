@@ -4,11 +4,9 @@ import ecs.Entities.*;
 import ecs.Systems.*;
 import ecs.Systems.KeyboardInput;
 import edu.usu.graphics.*;
-import edu.usu.graphics.Graphics2D;
 import edu.usu.utils.Tuple2;
 import level.Level;
 
-import java.lang.System;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -21,10 +19,8 @@ import utils.ParticleSystem;
 
 public class GameModel {
 
-    private RenderAnimatedSprite sysRenderAnimatedSprite;
-
     private final Level level;;
-    private KeyBinds keybinds;
+    private final KeyBinds keybinds;
 
     private Stack<StackFrame> undoStack;
     private StackFrame initialStackFrame;
@@ -32,9 +28,10 @@ public class GameModel {
     private final List<Entity> removeThese = new ArrayList<>();
     private final List<Entity> addThese = new ArrayList<>();
 
-    private Entity[][] gameArea; // Holds the game area
+    private final Entity[][] gameArea; // Holds the game area
 
     // Systems
+    private RenderAnimatedSprite sysRenderAnimatedSprite;
     private KeyboardInput sysKeyboardInput;
     private Movement sysMovement;
     private Rules sysRules;
@@ -53,30 +50,30 @@ public class GameModel {
     private Texture texParticle = new Texture("resources/images/particle.png");
 
     // Texture Objects
-    private Texture texFlag = new Texture("resources/sprites/sprites/objects/flag/flag.png");
-    private Texture texRock = new Texture("resources/sprites/sprites/objects/rock/rock.png");
-    private Texture texWall = new Texture("resources/sprites/sprites/objects/wall/wall.png");
-    private Texture texFloor = new Texture("resources/sprites/sprites/objects/floor/floor.png");
-    private Texture texGrass = new Texture("resources/sprites/sprites/objects/grass/grass.png");
-    private Texture texWater = new Texture("resources/sprites/sprites/objects/water/water.png");
-    private Texture texLava = new Texture("resources/sprites/sprites/objects/lava/lava.png");
-    private Texture texHedge = new Texture("resources/sprites/sprites/objects/hedge/hedge.png");
-    private Texture texBigBlue = new Texture("resources/sprites/sprites/objects/bigblue/BigBlue.png");
+    private final Texture texFlag = new Texture("resources/sprites/sprites/objects/flag/flag.png");
+    private final Texture texRock = new Texture("resources/sprites/sprites/objects/rock/rock.png");
+    private final Texture texWall = new Texture("resources/sprites/sprites/objects/wall/wall.png");
+    private final Texture texFloor = new Texture("resources/sprites/sprites/objects/floor/floor.png");
+    private final Texture texGrass = new Texture("resources/sprites/sprites/objects/grass/grass.png");
+    private final Texture texWater = new Texture("resources/sprites/sprites/objects/water/water.png");
+    private final Texture texLava = new Texture("resources/sprites/sprites/objects/lava/lava.png");
+    private final Texture texHedge = new Texture("resources/sprites/sprites/objects/hedge/hedge.png");
+    private final Texture texBigBlue = new Texture("resources/sprites/sprites/objects/bigblue/BigBlue.png");
 
     // Textures Words
-    private Texture texWordWall = new Texture("resources/sprites/sprites/words/wall/word-wall.png");
-    private Texture texWordRock = new Texture("resources/sprites/sprites/words/rock/word-rock.png");
-    private Texture texWordFlag = new Texture("resources/sprites/sprites/words/flag/word-flag.png");
-    private Texture texWordBaba = new Texture("resources/sprites/sprites/words/baba/word-baba.png");
-    private Texture texWordIs = new Texture("resources/sprites/sprites/words/is/word-is.png");
-    private Texture texWordStop = new Texture("resources/sprites/sprites/words/stop/word-stop.png");
-    private Texture texWordPush = new Texture("resources/sprites/sprites/words/push/word-push.png");
-    private Texture texWordLava = new Texture("resources/sprites/sprites/words/lava/word-lava.png");
-    private Texture texWordWater = new Texture("resources/sprites/sprites/words/water/word-water.png");
-    private Texture texWordYou = new Texture("resources/sprites/sprites/words/you/word-you.png");
-    private Texture texWordWin = new Texture("resources/sprites/sprites/words/win/word-win.png");
-    private Texture texWordSink = new Texture("resources/sprites/sprites/words/sink/word-sink.png");
-    private Texture texWordKill = new Texture("resources/sprites/sprites/words/kill/word-kill.png");
+    private final Texture texWordWall = new Texture("resources/sprites/sprites/words/wall/word-wall.png");
+    private final Texture texWordRock = new Texture("resources/sprites/sprites/words/rock/word-rock.png");
+    private final Texture texWordFlag = new Texture("resources/sprites/sprites/words/flag/word-flag.png");
+    private final Texture texWordBaba = new Texture("resources/sprites/sprites/words/baba/word-baba.png");
+    private final Texture texWordIs = new Texture("resources/sprites/sprites/words/is/word-is.png");
+    private final Texture texWordStop = new Texture("resources/sprites/sprites/words/stop/word-stop.png");
+    private final Texture texWordPush = new Texture("resources/sprites/sprites/words/push/word-push.png");
+    private final Texture texWordLava = new Texture("resources/sprites/sprites/words/lava/word-lava.png");
+    private final Texture texWordWater = new Texture("resources/sprites/sprites/words/water/word-water.png");
+    private final Texture texWordYou = new Texture("resources/sprites/sprites/words/you/word-you.png");
+    private final Texture texWordWin = new Texture("resources/sprites/sprites/words/win/word-win.png");
+    private final Texture texWordSink = new Texture("resources/sprites/sprites/words/sink/word-sink.png");
+    private final Texture texWordKill = new Texture("resources/sprites/sprites/words/kill/word-kill.png");
 
 
     /**
@@ -109,7 +106,7 @@ public class GameModel {
         this.sysRenderAnimatedSprite = new RenderAnimatedSprite(graphics, level);
         this.sysMovement = new Movement(graphics, gameSounds);
         this.sysGridAlignment = new GridAlignment(this.gameArea);
-        this.sysRules = new Rules(keybinds, level, sysParticle);
+        this.sysRules = new Rules(level, sysParticle);
         this.sysWin = new Win(backgroundMusic, level, sysParticle, gameSounds);
         this.sysKill = new Kill(level, sysParticle, gameSounds);
         this.sysSink = new Sink(level, sysParticle, gameSounds);
@@ -159,7 +156,6 @@ public class GameModel {
                 }
             }
             if (system instanceof Movement && !changedEntities.isEmpty()) {
-//                System.out.println(changed.size());
                 moved = true;
             }
         }
@@ -174,6 +170,7 @@ public class GameModel {
                 stackFrame.addEntityTuple(entityTuple);
             }
             undoStack.push(stackFrame);
+            this.sysRules.scanGamePlayArea(this.gameArea);
         }
 
         for (Tuple2<Entity, Boolean> entityTuple : changed) { // Allow systems to decide if they are interested or not in the changed

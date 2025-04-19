@@ -1,7 +1,5 @@
 package ecs.Components;
 
-import ecs.Entities.Entity;
-
 public class Component implements Cloneable{
 
     @Override

@@ -21,37 +21,35 @@ import java.util.Map;
  */
 public class Rules extends System{
 
-    private final KeyBinds keybinds;
     private final Level level;
-    private ParticleSystem sysParticle;
+    private final ParticleSystem sysParticle;
 
     private final Map<Long, Entity> entitiesCopy = new HashMap<>();
 
-    private ArrayList<Tuple2<Entity, Boolean>> changed;
+    private final ArrayList<Tuple2<Entity, Boolean>> changed;
 
-    private Texture texFlag = new Texture("resources/sprites/sprites/objects/flag/flag.png");
-    private Texture texRock = new Texture("resources/sprites/sprites/objects/rock/rock.png");
-    private Texture texWall = new Texture("resources/sprites/sprites/objects/wall/wall.png");
-    private Texture texFloor = new Texture("resources/sprites/sprites/objects/floor/floor.png");
-    private Texture texGrass = new Texture("resources/sprites/sprites/objects/grass/grass.png");
-    private Texture texWater = new Texture("resources/sprites/sprites/objects/water/water.png");
-    private Texture texLava = new Texture("resources/sprites/sprites/objects/lava/lava.png");
-    private Texture texHedge = new Texture("resources/sprites/sprites/objects/hedge/hedge.png");
-    private Texture texBigBlue = new Texture("resources/sprites/sprites/objects/bigblue/BigBlue.png");
+    private final Texture texFlag = new Texture("resources/sprites/sprites/objects/flag/flag.png");
+    private final Texture texRock = new Texture("resources/sprites/sprites/objects/rock/rock.png");
+    private final Texture texWall = new Texture("resources/sprites/sprites/objects/wall/wall.png");
+    private final Texture texFloor = new Texture("resources/sprites/sprites/objects/floor/floor.png");
+    private final Texture texGrass = new Texture("resources/sprites/sprites/objects/grass/grass.png");
+    private final Texture texWater = new Texture("resources/sprites/sprites/objects/water/water.png");
+    private final Texture texLava = new Texture("resources/sprites/sprites/objects/lava/lava.png");
+    private final Texture texHedge = new Texture("resources/sprites/sprites/objects/hedge/hedge.png");
+    private final Texture texBigBlue = new Texture("resources/sprites/sprites/objects/bigblue/BigBlue.png");
 
 
-    public Rules(KeyBinds keyBinds, Level level, ParticleSystem sysParticle) {
+    public Rules(Level level, ParticleSystem sysParticle) {
         super( // ecs.Components.Property.class,
                 ecs.Components.Position.class); // Must have a location on the map
         this.level = level;
-        this.keybinds = keyBinds;
         this.sysParticle = sysParticle;
         this.changed = new ArrayList<>();
     }
 
     @Override
     public ArrayList<Tuple2<Entity, Boolean>> update(double elapsedTime) {
-        return new ArrayList<Tuple2<Entity, Boolean>>(){{}};
+        return new ArrayList<>(){};
     }
 
     /**

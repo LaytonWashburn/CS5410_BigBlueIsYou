@@ -5,13 +5,10 @@ import core.KeyboardInput;
 import edu.usu.graphics.Color;
 import edu.usu.graphics.Font;
 import edu.usu.graphics.Graphics2D;
-import edu.usu.utils.Tuple2;
 import utils.KeyBindSerializer;
 import utils.KeyBinds;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -43,14 +40,13 @@ public class ControlsView extends GameStateView {
     private ControlState currentSelection;
     private KeyboardInput inputKeyboard;
     private GameStateEnum nextGameState = GameStateEnum.Controls;
-    private Font font;
     private Font fontMenu;
     private Font fontSelected;
     private boolean waitingForNewKey;
     private boolean initialized;
     private boolean deregisterArrows;
-    private KeyBindSerializer keyBindSerializer;
-    private KeyBinds keyBinds;
+    private final KeyBindSerializer keyBindSerializer;
+    private final KeyBinds keyBinds;
 
     public ControlsView(KeyBindSerializer keyBindSerializer, KeyBinds keyBinds){
         this.keyBindSerializer = keyBindSerializer;
@@ -65,8 +61,6 @@ public class ControlsView extends GameStateView {
     public void initialize(Graphics2D graphics) {
         super.initialize(graphics);
 
-
-        font = new Font("resources/fonts/ChakraPetch-Regular.ttf", 48, false);
         fontMenu = new Font("resources/fonts/ChakraPetch-Regular.ttf", 48, false);
         fontSelected = new Font("resources/fonts/ChakraPetch-Bold.ttf", 48, false);
         currentSelection = ControlState.UP;
@@ -134,46 +128,38 @@ public class ControlsView extends GameStateView {
                 // This is a hacky solution, using the second part of the boolean
                 if (glfwGetKey(graphics.getWindow(), key) == GLFW_PRESS &&
                         (glfwGetKeyName(key, glfwGetKeyScancode(key)) != null || (262 <= key && key <= 265))) {
-                    System.out.println("Here is the new key: " + key);
                     switch (currentSelection) {
                         case ControlState.UP:
-                            System.out.println("In the UP");
                             this.keyBinds.UP = key;
                             this.keyBindSerializer.saveGameState(this.keyBinds);
                             this.keyBindSerializer.saveSomething();
                             break;
                         case ControlState.DOWN:
-                            System.out.println("In the DOWN");
                             this.keyBinds.DOWN = key;
                             this.keyBindSerializer.saveGameState(this.keyBinds);
                             this.keyBindSerializer.saveSomething();
                             break;
                         case ControlState.LEFT:
-                            System.out.println("In the LEFT");
                             this.keyBinds.LEFT = key;
                             this.keyBindSerializer.saveGameState(this.keyBinds);
                             this.keyBindSerializer.saveSomething();
                             break;
                         case ControlState.RIGHT:
-                            System.out.println("In the RIGHT");
                             this.keyBinds.RIGHT = key;
                             this.keyBindSerializer.saveGameState(this.keyBinds);
                             this.keyBindSerializer.saveSomething();
                             break;
                         case ControlState.RESET:
-                            System.out.println("In the RESET");
                             this.keyBinds.RESET = key;
                             this.keyBindSerializer.saveGameState(this.keyBinds);
                             this.keyBindSerializer.saveSomething();
                             break;
                         case ControlState.UNDO:
-                            System.out.println("In the UNDO");
                             this.keyBinds.UNDO = key;
                             this.keyBindSerializer.saveGameState(this.keyBinds);
                             this.keyBindSerializer.saveSomething();
                             break;
                         default:
-                            System.out.println("In the Default");
                             break;
                     }
 

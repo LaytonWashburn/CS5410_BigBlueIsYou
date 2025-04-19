@@ -14,7 +14,7 @@ public class KeyBinds {
     public int UP;
     public int RESET;
     public int UNDO;
-    public boolean initialized = false;
+    public boolean initialized;
 
     // Default configuration for the key binds
     public KeyBinds(){

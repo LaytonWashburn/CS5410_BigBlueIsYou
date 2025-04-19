@@ -4,13 +4,10 @@ import com.google.gson.Gson;
 
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.security.Key;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.Condition;
 
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_Z;
 
 public class KeyBindSerializer implements Runnable {
 
@@ -93,7 +90,6 @@ public class KeyBindSerializer implements Runnable {
     /// Public method used to signal this code to perform a graceful shutdown
     public void shutdown() {
         try {
-            System.out.println("Shutting down the keyBindSerializer");
             lockSignal.lock();
 
             doThis = Activity.Nothing;
@@ -112,7 +108,6 @@ public class KeyBindSerializer implements Runnable {
     /// chosen to save in JSON format for readability for the demo, but the state
     /// could have been stored using a binary serializer for more efficient storage
     public synchronized void saveSomething() {
-        System.out.println("saving something...");
         try (FileWriter writer = new FileWriter("src/data/keybinds.json")) {
             Gson gson = new Gson();
             gson.toJson(this.keybinds, writer); // this.gameScores
@@ -125,21 +120,11 @@ public class KeyBindSerializer implements Runnable {
     /// This is where the actual deserialization of the game state is performed.
     /// Same note as above regarding the choice to use JSON formatting.
     public synchronized void loadSomething() {
-//        System.out.println("loading something...");
         try (FileReader reader = new FileReader("src/data/keybinds.json")) {
-            // GameScores state = (new Gson()).fromJson(reader, GameScores.class);
-            // this.gameScores.scores = state.scores;
-            // this.gameScores.initialized = true;
+
             this.keybinds = (new Gson()).fromJson(reader, KeyBinds.class); // Load the current key binds
             this.keybinds.initialized = true;
 
-//            // Load the current key binds
-//            this.keybinds.LEFT = keyBinds.LEFT;
-//            this.keybinds.RIGHT = keyBinds.RIGHT;
-//            this.keybinds.UP = keyBinds.UP;
-//            this.keybinds.DOWN = keyBinds.DOWN;
-//            this.keybinds.RESET = keyBinds.RESET;
-//            this.keybinds.UNDO = keyBinds.UNDO;
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

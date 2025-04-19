@@ -1,7 +1,6 @@
 package ecs.Entities;
 
 import ecs.Components.Component;
-import ecs.Components.Property;
 
 import java.util.*;
 import java.util.stream.*;
@@ -81,21 +80,5 @@ public final class Entity implements Cloneable{
 
         return clone;
     }
-//    @Override
-//    public Entity clone() throws CloneNotSupportedException {
-//        Entity clonedEntity = new Entity(); // (Entity) super.clone();
-//
-//        // Deep clone components
-//        for (Map.Entry<Class<? extends Component>, Component> entry : this.components.entrySet()) {
-//            Component originalComponent = entry.getValue();
-//            Component clonedComponent = originalComponent.clone();  // Ensures proper cloning
-//            clonedEntity.components.put(entry.getKey(), clonedComponent);
-//        }
-//
-//        // Generate a new unique ID for the cloned entity
-//        clonedEntity.id = nextId++;
-//
-//        return clonedEntity;
-//    }
 
 }

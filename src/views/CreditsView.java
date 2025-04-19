@@ -57,7 +57,7 @@ public class CreditsView extends GameStateView {
         top = renderCreditsLine(font, "Created by Layton Washburn and Ben Tomlinson", top, HEIGHT_CREDITS_LINE, secondaryTextColor);
         top = renderCreditsLine(font, "Using libraries by Dean Mathias and LWJGL", top, HEIGHT_CREDITS_LINE, Color.WHITE);
         top = renderCreditsLine(font, "Textures from Baba Is You", top, HEIGHT_CREDITS_LINE, secondaryTextColor);
-        top = renderCreditsLine(font, "Music/Sounds from freesound.org", top, HEIGHT_CREDITS_LINE, Color.WHITE);
+        renderCreditsLine(font, "Music/Sounds from freesound.org", top, HEIGHT_CREDITS_LINE, Color.WHITE);
 
     }
 

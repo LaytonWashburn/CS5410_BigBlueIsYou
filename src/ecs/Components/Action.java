@@ -14,7 +14,7 @@ public class Action extends Component implements Cloneable{
 
     @Override
     public Component clone() {
-        // TODO: copy mutable state here, so the clone can't change the internals of the original
+        // copy mutable state here, so the clone can't change the internals of the original
         return super.clone();
     }
 }

@@ -34,7 +34,6 @@ public class GameViewManager {
         this.keyBindSerializer = new KeyBindSerializer(keyBind);
         this.levelSerializer = new Serializer();
         this.keyBind = this.keyBindSerializer.getKeybinds();
-        this.keyBind.printKeyBinds();
         states = new HashMap<>() {
             {
                 put(GameStateEnum.MainMenu, new MainMenuView());

@@ -33,9 +33,6 @@ public class ParticleSystem {
     }
 
     public void update(double gameTime) {
-
-        //System.out.println("In the particle system update");
-
         // Update existing particles
         List<Long> removeMe = new ArrayList<>();
 
@@ -67,21 +64,18 @@ public class ParticleSystem {
     private Particle createSparkle(float x, float y) {
         float sizeMean = 0.025f;
         float sizeStdDev = 0.0f;
-        float speedMean = 0.0f;
-        float speedStdDev = 0.0f;
         float lifetimeMean = 0.7f;
         float lifetimeStdDev = 0.1f;
 
 
         float size = (float) this.random.nextGaussian(sizeMean, sizeStdDev);
-        var p = new Particle(
+
+        return new Particle(
                 new Vector2f(x, y),
                 this.random.nextCircleVector(),
                 0.0f,// (float) this.random.nextGaussian(this.speedMean, this.speedStdDev),
                 new Vector2f(size, size),
                 this.random.nextGaussian(lifetimeMean, lifetimeStdDev));
-
-        return p;
     }
 
     private Particle createDeathParticle(float x, float y, Color color) {
@@ -94,15 +88,14 @@ public class ParticleSystem {
 
 
         float size = (float) this.random.nextGaussian(sizeMean, sizeStdDev);
-        var p = new Particle(
+
+        return new Particle(
                 new Vector2f(x, y),
                 this.random.nextCircleVector(),
                 (float) this.random.nextGaussian(speedMean, speedStdDev),
                 new Vector2f(size, size),
                 this.random.nextGaussian(lifetimeMean, lifetimeStdDev),
                 color);
-
-        return p;
     }
 
     private Particle createWinParticle(float x, float y) {
@@ -115,14 +108,13 @@ public class ParticleSystem {
 
 
         float size = (float) this.random.nextGaussian(sizeMean, sizeStdDev);
-        var p = new Particle(
+
+        return new Particle(
                 new Vector2f(x, y),
                 this.random.nextCircleVector(),
                 (float) this.random.nextGaussian(speedMean, speedStdDev),
                 new Vector2f(size, size),
                 this.random.nextGaussian(lifetimeMean, lifetimeStdDev));
-
-        return p;
     }
 
     /**

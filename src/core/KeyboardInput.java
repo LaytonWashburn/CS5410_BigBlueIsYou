@@ -68,13 +68,6 @@ public class KeyboardInput {
     private record CommandEntry(int key, boolean keyPressOnly, ICommand callback) {
     }
 
-    /**
-     *
-     * @param key
-     * @return
-     *
-     *
-     */
     public boolean deregisterCommand(int key){
         if(this.commandEntries.containsKey(key)){
             this.commandEntries.remove(key);

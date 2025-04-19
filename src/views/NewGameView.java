@@ -10,7 +10,6 @@ import level.LevelState;
 import level.Serializer;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER;
 
 public class NewGameView extends GameStateView {
     private Serializer serializer;
@@ -41,7 +40,6 @@ public class NewGameView extends GameStateView {
         // Set up callback for when loading completes
         this.serializer.setOnLoadComplete(() -> {
             if (this.levelState.initialized && !this.levelState.errorOccurred) {
-                System.out.println("Levels loaded");
                 this.areLevelsLoaded = true;
                 // Reset selection if it's out of bounds
                 if (currentSelection >= this.levelState.levels.size()) {

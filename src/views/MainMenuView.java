@@ -3,7 +3,6 @@ package views;
 
 import core.GameStateEnum;
 import core.KeyboardInput;
-import ecs.Components.Text;
 import edu.usu.graphics.*;
 
 import static org.lwjgl.glfw.GLFW.*;

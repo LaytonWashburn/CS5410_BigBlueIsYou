@@ -13,9 +13,6 @@ import java.util.Random;
 /// </summary>
 public class MyRandom extends Random {
 
-    /// <summary>
-    /// Generates a random number in the range or [Min,Max]
-    /// </summary>
     public float nextRange(float min, float max) {
         return org.joml.Math.lerp(min, max, (float) this.nextDouble());
     }

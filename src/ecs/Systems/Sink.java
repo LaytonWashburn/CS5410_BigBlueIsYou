@@ -16,7 +16,7 @@ public class Sink extends System{
 
     private final ParticleSystem sysParticle;
     private final Level level;
-    private GameSounds gameSounds;
+    private final GameSounds gameSounds;
 
     public Sink(Level level, ParticleSystem sysParticle, GameSounds gameSounds) {
         super(Position.class, Noun.class);

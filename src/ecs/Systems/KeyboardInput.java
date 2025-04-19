@@ -4,13 +4,10 @@ import ecs.Entities.Entity;
 import edu.usu.utils.Tuple2;
 import utils.Direction;
 import utils.KeyBinds;
-import utils.EntityConstants;
 
-import java.security.Key;
 import java.util.ArrayList;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFW.glfwGetKey;
 
 public class KeyboardInput extends System {
 
@@ -28,8 +25,6 @@ public class KeyboardInput extends System {
 
     @Override
     public ArrayList<Tuple2<Entity, Boolean>> update(double gameTime) throws CloneNotSupportedException {
-
-        boolean reset = false;
 
         for(Entity entity : entities.values()){
             var input = entity.get(ecs.Components.KeyboardControlled.class);

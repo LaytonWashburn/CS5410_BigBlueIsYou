@@ -10,7 +10,6 @@ import utils.KeyBindSerializer;
 import utils.KeyBinds;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_Z;
 
 public class GamePlayView extends GameStateView {
 
@@ -18,10 +17,10 @@ public class GamePlayView extends GameStateView {
     private GameStateEnum nextGameState = GameStateEnum.GamePlay;
     private GameModel gameModel;
 
-    private KeyBindSerializer keyBindSerializer;
-    private KeyBinds keyBinds;
+    private final KeyBindSerializer keyBindSerializer;
+    private final KeyBinds keyBinds;
 
-    private BackgroundMusic backgroundMusic;
+    private final BackgroundMusic backgroundMusic;
 
     public GamePlayView(KeyBindSerializer serializer){
         this.keyBindSerializer = serializer;

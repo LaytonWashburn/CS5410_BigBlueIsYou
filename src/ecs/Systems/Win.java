@@ -2,7 +2,6 @@ package ecs.Systems;
 
 import core.BackgroundMusic;
 import core.GameSounds;
-import ecs.Components.Position;
 import ecs.Entities.Entity;
 import edu.usu.utils.Tuple2;
 import level.Level;

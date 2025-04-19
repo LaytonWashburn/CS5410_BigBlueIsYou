@@ -23,9 +23,9 @@ import java.util.ArrayList;
 
 public class RenderAnimatedSprite extends System{
 
-    private Graphics2D graphics;
+    private final Graphics2D graphics;
 
-    private Level level;
+    private final Level level;
 
     public RenderAnimatedSprite(Graphics2D graphics, Level level) {
         super(AnimatedSprite.class);

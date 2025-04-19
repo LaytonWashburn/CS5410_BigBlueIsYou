@@ -1,8 +1,6 @@
 package ecs.Systems;
 
-import ecs.Components.BigBlue;
 import ecs.Components.Component;
-import ecs.Components.Position;
 import ecs.Entities.Entity;
 import edu.usu.utils.Tuple2;
 

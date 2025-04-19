@@ -1,16 +1,13 @@
 package ecs.Systems;
 
 import core.GameSounds;
-import ecs.Components.Position;
 import ecs.Entities.Entity;
 import edu.usu.graphics.Graphics2D;
 import edu.usu.utils.Tuple2;
 import utils.Direction;
-import utils.EntityConstants;
 import utils.Properties;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Movement extends System{
 
